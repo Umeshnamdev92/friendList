@@ -25,7 +25,7 @@ module.exports = [{
     name: 'js',
     entry: jsFiles,
     output: {
-        path: path.resolve('./cartridges/app_custom_sam/cartridge/static'),
+        path: path.resolve('./cartridges/app_custom_fullsite/cartridge/static'),
         filename: '[name].js'
     },
     module: {
@@ -49,7 +49,7 @@ module.exports = [{
     name: 'scss',
     entry: scssFiles,
     output: {
-        path: path.resolve('./cartridges/app_custom_sam/cartridge/static'),
+        path: path.resolve('./cartridges/app_custom_fullsite/cartridge/static'),
         filename: '[name].css'
     },
     module: {
