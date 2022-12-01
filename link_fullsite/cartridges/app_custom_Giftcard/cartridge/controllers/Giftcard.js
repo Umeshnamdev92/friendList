@@ -50,6 +50,8 @@ Transaction.wrap(()=>{
     d=GiftCertificateMgr.redeemGiftCertificate(c);
 
 })
+
+
 // var removepaymentinst = Basket.getGiftCertificatePaymentInstruments();
 // collections.forEach(removepaymentinst,(element) => {
 //     Basket.removePaymentInstrument(element);
