@@ -182,8 +182,7 @@ server.get("Applygiftcard", function (req, res, next) {
     
     var currentCustomer = req.currentCustomer.raw;
     var GiftCertificate = require('dw/order/GiftCertificate');
-    var GiftCertificate;
-    var test;
+    
     var GiftCertificateMgr = require('dw/order/GiftCertificateMgr');
 var Transaction = require('dw/system/Transaction');
 var GiftCertificateLineItem = require('dw/order/GiftCertificateLineItem');
@@ -196,7 +195,7 @@ var Money = require('dw/value/Money');
 var Basket = BasketMgr.getCurrentBasket();
 var currencyCode= req.session.currency.currencyCode
 try {
-giftCertificateCodeDetail=GiftCertificateMgr.getGiftCertificateByCode(giftCertificateCode);
+// giftCertificateCodeDetail=GiftCertificateMgr.getGiftCertificateByCode(giftCertificateCode);
 var Money = Money(appliedAmount,currencyCode);
 Transaction.wrap(()=>{
     giftPaymentInstrument=Basket.createGiftCertificatePaymentInstrument(giftCertificateCode,Money);
@@ -205,8 +204,8 @@ Transaction.wrap(()=>{
     // var SitePreferences = require('dw/system/SitePreferences');
     
         var data = {
-            msg: "Applied bonus cannot be greater than wallet bonus",
-            success: false
+            msg: "Giftcard coderedeemed successfully!",
+            success: true
         };
 
         res.json(data);
@@ -215,7 +214,7 @@ Transaction.wrap(()=>{
         // var promotionID = currentBasket.getPriceAdjustmentByPromotionID("bonusPointUses")
         var data = {
            error:error,
-            msg: " Sorry, You have already applied bonus points",
+            msg: " Sorry, Something went wrong Try again!",
             success: false
         };
         res.json(data)
