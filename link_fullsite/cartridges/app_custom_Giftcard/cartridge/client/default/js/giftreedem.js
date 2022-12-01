@@ -11,7 +11,7 @@ $(document).ready(function () {
 
      $.ajax({
        url: url,
-       type: 'POST',
+       type: 'GET',
        dataType: 'json',
        data: {
          GiftCardCode: GiftCardCode,

@@ -177,8 +177,8 @@ server.replace(
 );
 
 server.get("Applygiftcard", function (req, res, next) {
-    var giftCertificateCode = req.querystring.giftCertificateCode;
-    var appliedAmount = req.querystring.amount;
+    var giftCertificateCode = req.querystring.GiftCardCode;
+    var appliedAmount = req.querystring.redeemamount;
     
     var currentCustomer = req.currentCustomer.raw;
     var GiftCertificate = require('dw/order/GiftCertificate');
