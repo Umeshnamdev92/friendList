@@ -1,5 +1,5 @@
 {
-  "name": "app_gift_Cards",
+  "name": "app_custom_Giftcard",
   "version": "0.0.1",
   "description": "New overlay cartridge",
   "main": "index.js",
@@ -7,7 +7,7 @@
     "lint": "sgmf-scripts --lint js && sgmf-scripts --lint css",
     "lint:fix": "sgmf-scripts --lint js --fix && sgmf-scripts --lint css --fix",
     "upload": "sgmf-scripts --upload -- ",
-    "uploadCartridge": "sgmf-scripts --uploadCartridge app_gift_Cards",
+    "uploadCartridge": "sgmf-scripts --uploadCartridge app_custom_Giftcard",
     "compile:js": "sgmf-scripts --compile js",
     "compile:scss": "sgmf-scripts --compile css"
   },
