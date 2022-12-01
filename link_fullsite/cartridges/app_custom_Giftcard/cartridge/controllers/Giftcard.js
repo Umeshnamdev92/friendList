@@ -35,7 +35,7 @@ var M = Money(100,"USD");
 // Transaction.wrap(()=>{
 //     GiftCert =  GiftCertificateMgr.createGiftCertificate(600);
 //     GiftCert.setRecipientEmail('amber.dube@codesquaretech.com');
-//     GiftCert.setRecipientName('takkar');
+//     GiftCert.setRecipientName('takkar'); 
 //     GiftCert.setSenderName('amber');
 //     GiftCert.setMessage('hey');
 //     GiftCert.setDescription('dwadwadwa');
@@ -48,7 +48,6 @@ Transaction.wrap(()=>{
     // GiftCert.getGiftCertificateCode(''); 
     c=Basket.createGiftCertificatePaymentInstrument(a,M);
     d=GiftCertificateMgr.redeemGiftCertificate(c);
-
 })
 
 
