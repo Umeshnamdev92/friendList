@@ -130,7 +130,7 @@ server.get('new', function (req, res, next) {
         var GiftCertificateMgr = require('dw/order/GiftCertificateMgr');
         var GiftCert;
         Transaction.wrap(()=>{
-            GiftCert =  GiftCertificateMgr.createGiftCertificate(78611);
+            GiftCert =  GiftCertificateMgr.createGiftCertificate(115);
             GiftCert.setRecipientEmail(new_Data.email);
             GiftCert.setRecipientName(new_Data.email1);
             GiftCert.setSenderName(new_Data.email2);
