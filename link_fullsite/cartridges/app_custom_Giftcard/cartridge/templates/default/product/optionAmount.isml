@@ -6,18 +6,15 @@
         <div class="col-8">
             <label>${option.name}</label>
 
-            <iscomment> <select class="options-select custom-select form-control">
+            <select class="options-select custom-select form-control">
+                <isloop items="${option.values}" var="value">
                     <option data-value-id="${value.id}" value="${value.url}" <isif
                         condition="${value.id === option.selectedValueId}">selected</isif>
                         >
-                        [${value.price}] ${value.displayValue}
+                        ${value.displayValue}
                     </option>
-            </select> </iscomment>
-                <isloop items="${option.values}" var="value">
-
-            <button type="btn-primary" data-value-id="${value.id}">${value.displayValue}</button>
                 </isloop>
-
+            </select>
 
         </div>
     </div>
