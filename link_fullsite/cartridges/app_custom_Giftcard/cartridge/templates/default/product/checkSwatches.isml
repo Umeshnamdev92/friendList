@@ -32,7 +32,7 @@ Template Notes:
                               ${attrValue.selected ? 'selected' : ''}
                               ${attrValue.selectable ? 'selectable' : 'unselectable'}
                           "
-                          style="background-image: url(${attrValue.images['large'].length > 0 ? attrValue.images['large'][0].url : ''})"
+                          style="background-image: url(${attrValue.url})"
                     >
                     </span>
                     <span id="${attrValue.id}" class="sr-only selected-assistive-text">

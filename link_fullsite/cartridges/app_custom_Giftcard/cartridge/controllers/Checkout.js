@@ -179,10 +179,10 @@ server.replace(
 server.get("Applygiftcard", function (req, res, next) {
     var giftCertificateCode = req.querystring.GiftCardCode;
     var appliedAmount = req.querystring.redeemamount;
-    
+    giftCertificateCode=giftCertificateCode.toString();
     var currentCustomer = req.currentCustomer.raw;
     var GiftCertificate = require('dw/order/GiftCertificate');
-    
+    var collections = require('*/cartridge/scripts/util/collections')
     var GiftCertificateMgr = require('dw/order/GiftCertificateMgr');
 var Transaction = require('dw/system/Transaction');
 var GiftCertificateLineItem = require('dw/order/GiftCertificateLineItem');
@@ -194,22 +194,58 @@ var Order = require('dw/order/Order');
 var Money = require('dw/value/Money');   
 var Basket = BasketMgr.getCurrentBasket();
 var currencyCode= req.session.currency.currencyCode
+var giftPaymentInstrument=null;
+var redeemGiftDetail=null;
 try {
-// giftCertificateCodeDetail=GiftCertificateMgr.getGiftCertificateByCode(giftCertificateCode);
+    var PriceAdjustment=null;
+var realAppliedAmount=null;
+var d=GiftCertificateMgr.getGiftCertificateByCode(giftCertificateCode);
 var Money = Money(appliedAmount,currencyCode);
-Transaction.wrap(()=>{
-    giftPaymentInstrument=Basket.createGiftCertificatePaymentInstrument(giftCertificateCode,Money);
-    redeemGiftDetail=GiftCertificateMgr.redeemGiftCertificate(giftPaymentInstrument);
-})
-    // var SitePreferences = require('dw/system/SitePreferences');
-    
-        var data = {
-            msg: "Giftcard coderedeemed successfully!",
-            success: true
-        };
+Basket.removeAllPaymentInstruments();
+if (Basket.paymentInstruments.length<=1) {
+    Transaction.wrap(()=>{
+        // var paymentInstrumentAlreadyExist=false;
+        // for (let i = 0; i < Basket.paymentInstruments.length; i++) {
+        //     if (Basket.paymentInstruments[i].giftCertificateCode==giftCertificateCode) {
+        //         paymentInstrumentAlreadyExist=true;
+        //     }
+        // }
+        giftPaymentInstrument=Basket.createGiftCertificatePaymentInstrument(giftCertificateCode,Money);
+        redeemGiftDetail=GiftCertificateMgr.redeemGiftCertificate(giftPaymentInstrument);
+    })
 
-        res.json(data);
-       
+if (!redeemGiftDetail.error) {
+    Transaction.wrap(()=>{
+        var priceAdjustment=Basket.getPriceAdjustmentByPromotionID(giftCertificateCode);
+        Basket.removePriceAdjustment(priceAdjustment);
+    realAppliedAmount=giftPaymentInstrument.paymentTransaction.amount.value
+    PriceAdjustment = Basket.createPriceAdjustment("giftPriceAdjustment", new dw.campaign.AmountDiscount(realAppliedAmount));
+    })
+    var data = {
+        msg: "Giftcard code redeemed successfully!",
+        success: true,
+        a:Basket.paymentInstruments.length
+    };
+    res.json(data);
+}
+else{
+    var data = {
+        msg: "insufficient balence!",
+        success: false
+    };
+    res.json(data);
+}
+}else{
+    // var removepaymentinst = Basket.getGiftCertificatePaymentInstruments();
+  Basket.removeAllPaymentInstruments();
+var data = {
+    msg: "all paymentInstrument deleted successfully!",
+    success: false,
+    length:Basket.paymentInstruments.length
+};
+res.json(data);
+}
+    // var SitePreferences = require('dw/system/SitePreferences');
     } catch (error) {
         // var promotionID = currentBasket.getPriceAdjustmentByPromotionID("bonusPointUses")
         var data = {
@@ -224,4 +260,36 @@ Transaction.wrap(()=>{
     next();
 });
 
+server.get("Removegiftcard",function (req,res,next) {
+    var currentCustomer = req.currentCustomer.raw;
+    var giftCertificateCode = req.querystring.GiftCardCode;
+    var BasketMgr = require('dw/order/BasketMgr');
+    var currentBasket = BasketMgr.getCurrentBasket();
+    var ProductMgr = require('dw/catalog/ProductMgr');
+    var PriceAdjustment = require('dw/order/PriceAdjustment');
+    var LineItemCtnr = require('dw/order/LineItemCtnr');
+    var Transaction = require('dw/system/Transaction');
+    var giftcardDetails=GiftCertificateMgr.getGiftCertificateByCode(giftCertificateCode);
+    var promotionID = currentBasket.getPriceAdjustmentByPromotionID("giftPriceAdjustment")
+    if (promotionID!=null) {
+        var price=promotionID.price.value;
+        Transaction.wrap(function () {
+            currentBasket.removePriceAdjustment(promotionID);
+
+            currentCustomer.profile.custom.userWallet=currentCustomer.profile.custom.userWallet - price
+        })
+    }
+   
+    var presentBonusPoint=currentCustomer.profile.custom.userWallet;
+    var data={
+        success:true,
+        msg:"Bonus Point Removed Successfully",
+        currentWallet:presentBonusPoint,
+    }
+    res.redirect(URLUtils.url('Checkout-Begin'))
+//    res.json(data);
+
+next();
+
+})
 module.exports = server.exports();
