@@ -179,7 +179,7 @@ server.replace(
 server.get("Applygiftcard", function (req, res, next) {
     var giftCertificateCode = req.querystring.GiftCardCode;
     var appliedAmount = req.querystring.redeemamount;
-    
+    giftCertificateCode=giftCertificateCode.toString();
     var currentCustomer = req.currentCustomer.raw;
     var GiftCertificate = require('dw/order/GiftCertificate');
     
@@ -194,13 +194,19 @@ var Order = require('dw/order/Order');
 var Money = require('dw/value/Money');   
 var Basket = BasketMgr.getCurrentBasket();
 var currencyCode= req.session.currency.currencyCode
+var giftPaymentInstrument=null;
+var redeemGiftDetail=null;
 try {
-// giftCertificateCodeDetail=GiftCertificateMgr.getGiftCertificateByCode(giftCertificateCode);
+
+
 var Money = Money(appliedAmount,currencyCode);
 Transaction.wrap(()=>{
     giftPaymentInstrument=Basket.createGiftCertificatePaymentInstrument(giftCertificateCode,Money);
     redeemGiftDetail=GiftCertificateMgr.redeemGiftCertificate(giftPaymentInstrument);
+
 })
+
+// var d=GiftCertificateMgr.getGiftCertificateByCode(giftCertificateCode);
     // var SitePreferences = require('dw/system/SitePreferences');
     
         var data = {
