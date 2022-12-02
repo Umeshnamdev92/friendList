@@ -4,10 +4,10 @@ $(document).ready(function () {
      e.preventDefault();
      console.log('helloeeee');
      var GiftCardCode = $('#GiftCardCode').val();
-     var redeemamount = $('#redeemamount').val();
+      var redeemamount = $('#redeemamount').val();
      var url = $('#GiftCardreedemurl').val();
-     console.log(GiftCardCode);
-     console.log( url);
+     console.log(GiftCardCode,"caerd");
+     console.log( url,"url");
 
      $.ajax({
        url: url,
