@@ -177,13 +177,12 @@ server.replace(
 );
 
 server.get("Applygiftcard", function (req, res, next) {
-    var giftCertificateCode = req.querystring.giftCertificateCode;
-    var appliedAmount = req.querystring.amount;
+    var giftCertificateCode = req.querystring.GiftCardCode;
+    var appliedAmount = req.querystring.redeemamount;
     
     var currentCustomer = req.currentCustomer.raw;
     var GiftCertificate = require('dw/order/GiftCertificate');
-    var GiftCertificate;
-    var test;
+    
     var GiftCertificateMgr = require('dw/order/GiftCertificateMgr');
 var Transaction = require('dw/system/Transaction');
 var GiftCertificateLineItem = require('dw/order/GiftCertificateLineItem');
@@ -192,62 +191,34 @@ var LineItemCtnr = require('dw/order/LineItemCtnr');
 var PersistentObject = require('dw/object/PersistentObject');
 var BasketMgr = require('dw/order/BasketMgr');
 var Order = require('dw/order/Order');
-var Basket = BasketMgr.getCurrentBasket();
 var Money = require('dw/value/Money');   
+var Basket = BasketMgr.getCurrentBasket();
+var currencyCode= req.session.currency.currencyCode
+try {
+// giftCertificateCodeDetail=GiftCertificateMgr.getGiftCertificateByCode(giftCertificateCode);
+var Money = Money(appliedAmount,currencyCode);
+Transaction.wrap(()=>{
+    giftPaymentInstrument=Basket.createGiftCertificatePaymentInstrument(giftCertificateCode,Money);
+    redeemGiftDetail=GiftCertificateMgr.redeemGiftCertificate(giftPaymentInstrument);
+})
     // var SitePreferences = require('dw/system/SitePreferences');
-     var bonusPercentOfTotal= dw.system.Site.current.preferences.custom.bonusPercentOfTotal
-    var LineItemCtnr = require('dw/order/LineItemCtnr');
-    var totalNetPrice = currentBasket.totalNetPrice.value;
     
-    var toPercent = totalNetPrice * (bonusPercentOfTotal / 100);
-
-    if (currentCustomer.profile.custom.userWallet < bPoint) {
         var data = {
-            appliedPoint:bPoint,
-            msg: "Applied bonus cannot be greater than wallet bonus",
-            success: false
+            msg: "Giftcard coderedeemed successfully!",
+            success: true
         };
 
         res.json(data);
-        return next();
-    }
-    if (Number(bPoint) > toPercent) {
-        var data = {
-            appliedPoint:bPoint,
-            msg: "Applied Bonus Point cannot be greater the "+ bonusPercentOfTotal+ " % of total",
-            success: false
-        };
-        res.json(data)
-        return next();
-    } 
-
-    try {
-        Transaction.wrap(function () {
-                var PriceAdjustment = currentBasket.createPriceAdjustment("bonusPointUses", new dw.campaign.AmountDiscount(bPoint));
-                currentCustomer.profile.custom.userWallet = currentCustomer.profile.custom.userWallet - Number(bPoint);
-                // var dPrice= LineItemCtnr.removePriceAdjustment(PriceAdjustment);
-
-                var nowPoint = currentCustomer.profile.custom.userWallet;
-                var data = {
-                    appliedPoint:bPoint,
-                    nowPoint: nowPoint,
-                    msg: "Bonus Point applied successfully",
-                    success: true
-                };
-                res.json(data)
-                // return next();
-        })
-
+       
     } catch (error) {
-        var promotionID = currentBasket.getPriceAdjustmentByPromotionID("bonusPointUses")
+        // var promotionID = currentBasket.getPriceAdjustmentByPromotionID("bonusPointUses")
         var data = {
-            appliedPoint:bPoint,
-            promotionID: JSON.stringify(promotionID),
-            msg: " Sorry, You have already applied bonus points",
+           error:error,
+            msg: " Sorry, Something went wrong Try again!",
             success: false
         };
         res.json(data)
-        return next();
+        
     }
 
     next();
