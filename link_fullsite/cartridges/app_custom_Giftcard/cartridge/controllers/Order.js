@@ -71,7 +71,7 @@ server.replace(
         }
         var c=order.productLineItems[0].product.name;
         if (c == 'GiftCard') {
-            res.redirect(URLUtils.url('Order-new'))
+            res.redirect(URLUtils.url('Order-test'))
         }
         var b = GiftCert;
 
@@ -113,7 +113,7 @@ server.replace(
     }
 );
 
-server.get('new', function (req, res, next) {
+server.get('test', function (req, res, next) {
         var new_Data = server.forms.getForm('Certificate');
 
         res.render('GiftCertificate', {
@@ -130,12 +130,12 @@ server.get('new', function (req, res, next) {
         var GiftCertificateMgr = require('dw/order/GiftCertificateMgr');
         var GiftCert;
         Transaction.wrap(()=>{
-            GiftCert =  GiftCertificateMgr.createGiftCertificate(78611);
+            GiftCert =  GiftCertificateMgr.createGiftCertificate(14);
             GiftCert.setRecipientEmail(new_Data.email);
             GiftCert.setRecipientName(new_Data.email1);
             GiftCert.setSenderName(new_Data.email2);
             GiftCert.setMessage(new_Data.email3);
-            GiftCert.setDescription(new_Data.desc);
+            GiftCert.setDescription(new_Data.email4);
             // GiftCert.getGiftCertificateCode(''); 
             // c=Basket.createGiftCertificatePaymentInstrument(a,M);
         })
