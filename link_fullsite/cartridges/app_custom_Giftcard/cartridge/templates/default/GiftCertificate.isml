@@ -1,0 +1,53 @@
+<isdecorate template="common/layout/page">
+  <isscript>
+        var assets = require('*/cartridge/scripts/assets.js');
+        assets.addCss('/css/csrf.css');
+  </isscript>
+  <form action="${URLUtils.url('Order-newSubmit')}" method="POST">
+    <iscomment> <div class="form-group">
+      <label for="exampleInputEmail1">Email address</label>
+      <input id="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+    </div> </iscomment>
+
+    <div class="form-group">
+        <label for="exampleInputEmail1">Amount</label>
+        <input type="text" class="form-control" id="email"
+        data-missing-error = "${Resource.msg('label.valid.email', 'forms', null)}"
+            <isprint value="${pdict.drx.email.attributes}" encoding="off" />>
+        <div class="invalid-feedback">
+        </div>
+    </div>
+
+    
+    <div class="form-group">
+        <label for="exampleInputEmail1">Recipient Email</label>
+        <input type="text" class="form-control" id="email1"
+        data-missing-error = "${Resource.msg('label.valid.email', 'forms', null)}"
+            <isprint value="${pdict.drx.email1.attributes}" encoding="off" />>
+        <div class="invalid-feedback">
+        </div>
+    </div>
+
+    
+    <div class="form-group">
+        <label for="exampleInputEmail1">Sender Email</label>
+        <input type="text" class="form-control" id="email2"
+        data-missing-error = "${Resource.msg('label.valid.email', 'forms', null)}"
+            <isprint value="${pdict.drx.email2.attributes}" encoding="off" />>
+        <div class="invalid-feedback">
+        </div>
+    </div>
+
+    
+    <div class="form-group">
+        <label for="exampleInputEmail1">Message</label>
+        <input type="text" class="form-control" id="email3"
+        data-missing-error = "${Resource.msg('label.valid.email', 'forms', null)}"
+            <isprint value="${pdict.drx.email3.attributes}" encoding="off" />>
+        <div class="invalid-feedback">
+        </div>
+    </div>
+
+    <button type="submit" name="submit" class="btn btn-success">Submit</button>
+  </form>
+</isdecorate>
