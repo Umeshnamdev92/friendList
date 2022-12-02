@@ -5,14 +5,13 @@ $(document).ready(function () {
      console.log('helloeeee');
      var GiftCardCode = $('#GiftCardCode').val();
      var redeemamount = $('#redeemamount').val();
-     var url = $('#Bonusurl').val();
+     var url = $('#GiftCardreedemurl').val();
      console.log(GiftCardCode);
-     console.log(redeemamount);
+     console.log( url);
 
      $.ajax({
        url: url,
        type: 'GET',
-       dataType: 'json',
        data: {
          GiftCardCode: GiftCardCode,
          redeemamount: redeemamount
