@@ -86,7 +86,7 @@
 
                         <div class="product-options">
                             <isif condition="${product.options && product.options.length > 0}">
-                                <isinclude template="product/components/options" />
+                                <isinclude template="product/optionAmount" />
                             </isif>
                         </div>
 
@@ -102,7 +102,7 @@
                         <!-- Product Availability -->
                         <isinclude template="product/components/productAvailability" />
 
-                        <iscomment> <!-- Applicable Promotions -->
+                        <!-- Applicable Promotions -->
                         <div class="row">
                             <div class="col-12 promotions">
                                 <isinclude template="product/components/promotions" />
@@ -118,7 +118,7 @@
                                         <isinclude template="product/components/pricing/main" />
                                     </div>
                                 </div>
-                            </div> </iscomment>
+                            </div>
 
                             <!-- Cart and [Optionally] Apple Pay -->
                             <isinclude template="product/components/addToCartProduct" />

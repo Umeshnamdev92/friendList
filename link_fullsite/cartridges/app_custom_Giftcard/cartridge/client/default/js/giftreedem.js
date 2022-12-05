@@ -26,7 +26,7 @@ $(document).ready(function () {
                    icon: 'success',
                    button: 'OK',
                  });
-                   window.location.href = '';
+                  // window.location.href = '';
                } else {
                  swal({
                    title: 'Sorry',

@@ -1,0 +1,21 @@
+<isset name="product" value="${typeof product === 'undefined' || empty(product) ? pdict.product : product}"
+    scope="page" />
+
+<isloop items="${product.options}" var="option" status="loopStatus">
+    <div class="row product-option" data-option-id="${option.id}">
+        <div class="col-8">
+            <label>${option.name}</label>
+
+            <select class="options-select custom-select form-control">
+                <isloop items="${option.values}" var="value">
+                    <option data-value-id="${value.id}" value="${value.url}" <isif
+                        condition="${value.id === option.selectedValueId}">selected</isif>
+                        >
+                        ${value.displayValue}
+                    </option>
+                </isloop>
+            </select>
+
+        </div>
+    </div>
+</isloop>
