@@ -216,8 +216,8 @@ if (Basket.paymentInstruments.length<=1) {
 
 if (!redeemGiftDetail.error) {
     Transaction.wrap(()=>{
-        var priceAdjustment=Basket.getPriceAdjustmentByPromotionID(giftCertificateCode);
-        Basket.removePriceAdjustment(priceAdjustment);
+        // var priceAdjustment=Basket.getPriceAdjustmentByPromotionID(giftCertificateCode);
+        // Basket.removePriceAdjustment(priceAdjustment);
     realAppliedAmount=giftPaymentInstrument.paymentTransaction.amount.value
     PriceAdjustment = Basket.createPriceAdjustment("giftPriceAdjustment", new dw.campaign.AmountDiscount(realAppliedAmount));
     })
