@@ -158,7 +158,7 @@ server.get('new', function (req, res, next) {
             GiftPL = ProductListMgr.createProductList(customer, 100);
             GiftPL = ProductListMgr.getProductLists(customer, 100).toArray();
             var abc =  GiftPL[0].createProductItem(product);
-            abc.custom.RecipientEmail = formData.email;
+            abc.custom.RecipientEmail = formData.email5;
             abc.custom.RecipientName = formData.email1;
             abc.custom.SenderName = formData.email2;
             abc.custom.Message = formData.email3;

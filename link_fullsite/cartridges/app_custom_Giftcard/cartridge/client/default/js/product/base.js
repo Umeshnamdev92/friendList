@@ -657,7 +657,7 @@ module.exports = {
             //custom code for addtoCart button in modal
         if (pid=='mitsubishi-lt-40148M') {
             console.log("helloooooooooooooooooooo")
-    var x = $('#email1').val();
+    var x = $('#email2').val();
             console.log(x)
             var form = {
                 

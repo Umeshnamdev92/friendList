@@ -18,7 +18,7 @@
 
                     <div class="form-group">
                         <label for="exampleInputEmail1">Recipient Email</label>
-                        <input type="text" class="form-control" name="email" id="email"
+                        <input type="text" class="form-control" name="email5" id="email5"
                             data-missing-error="${Resource.msg('label.valid.email', 'forms', null)}" <isprint
                             value="${pdict.drx.email.attributes}" encoding="off" />>
                         <div class="invalid-feedback">
