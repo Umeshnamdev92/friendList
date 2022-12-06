@@ -653,14 +653,27 @@ module.exports = {
             }
 
             addToCartUrl = getAddToCartUrl();
+// if (pid=='gift') {
+    
 
             var form = {
                 pid: pid,
                 pidsObj: pidsObj,
                 childProducts: getChildProducts(),
-                quantity: getQuantitySelected($(this))
+                quantity: getQuantitySelected($(this)),
+                // giftdetaile:{
+                //     name:$()
+                // }
             };
-
+        // }else{
+        //     var form = {
+        //         pid: pid,
+        //         pidsObj: pidsObj,
+        //         childProducts: getChildProducts(),
+        //         quantity: getQuantitySelected($(this)),
+                
+        //     };
+        // }
             if (!$('.bundle-item').length) {
                 form.options = getOptions($productContainer);
             }
