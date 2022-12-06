@@ -57,7 +57,7 @@ Transaction.wrap(()=>{
 // });
 
 
-b=GiftCertificateMgr.getGiftCertificateByCode(a);
+b = GiftCertificateMgr.getGiftCertificateByCode(a);
 Logger.debug('wdaw',b);
 // c=Basket.createGiftCertificatePaymentInstrument(a,502);
         res.json({GiftCertificate:"GiftCertificate",test:test,a:a,b:b,c:c,d:d});

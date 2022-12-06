@@ -3,14 +3,16 @@
         var assets = require('*/cartridge/scripts/assets.js');
         assets.addCss('/css/csrf.css');
   </isscript>
-  <form action="${URLUtils.url('Order-newSubmit')}" method="POST">
-    <iscomment> <div class="form-group">
-      <label for="exampleInputEmail1">Email address</label>
-      <input id="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-    </div> </iscomment>
+  <div class="container">
+  <div class="row">
+    <div class="col-md-4">
+      
+    </div>
+    <div class="col-md-4 border border-primary my-4">
+      <form action="${URLUtils.url('Order-newSubmit')}" method="POST">
 
     <div class="form-group">
-        <label for="exampleInputEmail1">Recipient name</label>
+        <label for="exampleInputEmail1">Recipient Email</label>
         <input type="text" class="form-control" id="email"
         data-missing-error = "${Resource.msg('label.valid.email', 'forms', null)}"
             <isprint value="${pdict.drx.email.attributes}" encoding="off" />>
@@ -20,7 +22,7 @@
 
     
     <div class="form-group">
-        <label for="exampleInputEmail1">Recipient Email</label>
+        <label for="exampleInputEmail1">Recipient Name</label>
         <input type="text" class="form-control" id="email1"
         data-missing-error = "${Resource.msg('label.valid.email', 'forms', null)}"
             <isprint value="${pdict.drx.email1.attributes}" encoding="off" />>
@@ -30,7 +32,7 @@
 
     
     <div class="form-group">
-        <label for="exampleInputEmail1">Sender Email</label>
+        <label for="exampleInputEmail1">Sender Name</label>
         <input type="text" class="form-control" id="email2"
         data-missing-error = "${Resource.msg('label.valid.email', 'forms', null)}"
             <isprint value="${pdict.drx.email2.attributes}" encoding="off" />>
@@ -48,8 +50,7 @@
         </div>
     </div>
 
-    
-    <div class="form-group">
+      <div class="form-group">
         <label for="exampleInputEmail1">Notes</label>
         <input type="text" class="form-control" id="email4"
         data-missing-error = "${Resource.msg('label.valid.email', 'forms', null)}"
@@ -60,4 +61,12 @@
 
     <button type="submit" name="submit" class="btn btn-success">Submit</button>
   </form>
+    </div>
+
+    <div class="col-md-4">
+      
+    </div>
+    
+  </div>
+</div>
 </isdecorate>
