@@ -1,0 +1,75 @@
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">Gift Card</button>
+<iscomment> ${pdict.drx.email.value} </iscomment>
+<div class="row">
+    <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <iscomment>
+                        <form id='myform' method="POST">
+                    </iscomment>
+
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Recipient Email</label>
+                        <input type="text" class="form-control" name="email" id="email"
+                            data-missing-error="${Resource.msg('label.valid.email', 'forms', null)}" <isprint
+                            value="${pdict.drx.email.attributes}" encoding="off" />>
+                        <div class="invalid-feedback">
+                        </div>
+                    </div>
+ <form action="${URLUtils.url('Order-newSubmit')}" method="POST"> 
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Recipient Name</label>
+                        <input type="text" class="form-control" name="email1" id="email1"
+                            data-missing-error="${Resource.msg('label.valid.email', 'forms', null)}" <isprint
+                            value="${pdict.drx.email1.attributes}" encoding="off" />>
+                        <div class="invalid-feedback">
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Sender Name</label>
+                        <input type="text" class="form-control" name="email2" id="email2"
+                            data-missing-error="${Resource.msg('label.valid.email', 'forms', null)}" <isprint
+                            value="${pdict.drx.email2.attributes}" encoding="off" />>
+                        <div class="invalid-feedback">
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Message</label>
+                        <input type="text" class="form-control" name="email3" id="email3"
+                            data-missing-error="${Resource.msg('label.valid.email', 'forms', null)}" <isprint
+                            value="${pdict.drx.email3.attributes}" encoding="off" />>
+                        <div class="invalid-feedback">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Notes</label>
+                        <input type="text" class="form-control" name="email4" id="email4"
+                            data-missing-error="${Resource.msg('label.valid.email', 'forms', null)}" <isprint
+                            value="${pdict.drx.email4.attributes}" encoding="off" />>
+                        <div class="invalid-feedback">
+                        </div>
+                    </div>
+                 <button type="submit" name="submit" class="btn btn-success">Submit</button>
+  </form> 
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

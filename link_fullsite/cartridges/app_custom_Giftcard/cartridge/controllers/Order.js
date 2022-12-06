@@ -54,7 +54,7 @@ server.replace(
             return next();
         }
 
-        order = OrderMgr.getOrder(req.form.orderID, req.form.orderToken);
+        // order = OrderMgr.getOrder(req.form.orderID, req.form.orderToken);
 
         if (!order || order.customer.ID !== req.currentCustomer.raw.ID
         ) {
@@ -113,7 +113,7 @@ server.replace(
     }
 );
 
-server.get('test', function (req, res, next) {
+server.get('new', function (req, res, next) {
         var new_Data = server.forms.getForm('Certificate');
 
         res.render('GiftCertificate', {
@@ -125,22 +125,66 @@ server.get('test', function (req, res, next) {
 
 
     server.post('newSubmit', function (req, res, next) {
-        var new_Data = server.forms.getForm('Certificate').toObject();
+        var a = req.form;
+        var formData = a;
+
+        
+        // var Transaction = require('dw/system/Transaction');
+        // var GiftCertificateMgr = require('dw/order/GiftCertificateMgr');
+        // var GiftCert;
+        // Transaction.wrap(()=>{
+        //     GiftCert =  GiftCertificateMgr.createGiftCertificate(1102);
+        //     GiftCert.setRecipientEmail(a.email);
+        //     GiftCert.setRecipientName(a.email1);
+        //     GiftCert.setSenderName(a.email2);
+        //     GiftCert.setMessage(a.email3);
+        //     GiftCert.setDescription(a.email4);
+
+    
+
+        var ProductList = require('dw/customer/ProductList');
+        var ProductListMgr = require('dw/customer/ProductListMgr');
         var Transaction = require('dw/system/Transaction');
-        var GiftCertificateMgr = require('dw/order/GiftCertificateMgr');
-        var GiftCert;
-        Transaction.wrap(()=>{
-            GiftCert =  GiftCertificateMgr.createGiftCertificate(1100);
-            GiftCert.setRecipientEmail(new_Data.email);
-            GiftCert.setRecipientName(new_Data.email1);
-            GiftCert.setSenderName(new_Data.email2);
-            GiftCert.setMessage(new_Data.email3);
-            GiftCert.setDescription(new_Data.email4);
-            // GiftCert.getGiftCertificateCode(''); 
-            // c=Basket.createGiftCertificatePaymentInstrument(a,M);
+        var ProductMgr = require('dw/catalog/ProductMgr');
+        var GiftPL;
+        
+        var arrData = [];
+        var add = null
+        var product = ProductMgr.getProduct('mitsubishi-lt-40148M');
+
+        Transaction.wrap(() => {
+             add = ProductListMgr.getProductLists(customer, 100).toArray();
+
+            GiftPL = ProductListMgr.createProductList(customer, 100);
+            GiftPL = ProductListMgr.getProductLists(customer, 100).toArray();
+            var abc =  GiftPL[0].createProductItem(product);
+            abc.custom.RecipientEmail = formData.email;
+            abc.custom.RecipientName = formData.email1;
+            abc.custom.SenderName = formData.email2;
+            abc.custom.Message = formData.email3;
+            abc.custom.Notes = formData.email4;
+
+            
+   
+
+        
         })
-        res.render('GiftCertificate', {
-            drx : new_Data
+        // var new_Data = server.forms.getForm('Certificate').toObject();
+        // var Transaction = require('dw/system/Transaction');
+        // var GiftCertificateMgr = require('dw/order/GiftCertificateMgr');
+        // var GiftCert;
+        // Transaction.wrap(()=>{
+        //     GiftCert =  GiftCertificateMgr.createGiftCertificate(1100);
+        //     GiftCert.setRecipientEmail(new_Data.email);
+        //     GiftCert.setRecipientName(new_Data.email1);
+        //     GiftCert.setSenderName(new_Data.email2);
+        //     GiftCert.setMessage(new_Data.email3);
+        //     GiftCert.setDescription(new_Data.email4);
+        //     // GiftCert.getGiftCertificateCode(''); 
+        //     // c=Basket.createGiftCertificatePaymentInstrument(a,M);
+        // })
+        res.json({
+            success : "true"
         });
         next();
     });
