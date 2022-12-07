@@ -24,7 +24,7 @@
                         <div class="invalid-feedback">
                         </div>
                     </div>
- <form action="${URLUtils.url('Order-newSubmit')}" method="POST"> 
+ <iscomment> <form action="${URLUtils.url('Order-newSubmit')}" method="POST">  </iscomment>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Recipient Name</label>
                         <input type="text" class="form-control" name="email1" id="email1"
@@ -63,7 +63,9 @@
                         </div>
                     </div>
                  <button type="submit" name="submit" class="btn btn-success">Submit</button>
-  </form> 
+                 
+                        <isinclude template="product/components/addToCartProduct" />
+  <iscomment> </form>  </iscomment>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

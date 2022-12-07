@@ -219,11 +219,11 @@ function addLineItem(
     }
 
     productLineItem.setQuantityValue(quantity);
-    productLineItem.custom.RecipientEmail = giftDetail.email;
-    productLineItem.custom.email1 = giftDetail.RecipientName;
-    productLineItem.custom.SenderName = giftDetail.email2;
-    productLineItem.custom.Message = giftDetail.email3;
-    productLineItem.custom.Notes = giftDetail.email4;
+    productLineItem.custom.recipientEmail = giftDetail.email;
+    productLineItem.custom.recipientName = giftDetail.rName;
+    productLineItem.custom.senderName = giftDetail.sName;
+    productLineItem.custom.message = giftDetail.message;
+    productLineItem.custom.notes = giftDetail.notes;
 
     return productLineItem;
 }

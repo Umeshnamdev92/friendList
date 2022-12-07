@@ -3,5 +3,8 @@
         <isif condition="${payment.paymentMethod === 'CREDIT_CARD'}">
             <isinclude template="checkout/billing/paymentOptions/creditCardSummary" />
         </isif>
+        <isif condition="${payment.paymentMethod === 'Gift_Certificate'}">
+           ${JSON.Stringify(payment.paymentMethod)}
+        </isif>
     </isloop>
 </div>
