@@ -296,15 +296,15 @@ var Money = Money(appliedAmount,currencyCode);
     })
 
 if (!redeemGiftDetail.error) {
-    Transaction.wrap(()=>{
-        var priceAdjustment=Basket.getPriceAdjustmentByPromotionID("giftPriceAdjustment");
-        if (priceAdjustment!=null) {
+    // Transaction.wrap(()=>{
+    //     var priceAdjustment=Basket.getPriceAdjustmentByPromotionID("giftPriceAdjustment");
+    //     if (priceAdjustment!=null) {
             
-            Basket.removePriceAdjustment(priceAdjustment);
-        }
-    realAppliedAmount=giftPaymentInstrument.paymentTransaction.amount.value
-    PriceAdjustment = Basket.createPriceAdjustment("giftPriceAdjustment", new dw.campaign.AmountDiscount(realAppliedAmount));
-    })
+    //         Basket.removePriceAdjustment(priceAdjustment);
+    //     }
+    // realAppliedAmount=giftPaymentInstrument.paymentTransaction.amount.value
+    // PriceAdjustment = Basket.createPriceAdjustment("giftPriceAdjustment", new dw.campaign.AmountDiscount(realAppliedAmount));
+    // })
     var data = {
         msg: "Giftcard code redeemed successfully!",
         success: true,

@@ -435,9 +435,9 @@ function calculatePaymentTransaction(currentBasket) {
                     }
                 }
                 var paymentInstrument = paymentInstruments[1];
-                Transaction.wrap(function () {
+                // Transaction.wrap(function () {
                     paymentInstrument.paymentTransaction.setAmount(orderTotal);
-                })
+                // })
 
             }else{
                 var paymentInstrument = paymentInstruments[0];
@@ -553,9 +553,9 @@ function handlePayments(order, orderNumber) {
                 var paymentInstrument = paymentInstruments[i];
                 var paymentProcessor = PaymentMgr.getPaymentMethod(paymentInstrument.paymentMethod)
                 .paymentProcessor;
-                // if (paymentProcessor.ID!='BASIC_GIFT_CERTIFICATE') {
+                if (paymentProcessor.ID!='BASIC_GIFT_CERTIFICATE') {
                     
-                // }
+                
                 var authorizationResult;
                 if (paymentProcessor === null) {
                     Transaction.begin();
@@ -584,6 +584,7 @@ function handlePayments(order, orderNumber) {
                         break;
                     }
                 }
+            }
             }
         }
     }
