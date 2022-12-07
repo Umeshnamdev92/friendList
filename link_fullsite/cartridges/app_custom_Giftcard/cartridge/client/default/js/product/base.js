@@ -787,11 +787,8 @@ module.exports = {
             recipientName: $("#email1").val(),
             senderName: $("#email2").val(),
             message: $("#email3").val(),
-            notes: $("#email4").val()
+            note: $("#email4").val()
           })
-         
-              
-          
           console.log(x);
           var form = {
             pid: pid,

@@ -61,18 +61,13 @@ server.replace('AddProduct', function (req, res, next) {
 
     var currentBasket = BasketMgr.getCurrentOrNewBasket();
     var previousBonusDiscountLineItems = currentBasket.getBonusDiscountLineItems();
+    var productId = req.form.pid;
+    if(req.form.giftdetail){
     var giftdetailData =JSON.parse(req.form.giftdetail);
     var data = giftdetailData[0]
-    var productId = req.form.pid;
+    
     var giftDetail= {};
     // condition check for data come through ajax
-    if (productId == 'mitsubishi-lt-40148M') {
-
-    giftDetail.email = data.recipientEmail;
-    giftDetail.rName = data.recipientName;
-    giftDetail.sName = data.senderName;
-    giftDetail.message = data.message;
-    giftDetail.note = data.notes;
     }
     var childProducts = Object.hasOwnProperty.call(req.form, 'childProducts')
         ? JSON.parse(req.form.childProducts)
@@ -83,6 +78,21 @@ server.replace('AddProduct', function (req, res, next) {
     var pidsObj;
 
     if (currentBasket) {
+        Transaction.wrap(function(){
+            if (productId == 'mitsubishi-lt-40148M') {
+                var a = currentBasket.createGiftCertificateLineItem(100, "aamir.bohra@codesquaretech.com");
+                a.setRecipientEmail(data.recipientEmail);
+                a.setMessage(data.message);
+                a.setSenderName(data.senderName);
+                a.setRecipientName(data.recipientName);
+                // giftDetail.email = data.recipientEmail;
+                // giftDetail.rName = data.recipientName;
+                // giftDetail.sName = data.senderName;
+                // giftDetail.message = data.message;
+                // giftDetail.note = data.note;
+                }
+            })
+        
         Transaction.wrap(function () {
             if (!req.form.pidsObj) {
                 quantity = parseInt(req.form.quantity, 10);
