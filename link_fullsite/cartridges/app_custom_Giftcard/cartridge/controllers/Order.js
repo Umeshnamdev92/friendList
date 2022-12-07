@@ -71,6 +71,7 @@ server.replace(
             order,
             { config: config, countryCode: currentLocale.country, containerView: 'order' }
         );
+        
         var passwordForm;
 
         var reportingURLs = reportingUrlsHelper.getOrderReportingURLs(order);
