@@ -62,7 +62,7 @@
                         <isloop items="${product.variationAttributes}" var="attr" status="attributeStatus">
                             <div class="row" data-attr="${attr.id}">
                                 <div class="col-8">
-                                    <isinclude template="product/checkSwatches" />
+                                    <isinclude template="product/components/variationAttribute" />
                                 </div>
 
                                 <isif condition="${attributeStatus.last && !isBundle}">
@@ -86,18 +86,18 @@
 
                         <div class="product-options">
                             <isif condition="${product.options && product.options.length > 0}">
-                                <isinclude template="product/optionAmount" />
+                                <isinclude template="product/components/options" />
                             </isif>
                         </div>
 
-                        <iscomment> <!-- Size Chart -->
+                        <!-- Size Chart -->
                         <isif condition="${product.variationAttributes && product.sizeChartId}">
                             <div class="row">
                                 <div class="size-chart col-12">
                                     <isinclude template="product/components/sizeChart" />
                                 </div>
                             </div>
-                        </isif> </iscomment>
+                        </isif>
 
                         <!-- Product Availability -->
                         <isinclude template="product/components/productAvailability" />

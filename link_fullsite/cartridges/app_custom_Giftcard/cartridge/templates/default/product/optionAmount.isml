@@ -11,7 +11,7 @@
                     <option data-value-id="${value.id}" value="${value.url}" <isif
                         condition="${value.id === option.selectedValueId}">selected</isif>
                         >
-                        23
+                        ${value.displayValue}
                     </option>
                 </isloop>
             </select>
