@@ -434,7 +434,7 @@ function calculatePaymentTransaction(currentBasket) {
                     }
                 }
                 var paymentInstrument = paymentInstruments[1];
-                    paymentInstrument.paymentTransaction.setAmount(orderTotal);
+                paymentInstrument.paymentTransaction.setAmount(orderTotal);
             }else{
                 var paymentInstrument = paymentInstruments[0];
                     paymentInstrument.paymentTransaction.setAmount(orderTotal);
@@ -546,8 +546,7 @@ function handlePayments(order, orderNumber) {
         if (!result.error) {
             for (var i = 0; i < paymentInstruments.length; i++) {
                 var paymentInstrument = paymentInstruments[i];
-                var paymentProcessor = PaymentMgr
-                    .getPaymentMethod(paymentInstrument.paymentMethod)
+                var paymentProcessor = PaymentMgr.getPaymentMethod(paymentInstrument.paymentMethod)
                     .paymentProcessor;
                 var authorizationResult;
                 if (paymentProcessor === null) {
