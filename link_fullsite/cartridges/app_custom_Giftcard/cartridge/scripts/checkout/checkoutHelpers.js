@@ -427,7 +427,7 @@ function calculatePaymentTransaction(currentBasket) {
             var orderTotal = currentBasket.totalGrossPrice;
             if (paymentInstruments.length>1) {
                 for (let i = 0; i < paymentInstruments.length; i++) {
-                    if (paymentInstruments[i].paymentMethod=='Gift_certificate') {
+                    if (paymentInstruments[i].paymentMethod=='GIFT_CERTIFICATE') {
                         var giftCardAmount = paymentInstruments[i].paymentTransaction.amount.value;
                         orderTotal=orderTotal-giftCardAmount;
                         // paymentInstrument.paymentTransaction.setAmount(orderTotal);

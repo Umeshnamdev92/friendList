@@ -54,7 +54,7 @@ server.replace(
             return next();
         }
 
-        order = OrderMgr.getOrder(req.form.orderID, req.form.orderToken);
+        // order = OrderMgr.getOrder(req.form.orderID, req.form.orderToken);
 
         if (!order || order.customer.ID !== req.currentCustomer.raw.ID
         ) {
@@ -71,7 +71,7 @@ server.replace(
         }
         var c=order.productLineItems[0].product.name;
         if (c == 'GiftCard') {
-            res.redirect(URLUtils.url('Order-new'))
+            res.redirect(URLUtils.url('Order-test'))
         }
         var b = GiftCert;
 
@@ -125,12 +125,30 @@ server.get('new', function (req, res, next) {
 
 
     server.post('newSubmit', function (req, res, next) {
-        var new_Data = server.forms.getForm('Certificate').toObject();
+        var a = req.form;
+        var formData = a;
+
+        
+        // var Transaction = require('dw/system/Transaction');
+        // var GiftCertificateMgr = require('dw/order/GiftCertificateMgr');
+        // var GiftCert;
+        // Transaction.wrap(()=>{
+        //     GiftCert =  GiftCertificateMgr.createGiftCertificate(1102);
+        //     GiftCert.setRecipientEmail(a.email);
+        //     GiftCert.setRecipientName(a.email1);
+        //     GiftCert.setSenderName(a.email2);
+        //     GiftCert.setMessage(a.email3);
+        //     GiftCert.setDescription(a.email4);
+
+    
+
+        var ProductList = require('dw/customer/ProductList');
+        var ProductListMgr = require('dw/customer/ProductListMgr');
         var Transaction = require('dw/system/Transaction');
         var GiftCertificateMgr = require('dw/order/GiftCertificateMgr');
         var GiftCert;
         Transaction.wrap(()=>{
-            GiftCert =  GiftCertificateMgr.createGiftCertificate(78611);
+            GiftCert =  GiftCertificateMgr.createGiftCertificate(115);
             GiftCert.setRecipientEmail(new_Data.email);
             GiftCert.setRecipientName(new_Data.email1);
             GiftCert.setSenderName(new_Data.email2);
@@ -139,8 +157,22 @@ server.get('new', function (req, res, next) {
             // GiftCert.getGiftCertificateCode(''); 
             // c=Basket.createGiftCertificatePaymentInstrument(a,M);
         })
-        res.render('GiftCertificate', {
-            drx : new_Data
+        // var new_Data = server.forms.getForm('Certificate').toObject();
+        // var Transaction = require('dw/system/Transaction');
+        // var GiftCertificateMgr = require('dw/order/GiftCertificateMgr');
+        // var GiftCert;
+        // Transaction.wrap(()=>{
+        //     GiftCert =  GiftCertificateMgr.createGiftCertificate(1100);
+        //     GiftCert.setRecipientEmail(new_Data.email);
+        //     GiftCert.setRecipientName(new_Data.email1);
+        //     GiftCert.setSenderName(new_Data.email2);
+        //     GiftCert.setMessage(new_Data.email3);
+        //     GiftCert.setDescription(new_Data.email4);
+        //     // GiftCert.getGiftCertificateCode(''); 
+        //     // c=Basket.createGiftCertificatePaymentInstrument(a,M);
+        // })
+        res.json({
+            success : "true"
         });
         next();
     });
