@@ -49,7 +49,7 @@ var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
  * @param {returns} - json
  * @param {serverfunction} - post
  */
-server.append('AddProduct', function (req, res, next) {
+server.replace('AddProduct', function (req, res, next) {
     var BasketMgr = require('dw/order/BasketMgr');
     var Resource = require('dw/web/Resource');
     var URLUtils = require('dw/web/URLUtils');
@@ -61,12 +61,18 @@ server.append('AddProduct', function (req, res, next) {
 
     var currentBasket = BasketMgr.getCurrentOrNewBasket();
     var previousBonusDiscountLineItems = currentBasket.getBonusDiscountLineItems();
+    var giftdetailData =JSON.parse(req.form.giftdetail);
+    var data = giftdetailData[0]
     var productId = req.form.pid;
+    var giftDetail= {};
     // condition check for data come through ajax
     if (productId == 'mitsubishi-lt-40148M') {
-    var giftDetail = req.form.giftdetail;
 
-
+    giftDetail.email = data.recipientEmail;
+    giftDetail.rName = data.recipientName;
+    giftDetail.sName = data.senderName;
+    giftDetail.message = data.message;
+    giftDetail.note = data.notes;
     }
     var childProducts = Object.hasOwnProperty.call(req.form, 'childProducts')
         ? JSON.parse(req.form.childProducts)
