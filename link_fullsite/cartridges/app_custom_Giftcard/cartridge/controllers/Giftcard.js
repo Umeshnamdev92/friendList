@@ -65,4 +65,21 @@ Logger.debug('wdaw',b);
     }
 );
 
+server.get('sendMailTemplate',function (req, res, next) {
+    var HookMgr = require("dw/system/HookMgr");
+    var templateData = {
+        name:"gajendra",
+        code:"asdggfsdghds",
+        message:"hello",
+        amount: 500.00
+    };
+    var content = HookMgr.callHook("createEmailTemplate", "createEmailTemplate",templateData)
+    var success = HookMgr.callHook("emailSendHook", "SendMailFunction","gajendra.dubey@codesquaretech.com","noreply@us01.dx.commercecloud.salesforce.com","subject",content.staticTemplate);
+      
+       res.json({
+        success:success,
+        content:content
+       })
+     next()
+});
 module.exports = server.exports();
