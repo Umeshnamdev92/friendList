@@ -110,7 +110,7 @@ function validateAndUpdateBillingPaymentInstrument(order) {
     var form = $('form[name=dwfrm_billing]');
     if (!form) return;
 
-    var instrument = billing.payment.selectedPaymentInstruments[1];
+    var instrument = billing.payment.selectedPaymentInstruments[0];
     $('select[name$=expirationMonth]', form).val(instrument.expirationMonth);
     $('select[name$=expirationYear]', form).val(instrument.expirationYear);
     // Force security code and card number clear
