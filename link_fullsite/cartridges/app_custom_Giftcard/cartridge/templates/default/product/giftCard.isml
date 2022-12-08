@@ -95,6 +95,10 @@
                             </isif>
                         </div>
 
+                         <div class="gift-amount">
+                                <isinclude template="product/components/giftAmount" />
+                        </div>
+
                         <iscomment> <!-- Size Chart -->
                         <isif condition="${product.variationAttributes && product.sizeChartId}">
                             <div class="row">

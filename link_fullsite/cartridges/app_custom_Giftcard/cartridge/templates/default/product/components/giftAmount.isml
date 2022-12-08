@@ -1,0 +1,29 @@
+<div id="form-inline">
+    <div class="form-group">
+        <input type="radio" id="amount100" name="giftCartAmount" value="100">
+        <label for="amount100">100</label>
+    </div>
+
+    <div class="form-group">
+        <input type="radio" id="amount500" name="giftCartAmount" value="500">
+        <label for="amount500">500</label>
+    </div>
+
+    <div class="form-group">
+        <input type="radio" id="amount1000" name="giftCartAmount" value="1000">
+        <label for="amount1000">1000</label>
+    </div>
+
+    <div class="form-group">
+        <input type="radio" id="amount2000" name="giftCartAmount" value="2000">
+        <label for="amount2000">2000</label>
+    </div>
+
+     <div class="form-group">
+        <input type="radio" id="other-amount" name="giftCartAmount" value="2000">
+        <label for="other-amount">Other</label>
+        <div id="other-input" style="display: none;">
+            <input type="text" name="" value="">
+        </div>
+    </div>
+</div>
