@@ -4,6 +4,7 @@ var ProductMgr = require("dw/catalog/ProductMgr");
 var Resource = require("dw/web/Resource");
 var Transaction = require("dw/system/Transaction");
 var URLUtils = require("dw/web/URLUtils");
+var GiftCertificateLineItem = require('dw/order/GiftCertificateLineItem');
 
 var collections = require("*/cartridge/scripts/util/collections");
 var ShippingHelpers = require("*/cartridge/scripts/checkout/shippingHelpers");
@@ -219,13 +220,25 @@ function addLineItem(
     }
 
     productLineItem.setQuantityValue(quantity);
-    productLineItem.custom.recipientEmail = giftDetail.email;
-    productLineItem.custom.recipientName = giftDetail.rName;
-    productLineItem.custom.senderName = giftDetail.sName;
-    productLineItem.custom.message = giftDetail.message;
-    productLineItem.custom.notes = giftDetail.notes;
-
+//custom functionality to store the data of giftCard
+    if (product.ID == 'mitsubishi-lt-40148M') {
+    // productLineItem.custom.recipientEmail = giftDetail.email;
+    // productLineItem.custom.recipientName = giftDetail.rName;
+    // productLineItem.custom.senderName = giftDetail.sName;
+    // productLineItem.custom.message = giftDetail.message;
+    // productLineItem.custom.note = giftDetail.note;
+    //     var LineItem = require('dw/order/LineItem');
+    //     var Order = require('dw/order/Order');
+    // var a=currentBasket.createGiftCertificateLineItem(100,"ammir.bohra@codesquaretech.com");
+    
+    // GiftCertificateLineItem.custom.note = giftDetail.note;
+    // GiftCertificateLineItem.custom.recipientEmail = giftDetail.email;
+    // GiftCertificateLineItem.custom.recipientName = giftDetail.rName;
+    // GiftCertificateLineItem.custom.senderName = giftDetail.sName;
+   
+    }
     return productLineItem;
+    
 }
 
 /**

@@ -5,7 +5,9 @@
  */
 
 var server = require('server');
-server.extend(module.superModule);
+var page = module.superModule;        //inherits functionality from next Product.js found to the right on the cartridge path
+server.extend(page);      
+
 var Resource = require('dw/web/Resource');
 var URLUtils = require('dw/web/URLUtils');
 var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
@@ -21,7 +23,7 @@ var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
  * @param {middleware} - server.middleware.https
  * @param {middleware} - csrfProtection.generateToken
  * @param {querystringparameter} - ID - Order ID
- * @param {querystringparameter} - token - token associated with tlhe order
+ * @param {querystringparameter} - token - token associated with the order
  * @param {category} - sensitive
  * @param {serverfunction} - get
  */
@@ -35,26 +37,18 @@ server.replace(
         var OrderMgr = require('dw/order/OrderMgr');
         var OrderModel = require('*/cartridge/models/order');
         var Locale = require('dw/util/Locale');
-        //custom code for creation of gift card
-        var GiftCertificate = require('dw/order/GiftCertificate');
-        var GiftCertificate;
-        var GiftCert;
-        // var test;
-        var GiftCertificateMgr = require('dw/order/GiftCertificateMgr');
-        var Transaction = require('dw/system/Transaction');
-        var BasketMgr = require('dw/order/BasketMgr');
-        var Basket = BasketMgr.getCurrentBasket();
-        var Order = require('dw/order/Order');
+
         var order;
-        
+
         if (!req.form.orderToken || !req.form.orderID) {
             res.render('/error', {
                 message: Resource.msg('error.confirmation.error', 'confirmation', null)
             });
+
             return next();
         }
 
-        // order = OrderMgr.getOrder(req.form.orderID, req.form.orderToken);
+        order = OrderMgr.getOrder(req.form.orderID, req.form.orderToken);
 
         if (!order || order.customer.ID !== req.currentCustomer.raw.ID
         ) {
@@ -69,11 +63,6 @@ server.replace(
             res.redirect(URLUtils.url('Home-Show'));
             return next();
         }
-        var c=order.productLineItems[0].product.name;
-        if (c == 'GiftCard') {
-            res.redirect(URLUtils.url('Order-test'))
-        }
-        var b = GiftCert;
 
         var config = {
             numberOfLineItems: '*'
@@ -89,7 +78,6 @@ server.replace(
         var passwordForm;
 
         var reportingURLs = reportingUrlsHelper.getOrderReportingURLs(order);
-        
 
         if (!req.currentCustomer.profile) {
             passwordForm = server.forms.getForm('newPasswords');
@@ -114,67 +102,28 @@ server.replace(
     }
 );
 
-server.get('new', function (req, res, next) {
-        var new_Data = server.forms.getForm('Certificate');
+var Transaction = require('dw/system/Transaction');
+var GiftCertificateMgr = require('dw/order/GiftCertificateMgr');
+var GiftCertificateLineItem = require('dw/order/GiftCertificateLineItem');
+Transaction.wrap(() => {
+    // add = ProductListMgr.getProductLists(customer, 100).toArray();
 
-        res.render('GiftCertificate', {
-            drx : new_Data
-
-        });
-        next();
-    });
+//    GiftPL = ProductListMgr.createProductList(customer, 100);
+    GiftPL = order.allGiftCertificateLineItems;
+    GiftPL = order.allGiftCertificateLineItems;
 
 
-    server.post('newSubmit', function (req, res, next) {
-        var a = req.form;
-        var formData = a;
+//    abc.custom.RecipientEmail = formData.email5;
+//    abc.custom.RecipientName = formData.email1;
+//    abc.custom.SenderName = formData.email2;
+//    abc.custom.Message = formData.email3;
+//    abc.custom.Notes = formData.email4;
 
-        
-        // var Transaction = require('dw/system/Transaction');
-        // var GiftCertificateMgr = require('dw/order/GiftCertificateMgr');
-        // var GiftCert;
-        // Transaction.wrap(()=>{
-        //     GiftCert =  GiftCertificateMgr.createGiftCertificate(1102);
-        //     GiftCert.setRecipientEmail(a.email);
-        //     GiftCert.setRecipientName(a.email1);
-        //     GiftCert.setSenderName(a.email2);
-        //     GiftCert.setMessage(a.email3);
-        //     GiftCert.setDescription(a.email4);
+   
 
-    
 
-        var ProductList = require('dw/customer/ProductList');
-        var ProductListMgr = require('dw/customer/ProductListMgr');
-        var Transaction = require('dw/system/Transaction');
-        var GiftCertificateMgr = require('dw/order/GiftCertificateMgr');
-        var GiftCert;
-        Transaction.wrap(()=>{
-            GiftCert =  GiftCertificateMgr.createGiftCertificate(115);
-            GiftCert.setRecipientEmail(new_Data.email);
-            GiftCert.setRecipientName(new_Data.email1);
-            GiftCert.setSenderName(new_Data.email2);
-            GiftCert.setMessage(new_Data.email3);
-            GiftCert.setDescription(new_Data.desc);
-            // GiftCert.getGiftCertificateCode(''); 
-            // c=Basket.createGiftCertificatePaymentInstrument(a,M);
-        })
-        // var new_Data = server.forms.getForm('Certificate').toObject();
-        // var Transaction = require('dw/system/Transaction');
-        // var GiftCertificateMgr = require('dw/order/GiftCertificateMgr');
-        // var GiftCert;
-        // Transaction.wrap(()=>{
-        //     GiftCert =  GiftCertificateMgr.createGiftCertificate(1100);
-        //     GiftCert.setRecipientEmail(new_Data.email);
-        //     GiftCert.setRecipientName(new_Data.email1);
-        //     GiftCert.setSenderName(new_Data.email2);
-        //     GiftCert.setMessage(new_Data.email3);
-        //     GiftCert.setDescription(new_Data.email4);
-        //     // GiftCert.getGiftCertificateCode(''); 
-        //     // c=Basket.createGiftCertificatePaymentInstrument(a,M);
-        // })
-        res.json({
-            success : "true"
-        });
-        next();
-    });
+
+})
+
+
 module.exports = server.exports();
