@@ -101,6 +101,7 @@ server.replace(
     }
 );
 
+if (productId == 'mitsubishi-lt-40148M') {
 var Transaction = require('dw/system/Transaction');
 var GiftCertificateMgr = require('dw/order/GiftCertificateMgr');
 var GiftCertificateLineItem = require('dw/order/GiftCertificateLineItem');
@@ -108,8 +109,8 @@ Transaction.wrap(() => {
     // add = ProductListMgr.getProductLists(customer, 100).toArray();
 
 //    GiftPL = ProductListMgr.createProductList(customer, 100);
-    GiftPL = order.allGiftCertificateLineItems;
-    GiftPL = order.allGiftCertificateLineItems;
+    // GiftPL = order.allGiftCertificateLineItems;
+    // GiftPL = order.allGiftCertificateLineItems;
 
 
 //    abc.custom.RecipientEmail = formData.email5;
@@ -123,6 +124,6 @@ Transaction.wrap(() => {
 
 
 })
-
+}
 
 module.exports = server.exports();
