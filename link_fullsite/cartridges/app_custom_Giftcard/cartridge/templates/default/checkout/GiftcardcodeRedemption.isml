@@ -6,6 +6,9 @@
     </isscript>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <iscomment> <form id="userWalletform" class="userWallet2"   action="${URLUtils.url('Checkout-UpdateBonus')}"> </iscomment>
+   <div id="RedeemGiftCertificate">
+    
+  
     <h4 class="text-success">Redeem Gift Card</h4>
 <div class="row text-left">
     <div class="col">
@@ -23,4 +26,4 @@
 </br>
 <button type="button" class="btn btn-primary" id="reedemgiftcardbalance">Apply</button>
 
-
+ </div>
