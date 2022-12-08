@@ -688,7 +688,7 @@ module.exports = {
   },
 
   colorAttribute: function () {
-    $(document).on("click", '[data-attr="color"] button', function (e) {
+    $(document).on("click", 'button[data-attr="GIFT"] , button[data-attr="color"]', function (e) {
       e.preventDefault();
 
       if ($(this).attr("disabled")) {
