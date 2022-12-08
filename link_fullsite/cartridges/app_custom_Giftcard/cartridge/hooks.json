@@ -3,6 +3,10 @@
         {
             "name":"emailSendHook",
             "script":"./cartridge/scripts/hooks/EmailSend.js"
+        },
+        {
+            "name":"createEmailTemplate",
+            "script":"./cartridge/scripts/hooks/createEmailTemplate.js"
         }
     ]
 }
