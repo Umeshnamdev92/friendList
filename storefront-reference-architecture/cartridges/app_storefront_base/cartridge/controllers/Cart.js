@@ -60,7 +60,7 @@ server.post('AddProduct', function (req, res, next) {
     var currentBasket = BasketMgr.getCurrentOrNewBasket();
     var previousBonusDiscountLineItems = currentBasket.getBonusDiscountLineItems();
     var productId = req.form.pid;
-    }
+    
     var childProducts = Object.hasOwnProperty.call(req.form, 'childProducts')
         ? JSON.parse(req.form.childProducts)
         : [];

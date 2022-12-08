@@ -1,14 +1,14 @@
-"use strict";
+'use strict';
 
-var ProductMgr = require("dw/catalog/ProductMgr");
-var Resource = require("dw/web/Resource");
-var Transaction = require("dw/system/Transaction");
-var URLUtils = require("dw/web/URLUtils");
+var ProductMgr = require('dw/catalog/ProductMgr');
+var Resource = require('dw/web/Resource');
+var Transaction = require('dw/system/Transaction');
+var URLUtils = require('dw/web/URLUtils');
 
-var collections = require("*/cartridge/scripts/util/collections");
-var ShippingHelpers = require("*/cartridge/scripts/checkout/shippingHelpers");
-var productHelper = require("*/cartridge/scripts/helpers/productHelpers");
-var arrayHelper = require("*/cartridge/scripts/util/array");
+var collections = require('*/cartridge/scripts/util/collections');
+var ShippingHelpers = require('*/cartridge/scripts/checkout/shippingHelpers');
+var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
+var arrayHelper = require('*/cartridge/scripts/util/array');
 var BONUS_PRODUCTS_PAGE_SIZE = 6;
 
 /**
@@ -21,9 +21,7 @@ var BONUS_PRODUCTS_PAGE_SIZE = 6;
 function updateBundleProducts(apiLineItem, childProducts) {
     var bundle = apiLineItem.product;
     var bundleProducts = bundle.getBundledProducts();
-    var bundlePids = collections.map(bundleProducts, function (product) {
-        return product.ID;
-    });
+    var bundlePids = collections.map(bundleProducts, function (product) { return product.ID; });
     var selectedProducts = childProducts.filter(function (product) {
         return bundlePids.indexOf(product.pid) === -1;
     });
@@ -39,6 +37,7 @@ function updateBundleProducts(apiLineItem, childProducts) {
         });
     });
 }
+
 
 /**
  * @typedef urlObject
@@ -62,18 +61,14 @@ function getNewBonusDiscountLineItem(
     currentBasket,
     previousBonusDiscountLineItems,
     urlObject,
-    pliUUID
-) {
+    pliUUID) {
     var bonusDiscountLineItems = currentBasket.getBonusDiscountLineItems();
     var newBonusDiscountLineItem;
     var result = {};
 
-    newBonusDiscountLineItem = collections.find(
-        bonusDiscountLineItems,
-        function (item) {
-            return !previousBonusDiscountLineItems.contains(item);
-        }
-    );
+    newBonusDiscountLineItem = collections.find(bonusDiscountLineItems, function (item) {
+        return !previousBonusDiscountLineItems.contains(item);
+    });
 
     collections.forEach(bonusDiscountLineItems, function (item) {
         if (!previousBonusDiscountLineItems.contains(item)) {
@@ -84,11 +79,9 @@ function getNewBonusDiscountLineItem(
     });
 
     if (newBonusDiscountLineItem) {
-        result.bonusChoiceRuleBased =
-            newBonusDiscountLineItem.bonusChoiceRuleBased;
+        result.bonusChoiceRuleBased = newBonusDiscountLineItem.bonusChoiceRuleBased;
         result.bonuspids = [];
-        var iterBonusProducts =
-            newBonusDiscountLineItem.bonusProducts.iterator();
+        var iterBonusProducts = newBonusDiscountLineItem.bonusProducts.iterator();
         while (iterBonusProducts.hasNext()) {
             var newBProduct = iterBonusProducts.next();
             result.bonuspids.push(newBProduct.ID);
@@ -98,49 +91,15 @@ function getNewBonusDiscountLineItem(
         result.maxBonusItems = newBonusDiscountLineItem.maxBonusItems;
         result.addToCartUrl = urlObject.addToCartUrl;
         result.showProductsUrl = urlObject.configureProductstUrl;
-        result.showProductsUrlListBased = URLUtils.url(
-            "Product-ShowBonusProducts",
-            "DUUID",
-            newBonusDiscountLineItem.UUID,
-            "pids",
-            result.bonuspids.toString(),
-            "maxpids",
-            newBonusDiscountLineItem.maxBonusItems
-        ).toString();
-        result.showProductsUrlRuleBased = URLUtils.url(
-            "Product-ShowBonusProducts",
-            "DUUID",
-            newBonusDiscountLineItem.UUID,
-            "pagesize",
-            BONUS_PRODUCTS_PAGE_SIZE,
-            "pagestart",
-            0,
-            "maxpids",
-            newBonusDiscountLineItem.maxBonusItems
-        ).toString();
+        result.showProductsUrlListBased = URLUtils.url('Product-ShowBonusProducts', 'DUUID', newBonusDiscountLineItem.UUID, 'pids', result.bonuspids.toString(), 'maxpids', newBonusDiscountLineItem.maxBonusItems).toString();
+        result.showProductsUrlRuleBased = URLUtils.url('Product-ShowBonusProducts', 'DUUID', newBonusDiscountLineItem.UUID, 'pagesize', BONUS_PRODUCTS_PAGE_SIZE, 'pagestart', 0, 'maxpids', newBonusDiscountLineItem.maxBonusItems).toString();
         result.pageSize = BONUS_PRODUCTS_PAGE_SIZE;
-        result.configureProductstUrl = URLUtils.url(
-            "Product-ShowBonusProducts",
-            "pids",
-            result.bonuspids.toString(),
-            "maxpids",
-            newBonusDiscountLineItem.maxBonusItems
-        ).toString();
+        result.configureProductstUrl = URLUtils.url('Product-ShowBonusProducts', 'pids', result.bonuspids.toString(), 'maxpids', newBonusDiscountLineItem.maxBonusItems).toString();
         result.newBonusDiscountLineItem = newBonusDiscountLineItem;
         result.labels = {
-            close: Resource.msg("link.choiceofbonus.close", "product", null),
-            selectprods: Resource.msgf(
-                "modal.header.selectproducts",
-                "product",
-                null,
-                null
-            ),
-            maxprods: Resource.msgf(
-                "label.choiceofbonus.selectproducts",
-                "product",
-                null,
-                newBonusDiscountLineItem.maxBonusItems
-            ),
+            close: Resource.msg('link.choiceofbonus.close', 'product', null),
+            selectprods: Resource.msgf('modal.header.selectproducts', 'product', null, null),
+            maxprods: Resource.msgf('label.choiceofbonus.selectproducts', 'product', null, newBonusDiscountLineItem.maxBonusItems)
         };
     }
     return newBonusDiscountLineItem ? result : undefined;
@@ -163,8 +122,7 @@ function getNewBonusDiscountLineItem(
 function hasSameOptions(existingOptions, selectedOptions) {
     var selected = {};
     for (var i = 0, j = selectedOptions.length; i < j; i++) {
-        selected[selectedOptions[i].optionId] =
-            selectedOptions[i].selectedValueId;
+        selected[selectedOptions[i].optionId] = selectedOptions[i].selectedValueId;
     }
     return collections.every(existingOptions, function (option) {
         return option.optionValueID === selected[option.optionID];
@@ -205,8 +163,7 @@ function addLineItem(
     quantity,
     childProducts,
     optionModel,
-    defaultShipment,
-    giftDetail
+    defaultShipment
 ) {
     var productLineItem = currentBasket.createProductLineItem(
         product,
@@ -219,11 +176,6 @@ function addLineItem(
     }
 
     productLineItem.setQuantityValue(quantity);
-    productLineItem.custom.RecipientEmail = giftDetail.email;
-    productLineItem.custom.email1 = giftDetail.RecipientName;
-    productLineItem.custom.SenderName = giftDetail.email2;
-    productLineItem.custom.Message = giftDetail.email3;
-    productLineItem.custom.Notes = giftDetail.email4;
 
     return productLineItem;
 }
@@ -237,7 +189,9 @@ function addLineItem(
  * @return {boolean} - Whether to include the line item's quantity
  */
 function excludeUuid(selectedUuid, itemUuid) {
-    return selectedUuid ? itemUuid !== selectedUuid : true;
+    return selectedUuid
+        ? itemUuid !== selectedUuid
+        : true;
 }
 
 /**
@@ -258,21 +212,12 @@ function getQtyAlreadyInCart(productId, lineItems, uuid) {
 
     collections.forEach(lineItems, function (item) {
         if (item.bundledProductLineItems.length) {
-            collections.forEach(
-                item.bundledProductLineItems,
-                function (bundleItem) {
-                    if (
-                        bundleItem.productID === productId &&
-                        excludeUuid(uuid, bundleItem.UUID)
-                    ) {
-                        qtyAlreadyInCart += bundleItem.quantityValue;
-                    }
+            collections.forEach(item.bundledProductLineItems, function (bundleItem) {
+                if (bundleItem.productID === productId && excludeUuid(uuid, bundleItem.UUID)) {
+                    qtyAlreadyInCart += bundleItem.quantityValue;
                 }
-            );
-        } else if (
-            item.productID === productId &&
-            excludeUuid(uuid, item.UUID)
-        ) {
+            });
+        } else if (item.productID === productId && excludeUuid(uuid, item.UUID)) {
             qtyAlreadyInCart += item.quantityValue;
         }
     });
@@ -302,7 +247,7 @@ function getMatchingProducts(productId, productLineItems) {
     });
     return {
         matchingProducts: matchingProducts,
-        uuid: uuid,
+        uuid: uuid
     };
 }
 
@@ -318,27 +263,13 @@ function getMatchingProducts(productId, productLineItems) {
  * @return {dw.order.ProductLineItem[]} - Filtered all the product line item matching productId and
  *     has the same bundled items or options
  */
-function getExistingProductLineItemsInCart(
-    product,
-    productId,
-    productLineItems,
-    childProducts,
-    options
-) {
+function getExistingProductLineItemsInCart(product, productId, productLineItems, childProducts, options) {
     var matchingProductsObj = getMatchingProducts(productId, productLineItems);
     var matchingProducts = matchingProductsObj.matchingProducts;
-    var productLineItemsInCart = matchingProducts.filter(function (
-        matchingProduct
-    ) {
+    var productLineItemsInCart = matchingProducts.filter(function (matchingProduct) {
         return product.bundle
-            ? allBundleItemsSame(
-                  matchingProduct.bundledProductLineItems,
-                  childProducts
-              )
-            : hasSameOptions(
-                  matchingProduct.optionProductLineItems,
-                  options || []
-              );
+            ? allBundleItemsSame(matchingProduct.bundledProductLineItems, childProducts)
+            : hasSameOptions(matchingProduct.optionProductLineItems, options || []);
     });
 
     return productLineItemsInCart;
@@ -356,20 +287,8 @@ function getExistingProductLineItemsInCart(
  * @return {dw.order.ProductLineItem} - get the first product line item matching productId and
  *     has the same bundled items or options
  */
-function getExistingProductLineItemInCart(
-    product,
-    productId,
-    productLineItems,
-    childProducts,
-    options
-) {
-    return getExistingProductLineItemsInCart(
-        product,
-        productId,
-        productLineItems,
-        childProducts,
-        options
-    )[0];
+function getExistingProductLineItemInCart(product, productId, productLineItems, childProducts, options) {
+    return getExistingProductLineItemsInCart(product, productId, productLineItems, childProducts, options)[0];
 }
 
 /**
@@ -380,11 +299,7 @@ function getExistingProductLineItemInCart(
  * @param {number} quantity - the number of products to the cart
  * @return {boolean} - return true if the bundled product can be added
  */
-function checkBundledProductCanBeAdded(
-    childProducts,
-    productLineItems,
-    quantity
-) {
+function checkBundledProductCanBeAdded(childProducts, productLineItems, quantity) {
     var atsValueByChildPid = {};
     var totalQtyRequested = 0;
     var canBeAdded = false;
@@ -399,8 +314,7 @@ function checkBundledProductCanBeAdded(
         var bundleQuantity = quantity;
         var itemQuantity = bundleQuantity * childProduct.quantity;
         var childPid = childProduct.pid;
-        totalQtyRequested =
-            itemQuantity + getQtyAlreadyInCart(childPid, productLineItems);
+        totalQtyRequested = itemQuantity + getQtyAlreadyInCart(childPid, productLineItems);
         return totalQtyRequested <= atsValueByChildPid[childPid];
     });
 
@@ -417,14 +331,7 @@ function checkBundledProductCanBeAdded(
  * @param {SelectedOption[]} options - product options
  *  @return {Object} returns an error object
  */
-function addProductToCart(
-    currentBasket,
-    productId,
-    quantity,
-    childProducts,
-    options,
-    giftDetail
-) {
+function addProductToCart(currentBasket, productId, quantity, childProducts, options) {
     var availableToSell;
     var defaultShipment = currentBasket.defaultShipment;
     var perpetual;
@@ -433,39 +340,30 @@ function addProductToCart(
     var productLineItems = currentBasket.productLineItems;
     var productQuantityInCart;
     var quantityToSet;
-    var optionModel = productHelper.getCurrentOptionModel(
-        product.optionModel,
-        options
-    );
+    var optionModel = productHelper.getCurrentOptionModel(product.optionModel, options);
     var result = {
         error: false,
-        message: Resource.msg("text.alert.addedtobasket", "product", null),
+        message: Resource.msg('text.alert.addedtobasket', 'product', null)
     };
 
     var totalQtyRequested = 0;
     var canBeAdded = false;
 
     if (product.bundle) {
-        canBeAdded = checkBundledProductCanBeAdded(
-            childProducts,
-            productLineItems,
-            quantity
-        );
+        canBeAdded = checkBundledProductCanBeAdded(childProducts, productLineItems, quantity);
     } else {
-        totalQtyRequested =
-            quantity + getQtyAlreadyInCart(productId, productLineItems);
+        totalQtyRequested = quantity + getQtyAlreadyInCart(productId, productLineItems);
         perpetual = product.availabilityModel.inventoryRecord.perpetual;
         canBeAdded =
-            perpetual ||
-            totalQtyRequested <=
-                product.availabilityModel.inventoryRecord.ATS.value;
+            (perpetual
+            || totalQtyRequested <= product.availabilityModel.inventoryRecord.ATS.value);
     }
 
     if (!canBeAdded) {
         result.error = true;
         result.message = Resource.msgf(
-            "error.alert.selected.quantity.cannot.be.added.for",
-            "product",
+            'error.alert.selected.quantity.cannot.be.added.for',
+            'product',
             null,
             product.availabilityModel.inventoryRecord.ATS.value,
             product.name
@@ -474,38 +372,21 @@ function addProductToCart(
     }
 
     productInCart = getExistingProductLineItemInCart(
-        product,
-        productId,
-        productLineItems,
-        childProducts,
-        options
-    );
+        product, productId, productLineItems, childProducts, options);
 
     if (productInCart) {
         productQuantityInCart = productInCart.quantity.value;
-        quantityToSet = quantity
-            ? quantity + productQuantityInCart
-            : productQuantityInCart + 1;
-        availableToSell =
-            productInCart.product.availabilityModel.inventoryRecord.ATS.value;
+        quantityToSet = quantity ? quantity + productQuantityInCart : productQuantityInCart + 1;
+        availableToSell = productInCart.product.availabilityModel.inventoryRecord.ATS.value;
 
         if (availableToSell >= quantityToSet || perpetual) {
             productInCart.setQuantityValue(quantityToSet);
             result.uuid = productInCart.UUID;
         } else {
             result.error = true;
-            result.message =
-                availableToSell === productQuantityInCart
-                    ? Resource.msg(
-                          "error.alert.max.quantity.in.cart",
-                          "product",
-                          null
-                      )
-                    : Resource.msg(
-                          "error.alert.selected.quantity.cannot.be.added",
-                          "product",
-                          null
-                      );
+            result.message = availableToSell === productQuantityInCart
+                ? Resource.msg('error.alert.max.quantity.in.cart', 'product', null)
+                : Resource.msg('error.alert.selected.quantity.cannot.be.added', 'product', null);
         }
     } else {
         var productLineItem;
@@ -515,8 +396,7 @@ function addProductToCart(
             quantity,
             childProducts,
             optionModel,
-            defaultShipment,
-            giftDetail
+            defaultShipment
         );
 
         result.uuid = productLineItem.UUID;
@@ -545,7 +425,7 @@ function ensureAllShipmentsHaveMethods(basket) {
  */
 function getReportingUrlAddToCart(currentBasket, resultError) {
     if (currentBasket && currentBasket.allLineItems.length && !resultError) {
-        return URLUtils.url("ReportingEvent-MiniCart").toString();
+        return URLUtils.url('ReportingEvent-MiniCart').toString();
     }
 
     return false;
@@ -565,5 +445,5 @@ module.exports = {
     hasSameOptions: hasSameOptions,
     BONUS_PRODUCTS_PAGE_SIZE: BONUS_PRODUCTS_PAGE_SIZE,
     updateBundleProducts: updateBundleProducts,
-    getReportingUrlAddToCart: getReportingUrlAddToCart,
+    getReportingUrlAddToCart: getReportingUrlAddToCart
 };
