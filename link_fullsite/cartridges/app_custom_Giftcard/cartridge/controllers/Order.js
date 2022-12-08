@@ -108,7 +108,10 @@ Transaction.wrap(() => {
     // add = ProductListMgr.getProductLists(customer, 100).toArray();
 
 //    GiftPL = ProductListMgr.createProductList(customer, 100);
-    // GiftPL = order.GiftCertificateLineItem;
+    GiftPL = order.allGiftCertificateLineItems;
+    GiftPL = order.allGiftCertificateLineItems;
+
+
 //    abc.custom.RecipientEmail = formData.email5;
 //    abc.custom.RecipientName = formData.email1;
 //    abc.custom.SenderName = formData.email2;
