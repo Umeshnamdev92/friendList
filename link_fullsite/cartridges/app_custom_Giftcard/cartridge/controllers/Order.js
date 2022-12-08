@@ -50,6 +50,9 @@ server.replace(
 
         order = OrderMgr.getOrder(req.form.orderID, req.form.orderToken);
 
+
+        
+
         if (!order || order.customer.ID !== req.currentCustomer.raw.ID
         ) {
             res.render('/error', {
@@ -96,34 +99,35 @@ server.replace(
                 orderUUID: order.getUUID()
             });
         }
+        if (productId == 'mitsubishi-lt-40148M') {
+            var Transaction = require('dw/system/Transaction');
+            var GiftCertificateMgr = require('dw/order/GiftCertificateMgr');
+            var GiftCertificateLineItem = require('dw/order/GiftCertificateLineItem');
+            Transaction.wrap(() => {
+                // add = ProductListMgr.getProductLists(customer, 100).toArray();
+            
+            //    GiftPL = ProductListMgr.createProductList(customer, 100);
+                // GiftPL = order.allGiftCertificateLineItems;
+                // GiftPL = order.allGiftCertificateLineItems;
+            
+            
+            //    abc.custom.RecipientEmail = formData.email5;
+            //    abc.custom.RecipientName = formData.email1;
+            //    abc.custom.SenderName = formData.email2;
+            //    abc.custom.Message = formData.email3;
+            //    abc.custom.Notes = formData.email4;
+            
+               
+            
+            
+            
+            })
+            }
         req.session.raw.custom.orderID = req.querystring.ID; // eslint-disable-line no-param-reassign
         return next();
     }
 );
 
-if (productId == 'mitsubishi-lt-40148M') {
-var Transaction = require('dw/system/Transaction');
-var GiftCertificateMgr = require('dw/order/GiftCertificateMgr');
-var GiftCertificateLineItem = require('dw/order/GiftCertificateLineItem');
-Transaction.wrap(() => {
-    // add = ProductListMgr.getProductLists(customer, 100).toArray();
 
-//    GiftPL = ProductListMgr.createProductList(customer, 100);
-    // GiftPL = order.allGiftCertificateLineItems;
-    // GiftPL = order.allGiftCertificateLineItems;
-
-
-//    abc.custom.RecipientEmail = formData.email5;
-//    abc.custom.RecipientName = formData.email1;
-//    abc.custom.SenderName = formData.email2;
-//    abc.custom.Message = formData.email3;
-//    abc.custom.Notes = formData.email4;
-
-   
-
-
-
-})
-}
 
 module.exports = server.exports();

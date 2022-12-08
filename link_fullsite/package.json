@@ -33,8 +33,14 @@
     "last 2 versions",
     "ie >= 10"
   ],
+<<<<<<< HEAD
   "paths":{
     "base":"../storefront-reference-architecture/cartridges/app_storefront_base/"
   }
 
+=======
+  "paths": {
+    "base": "../storefront-reference-architecture/cartridges/app_storefront_base"
+  }
+>>>>>>> 0edc0040508b21f4b51b0011b00e508c6fe05706
 }

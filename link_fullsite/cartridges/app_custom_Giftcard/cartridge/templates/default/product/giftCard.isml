@@ -4,6 +4,8 @@
         var assets = require('*/cartridge/scripts/assets');
         assets.addJs('/js/productDetail.js');
         assets.addCss('/css/product/detail.css');
+        assets.addJs('/js/Giftbtn.js');
+
     </isscript>
 
     <isset name="product" value="${pdict.product}" scope="page" />
@@ -60,16 +62,20 @@
                         <isset name="isBundle" value="${false}" scope="page" />
                         <isset name="loopState" value="${{count: 1}}" scope="page" />
                         <isloop items="${product.variationAttributes}" var="attr" status="attributeStatus">
-                            <div class="row" data-attr="${attr.id}">
+                        dsgsdgfd
+                            <div class="row" <isif condition="${attr.id == 'GIFT'}"> data-attr="color"
+                            <iselse/>
+                                data-attr="${attr.id}"
+                            </isif>>
                                 <div class="col-8">
-                                    <isinclude template="product/checkSwatches" />
+                                    <isinclude template="product/components/variationAttribute" />
                                 </div>
-
+<iscomment> 
                                 <isif condition="${attributeStatus.last && !isBundle}">
                                     <!-- Quantity Drop Down Menu -->
                                     <div class="attribute quantity col-4">
                                         <isinclude template="product/components/quantity" />
-                                    </div>
+                                    </div> </iscomment>
                                 </isif>
                             </div>
                         </isloop>
@@ -86,18 +92,18 @@
 
                         <div class="product-options">
                             <isif condition="${product.options && product.options.length > 0}">
-                                <isinclude template="product/optionAmount" />
+                                <isinclude template="product/components/options" />
                             </isif>
                         </div>
 
-                        <iscomment> <!-- Size Chart -->
+                        <!-- Size Chart -->
                         <isif condition="${product.variationAttributes && product.sizeChartId}">
                             <div class="row">
                                 <div class="size-chart col-12">
                                     <isinclude template="product/components/sizeChart" />
                                 </div>
                             </div>
-                        </isif> </iscomment>
+                        </isif>
 
                         <!-- Product Availability -->
                         <isinclude template="product/components/productAvailability" />

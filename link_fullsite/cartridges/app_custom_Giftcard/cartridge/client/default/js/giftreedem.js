@@ -26,6 +26,7 @@ $(document).ready(function () {
                    icon: 'success',
                    button: 'OK',
                  });
+                 $('#RedeemGiftCertificate').html("<p>you have applied gift certificate for amount:"+redeemamount+"</p>");
                   // window.location.href = '';
                } else {
                  swal({

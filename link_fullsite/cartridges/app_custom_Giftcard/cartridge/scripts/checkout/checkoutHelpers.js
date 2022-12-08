@@ -413,7 +413,7 @@ function validateCreditCard(form) {
  */
 function calculatePaymentTransaction(currentBasket) {
     var result = { error: false };
-
+  var Money = require('dw/value/Money');
     try {
         // TODO: This function will need to account for gift certificates at a later date
         Transaction.wrap(function () {
@@ -429,18 +429,23 @@ function calculatePaymentTransaction(currentBasket) {
                 for (let i = 0; i < paymentInstruments.length; i++) {
                     if (paymentInstruments[i].paymentMethod=='GIFT_CERTIFICATE') {
                         var giftCardAmount = paymentInstruments[i].paymentTransaction.amount.value;
-                        orderTotal=orderTotal-giftCardAmount;
+                        var newAmount=orderTotal.value-giftCardAmount;
+                        orderTotal = Money(newAmount,"USD");
                         // paymentInstrument.paymentTransaction.setAmount(orderTotal);
                     }
                 }
                 var paymentInstrument = paymentInstruments[1];
-                paymentInstrument.paymentTransaction.setAmount(orderTotal);
+                // Transaction.wrap(function () {
+                    paymentInstrument.paymentTransaction.setAmount(orderTotal);
+                // })
+
             }else{
                 var paymentInstrument = paymentInstruments[0];
                     paymentInstrument.paymentTransaction.setAmount(orderTotal);
             }
         });
     } catch (e) {
+        var errormsg=e;
         result.error = true;
     }
 
@@ -547,7 +552,10 @@ function handlePayments(order, orderNumber) {
             for (var i = 0; i < paymentInstruments.length; i++) {
                 var paymentInstrument = paymentInstruments[i];
                 var paymentProcessor = PaymentMgr.getPaymentMethod(paymentInstrument.paymentMethod)
-                    .paymentProcessor;
+                .paymentProcessor;
+                if (paymentProcessor.ID!='BASIC_GIFT_CERTIFICATE') {
+                    
+                
                 var authorizationResult;
                 if (paymentProcessor === null) {
                     Transaction.begin();
@@ -576,6 +584,7 @@ function handlePayments(order, orderNumber) {
                         break;
                     }
                 }
+            }
             }
         }
     }

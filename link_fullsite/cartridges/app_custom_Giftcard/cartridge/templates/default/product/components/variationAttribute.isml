@@ -8,7 +8,6 @@ Template Notes:
   Quantity drop-down menu
 
 </iscomment>
-
 <div class="attribute">
     <isif condition="${attr.swatchable}">
 
