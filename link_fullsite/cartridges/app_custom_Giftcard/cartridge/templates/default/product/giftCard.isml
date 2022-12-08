@@ -70,12 +70,12 @@
                                 <div class="col-8">
                                     <isinclude template="product/components/variationAttribute" />
                                 </div>
-<iscomment> 
+
                                 <isif condition="${attributeStatus.last && !isBundle}">
                                     <!-- Quantity Drop Down Menu -->
                                     <div class="attribute quantity col-4">
                                         <isinclude template="product/components/quantity" />
-                                    </div> </iscomment>
+                                    </div>
                                 </isif>
                             </div>
                         </isloop>
