@@ -8,11 +8,11 @@ function SendMailFunction(to, from, subject, content) {
    var status = mail.send();
    if (status.getMessage() == 'OK') {
       return true;
-   }
-   else {
-      return false;
-   }
-}
-module.exports = {
-   SendMailFunction: SendMailFunction
-};
+    }
+    else{
+       return false;
+    }
+ }
+ module.exports = {
+    SendMailFunction: SendMailFunction
+ };
