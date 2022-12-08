@@ -13,6 +13,6 @@
        return false;
     }
  }
- module.exports={
-    SendMailFunction:SendMailFunction
+ module.exports = {
+    SendMailFunction: SendMailFunction
  };

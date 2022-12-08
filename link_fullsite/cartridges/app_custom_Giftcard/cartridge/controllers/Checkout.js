@@ -176,162 +176,76 @@ server.replace(
     }
 );
 
-server.get("Applygiftcard1", function (req, res, next) {
-    var giftCertificateCode = req.querystring.GiftCardCode;
-    var appliedAmount = req.querystring.redeemamount;
-    giftCertificateCode=giftCertificateCode.toString();
-    var currentCustomer = req.currentCustomer.raw;
-    var GiftCertificate = require('dw/order/GiftCertificate');
-    var collections = require('*/cartridge/scripts/util/collections')
-    var GiftCertificateMgr = require('dw/order/GiftCertificateMgr');
-var Transaction = require('dw/system/Transaction');
-var GiftCertificateLineItem = require('dw/order/GiftCertificateLineItem');
-var GiftCertificateStatusCodes = require('dw/order/GiftCertificateStatusCodes');
-var LineItemCtnr = require('dw/order/LineItemCtnr');
-var PersistentObject = require('dw/object/PersistentObject');
-var BasketMgr = require('dw/order/BasketMgr');
-var Order = require('dw/order/Order');
-var Money = require('dw/value/Money');   
-var Basket = BasketMgr.getCurrentBasket();
-var currencyCode= req.session.currency.currencyCode
-var giftPaymentInstrument=null;
-var redeemGiftDetail=null;
-try {
-    var PriceAdjustment=null;
-var realAppliedAmount=null;
-var d=GiftCertificateMgr.getGiftCertificateByCode(giftCertificateCode);
-var Money = Money(appliedAmount,currencyCode);
-Basket.removeAllPaymentInstruments();
-if (Basket.paymentInstruments.length<=1) {
-    Transaction.wrap(()=>{
-        // var paymentInstrumentAlreadyExist=false;
-        // for (let i = 0; i < Basket.paymentInstruments.length; i++) {
-        //     if (Basket.paymentInstruments[i].giftCertificateCode==giftCertificateCode) {
-        //         paymentInstrumentAlreadyExist=true;
-        //     }
-        // }
-        giftPaymentInstrument=Basket.createGiftCertificatePaymentInstrument(giftCertificateCode,Money);
-        redeemGiftDetail=GiftCertificateMgr.redeemGiftCertificate(giftPaymentInstrument);
-    })
-
-if (!redeemGiftDetail.error) {
-    Transaction.wrap(()=>{
-        // var priceAdjustment=Basket.getPriceAdjustmentByPromotionID(giftCertificateCode);
-        // Basket.removePriceAdjustment(priceAdjustment);
-    realAppliedAmount=giftPaymentInstrument.paymentTransaction.amount.value
-    PriceAdjustment = Basket.createPriceAdjustment("giftPriceAdjustment", new dw.campaign.AmountDiscount(realAppliedAmount));
-    })
-    var data = {
-        msg: "Giftcard code redeemed successfully!",
-        success: true,
-        a:Basket.paymentInstruments.length
-    };
-    res.json(data);
-}
-else{
-    var data = {
-        msg: "insufficient balence!",
-        success: false
-    };
-    res.json(data);
-}
-}else{
-    // var removepaymentinst = Basket.getGiftCertificatePaymentInstruments();
-  Basket.removeAllPaymentInstruments();
-var data = {
-    msg: "all paymentInstrument deleted successfully!",
-    success: false,
-    length:Basket.paymentInstruments.length
-};
-res.json(data);
-}
-    // var SitePreferences = require('dw/system/SitePreferences');
-    } catch (error) {
-        // var promotionID = currentBasket.getPriceAdjustmentByPromotionID("bonusPointUses")
-        var data = {
-           error:error,
-            msg: " Sorry, Something went wrong Try again!",
-            success: false
-        };
-        res.json(data)
-        
-    }
-
-    next();
-});
 
 server.get("Applygiftcard", function (req, res, next) {
     var giftCertificateCode = req.querystring.GiftCardCode;
     var appliedAmount = req.querystring.redeemamount;
-    giftCertificateCode=giftCertificateCode.toString();
     var currentCustomer = req.currentCustomer.raw;
     var GiftCertificate = require('dw/order/GiftCertificate');
     var collections = require('*/cartridge/scripts/util/collections')
     var GiftCertificateMgr = require('dw/order/GiftCertificateMgr');
-var Transaction = require('dw/system/Transaction');
-var GiftCertificateLineItem = require('dw/order/GiftCertificateLineItem');
-var GiftCertificateStatusCodes = require('dw/order/GiftCertificateStatusCodes');
-var LineItemCtnr = require('dw/order/LineItemCtnr');
-var PersistentObject = require('dw/object/PersistentObject');
-var BasketMgr = require('dw/order/BasketMgr');
-var Order = require('dw/order/Order');
-var Money = require('dw/value/Money');   
-var Basket = BasketMgr.getCurrentBasket();
-var currencyCode= req.session.currency.currencyCode
-var giftPaymentInstrument=null;
-var redeemGiftDetail=null;
+    var Transaction = require('dw/system/Transaction');
+    var GiftCertificateLineItem = require('dw/order/GiftCertificateLineItem');
+    var GiftCertificateStatusCodes = require('dw/order/GiftCertificateStatusCodes');
+    var LineItemCtnr = require('dw/order/LineItemCtnr');
+    var PersistentObject = require('dw/object/PersistentObject');
+    var BasketMgr = require('dw/order/BasketMgr');
+    var Order = require('dw/order/Order');
+    var Money = require('dw/value/Money');   
+    var Basket = BasketMgr.getCurrentBasket();
+    var currencyCode= req.session.currency.currencyCode
+    var giftPaymentInstrument=null;
+    var redeemGiftDetail=null;
+   
+    if (Basket.totalGrossPrice.value < appliedAmount) {
+        var data = {
+            msg: "Applied Amount Can not grater then Total order price!",
+            success: false,
+            a:Basket.totalGrossPrice.value,
+            b:Basket.totalNetPrice
+        };
+        res.json(data);
+        return next();
+    }
 try {
+ 
     var PriceAdjustment=null;
-var realAppliedAmount=null;
-var d=GiftCertificateMgr.getGiftCertificateByCode(giftCertificateCode);
-var Money = Money(appliedAmount,currencyCode);
+    var realAppliedAmount=null;
+    giftCertificateCode=giftCertificateCode.toString();
+    var d=GiftCertificateMgr.getGiftCertificateByCode(giftCertificateCode);
+    var Money = Money(appliedAmount,currencyCode);
 
     Transaction.wrap(()=>{
-        // if (Basket.) {
-            
-        // }
         Basket.removeAllPaymentInstruments();
         giftPaymentInstrument=Basket.createGiftCertificatePaymentInstrument(giftCertificateCode,Money);
         redeemGiftDetail=GiftCertificateMgr.redeemGiftCertificate(giftPaymentInstrument);
     })
 
-if (!redeemGiftDetail.error) {
-    // Transaction.wrap(()=>{
-    //     var priceAdjustment=Basket.getPriceAdjustmentByPromotionID("giftPriceAdjustment");
-    //     if (priceAdjustment!=null) {
-            
-    //         Basket.removePriceAdjustment(priceAdjustment);
-    //     }
-    // realAppliedAmount=giftPaymentInstrument.paymentTransaction.amount.value
-    // PriceAdjustment = Basket.createPriceAdjustment("giftPriceAdjustment", new dw.campaign.AmountDiscount(realAppliedAmount));
-    // })
-    var data = {
-        msg: "Giftcard code redeemed successfully!",
-        success: true,
-        a:Basket.paymentInstruments.length
-    };
-    res.json(data);
-}
-else{
-    var data = {
-        msg: "insufficient balence!",
-        success: false
-    };
-    res.json(data);
-}
+    if (!redeemGiftDetail.error) {
+    
+        var data = {
+            msg: "Giftcard code redeemed successfully!",
+            success: true,
+            a:Basket.paymentInstruments.length
+        };
+        res.json(data);
+    }
+    else{
+        var data = {
+            msg: "insufficient balence!",
+            success: false
+        };
+        res.json(data);
+    }
 
-    // var SitePreferences = require('dw/system/SitePreferences');
-    } catch (error) {
-        // var promotionID = currentBasket.getPriceAdjustmentByPromotionID("bonusPointUses")
+} catch (error) {
         var data = {
            error:error,
             msg: " Sorry, Something went wrong Try again!",
             success: false
         };
         res.json(data)
-        
-    }
-
+}
     next();
 });
 
