@@ -782,7 +782,7 @@ module.exports = {
         //custom code for addtoCart button in modal
         if (pid == "mitsubishi-lt-40148M") {
           document.getElementById("emailError").innerHTML="";
-          document.getElementById("email1").innerHTML="";
+          document.getElementById("invalid-feedback-email1").innerHTML="";
           document.getElementById("email2").innerHTML="";
           document.getElementById("email3").innerHTML="";
           document.getElementById("email4").innerHTML="";
@@ -792,14 +792,16 @@ module.exports = {
           if(rEmail==""){
           $('#emailError').html('<p class="text-danger">please fill out this field<p>');
           }
-           if (!rEmail.match(mailformat)) {
+          else if (!rEmail.match(mailformat)) {
             console.log("not correct");
             $('#emailError').html('<p class="text-danger">Email is incorrect<p>');
+          }else{
+            console.log(rEmail);
           }
           var rEmail1=$("#email1").val();
           if (rEmail1=='') {
             console.log("empty remail");
-            $('.invalid-feedback-email1').html('<p class="text-danger">please fill out this field<p>');
+            $('#invalid-feedback-email1').html('<p class="text-danger">please fill out this field<p>');
             return false;
           }
           var rEmail2=$("#email2").val();
@@ -820,7 +822,7 @@ module.exports = {
             $('.invalid-feedback-email4').html('<p class="text-danger">please fill out this field<p>');
             return false;
           }
-          
+          // return false ;
           var x = $("#email5").val();
           var giftData =[]
           giftData.push({

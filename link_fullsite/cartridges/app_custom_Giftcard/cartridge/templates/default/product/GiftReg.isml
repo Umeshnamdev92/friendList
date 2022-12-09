@@ -28,7 +28,7 @@
                         <input type="text" class="form-control" name="email1" id="email1"
                             data-missing-error="${Resource.msg('label.valid.email', 'forms', null)}" <isprint
                             value="${pdict.drx.email1.attributes}" encoding="off" />>
-                        <div class="invalid-feedback-email1">
+                        <div id="invalid-feedback-email1">
                         </div>
                     </div>
 
