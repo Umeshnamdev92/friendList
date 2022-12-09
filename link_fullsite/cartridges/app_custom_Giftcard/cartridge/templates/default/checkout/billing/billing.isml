@@ -73,8 +73,8 @@
                 </div>
             </fieldset>
             <isif condition="${pdict.customer.registeredUser===true}">
-            <isinclude template="checkout/GiftcardcodeRedemption" sf-toolkit="on"/>
-            <iselse/>
+            <isinclude template="checkout/GiftcardcodeRedemption"/>
+            </isif>
 
             <!-------------------------------------------------------------------------->
             <!-- Payment Options                                                      -->

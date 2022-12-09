@@ -4,7 +4,7 @@
     mail.addTo(to);
     mail.setFrom(from);
     mail.setSubject(subject);
-    mail.setContent(content);
+    mail.setContent(content,"text/html","UTF-8");
     var status= mail.send();
     if (status.getMessage()=='OK') {
       return true;

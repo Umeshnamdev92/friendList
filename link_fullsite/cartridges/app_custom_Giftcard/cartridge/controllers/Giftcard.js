@@ -74,13 +74,16 @@ server.get('sendMailTemplate',function (req, res, next) {
         message:"hello",
         amount: 500.00
     }; 
+    var success=null;
+    var content=null;
     Transaction.wrap(function () {
         
-        var content = HookMgr.callHook("createEmailTemplate", "createEmailTemplate",templateData)
-        var success = HookMgr.callHook("emailSendHook", "SendMailFunction","gajendra.dubey@codesquaretech.com","noreply@us01.dx.commercecloud.salesforce.com","subject","hjeg");
+         content = HookMgr.callHook("createEmailTemplate", "createEmailTemplate",templateData)
+         success = HookMgr.callHook("emailSendHook", "SendMailFunction","gajendra.dubey@codesquaretech.com","noreply@us01.dx.commercecloud.salesforce.com","subject",content.staticTemplate);
     })
       
        res.json({
+        a:"aaa",
         success:success,
         content:content
        })

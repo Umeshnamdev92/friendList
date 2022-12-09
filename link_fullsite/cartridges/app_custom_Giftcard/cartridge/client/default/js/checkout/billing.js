@@ -185,7 +185,8 @@ function updatePaymentInformation(order) {
     var htmlToAppend = '';
 
     if (order.billing.payment && order.billing.payment.selectedPaymentInstruments
-        && order.billing.payment.selectedPaymentInstruments.length ==1) {
+        && order.billing.payment.selectedPaymentInstruments.length == 1) {
+            
         htmlToAppend += '<span>' + order.resources.cardType + ' '
             + order.billing.payment.selectedPaymentInstruments[0].type
             + '</span><div>'
@@ -195,7 +196,10 @@ function updatePaymentInformation(order) {
             + order.billing.payment.selectedPaymentInstruments[0].expirationMonth
             + '/' + order.billing.payment.selectedPaymentInstruments[0].expirationYear
             + '</span></div>';
-    }else {
+            
+    }
+    if (order.billing.payment && order.billing.payment.selectedPaymentInstruments
+        && order.billing.payment.selectedPaymentInstruments.length == 2)  {
         htmlToAppend += '<span>' + order.resources.cardType + ' '
             + order.billing.payment.selectedPaymentInstruments[1].type
             + '</span><div>'
