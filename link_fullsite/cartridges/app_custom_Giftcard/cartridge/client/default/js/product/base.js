@@ -761,6 +761,8 @@ module.exports = {
         var pid;
         var pidsObj;
         var setPids;
+
+        
         console.log("helloooooooooooooooooooo");
         $("body").trigger("product:beforeAddToCart", this);
 
@@ -792,7 +794,46 @@ module.exports = {
 
         //custom code for addtoCart button in modal
         if (pid == "mitsubishi-lt-40148M") {
-          console.log("helloooooooooooooooooooo");
+          document.getElementById("emailError").innerHTML="";
+          document.getElementById("email1").innerHTML="";
+          document.getElementById("email2").innerHTML="";
+          document.getElementById("email3").innerHTML="";
+          document.getElementById("email4").innerHTML="";
+
+          var rEmail=$("#emailVerify").val();
+          var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+          if(rEmail==""){
+          $('#emailError').html('<p class="text-danger">please fill out this field<p>');
+          }
+           if (!rEmail.match(mailformat)) {
+            console.log("not correct");
+            $('#emailError').html('<p class="text-danger">Email is incorrect<p>');
+          }
+          var rEmail1=$("#email1").val();
+          if (rEmail1=='') {
+            console.log("empty remail");
+            $('.invalid-feedback-email1').html('<p class="text-danger">please fill out this field<p>');
+            return false;
+          }
+          var rEmail2=$("#email2").val();
+          if (rEmail2=='') {
+            console.log("empty remail");
+            $('.invalid-feedback-email2').html('<p class="text-danger">please fill out this field<p>');
+            return false;
+          }
+          var rEmail3=$("#email3").val();
+          if (rEmail3=='') {
+            console.log("empty remail");
+            $('.invalid-feedback-email3').html('<p class="text-danger">please fill out this field<p>');
+            return false;
+          }
+          var rEmail4=$("#email4").val();
+          if (rEmail4=='') {
+            console.log("empty remail");
+            $('.invalid-feedback-email4').html('<p class="text-danger">please fill out this field<p>');
+            return false;
+          }
+          
           var x = $("#email5").val();
           var giftData = []
           giftData.push({
