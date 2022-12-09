@@ -213,6 +213,7 @@ try {
     var realAppliedAmount=null;
     giftCertificateCode=giftCertificateCode.toString();
     var giftcertificatedetail=GiftCertificateMgr.getGiftCertificateByCode(giftCertificateCode);
+    
     if (currentCustomer.profile.email!=giftcertificatedetail.recipientEmail) {
         var data = {
             msg: "You are not authorized to use this gift code!!",
