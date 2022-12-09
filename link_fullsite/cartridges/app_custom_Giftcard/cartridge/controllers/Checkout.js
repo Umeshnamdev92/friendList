@@ -212,7 +212,15 @@ try {
     var PriceAdjustment=null;
     var realAppliedAmount=null;
     giftCertificateCode=giftCertificateCode.toString();
-    var d=GiftCertificateMgr.getGiftCertificateByCode(giftCertificateCode);
+    var giftcertificatedetail=GiftCertificateMgr.getGiftCertificateByCode(giftCertificateCode);
+    if (currentCustomer.profile.email!=giftcertificatedetail.recipientEmail) {
+        var data = {
+            msg: "You are not authorized to use this gift code!!",
+            success: false,
+        };
+        res.json(data);
+        return next();
+    }
     var Money = Money(appliedAmount,currencyCode);
 
     Transaction.wrap(()=>{
@@ -268,7 +276,7 @@ server.get("Removegiftcard",function (req,res,next) {
             currentCustomer.profile.custom.userWallet=currentCustomer.profile.custom.userWallet - price
         })
     }
-   
+
     var presentBonusPoint=currentCustomer.profile.custom.userWallet;
     var data={
         success:true,
