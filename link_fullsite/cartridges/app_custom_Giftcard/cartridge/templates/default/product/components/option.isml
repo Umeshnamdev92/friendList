@@ -1,14 +1,15 @@
 <!-- Update Gift options to button -->
 <isif condition="${option.id == 'gift'}">
-    <isloop items="${option.values}" var="value" status="loopstatus">
+   <div class="gift-amount-div">
+        <isloop items="${option.values}" var="value" status="loopstatus">
         <button class="btn btn-primary gift-amount"
-        engraving-option-id="${value.id}" id="add-engraving-btn" data-pid="${product.ID}" data-button-id="1"
+        gift-option="${value.id}" id="add-engraving-btn" data-pid="${product.ID}" data-button-id="1"
         value="${value.url}" <isif
                 condition="${value.id === option.selectedValueId}">disabled </isif>>
      ${value.displayValue}
     </button>
     </isloop>
-
+   </div>
 <iselse/>
   <label>${option.name}</label>
 

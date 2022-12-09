@@ -19,10 +19,13 @@ $(document).ready(function () {
         method: 'GET',
         success: function (data) {
           base.handleVariantResponse(data, $productContainer);
+          base.updateOptions(data.product.optionsHtml, $productContainer);
           base.updateQuantities(data.product.quantities, $productContainer);
             $('body').trigger('product:afterAttributeSelect',
                 { data: data, container: $productContainer });
             $.spinner().stop();
+            // $('.gift-amount').attr('disabled' , false);
+            // $(this).attr('disabled' , true);
         },
         error: function () {
             $.spinner().stop();

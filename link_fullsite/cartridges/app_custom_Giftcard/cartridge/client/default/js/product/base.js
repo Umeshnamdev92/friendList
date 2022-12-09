@@ -79,10 +79,10 @@ function processSwatchValues(attr, $productContainer, msgs) {
   attr.values.forEach(function (attrValue) {
     var $attrValue = $productContainer.find(
       '[data-attr="' +
-        attr.id +
-        '"] [data-attr-value="' +
-        attrValue.value +
-        '"]'
+      attr.id +
+      '"] [data-attr-value="' +
+      attrValue.value +
+      '"]'
     );
     var $swatchButton = $attrValue.parent();
 
@@ -259,33 +259,33 @@ function createCarousel(imgs, $productContainer) {
     .empty()
     .append(
       '<ol class="carousel-indicators"></ol><div class="carousel-inner" role="listbox"></div><a class="carousel-control-prev" href="#' +
-        carouselId +
-        '" role="button" data-slide="prev"><span class="fa icon-prev" aria-hidden="true"></span><span class="sr-only">' +
-        $(carousel).data("prev") +
-        '</span></a><a class="carousel-control-next" href="#' +
-        carouselId +
-        '" role="button" data-slide="next"><span class="fa icon-next" aria-hidden="true"></span><span class="sr-only">' +
-        $(carousel).data("next") +
-        "</span></a>"
+      carouselId +
+      '" role="button" data-slide="prev"><span class="fa icon-prev" aria-hidden="true"></span><span class="sr-only">' +
+      $(carousel).data("prev") +
+      '</span></a><a class="carousel-control-next" href="#' +
+      carouselId +
+      '" role="button" data-slide="next"><span class="fa icon-next" aria-hidden="true"></span><span class="sr-only">' +
+      $(carousel).data("next") +
+      "</span></a>"
     );
   for (var i = 0; i < imgs.length; i++) {
     $(
       '<div class="carousel-item"><img src="' +
-        imgs[i].url +
-        '" class="d-block img-fluid" alt="' +
-        imgs[i].alt +
-        " image number " +
-        parseInt(imgs[i].index, 10) +
-        '" title="' +
-        imgs[i].title +
-        '" itemprop="image" /></div>'
+      imgs[i].url +
+      '" class="d-block img-fluid" alt="' +
+      imgs[i].alt +
+      " image number " +
+      parseInt(imgs[i].index, 10) +
+      '" title="' +
+      imgs[i].title +
+      '" itemprop="image" /></div>'
     ).appendTo($(carousel).find(".carousel-inner"));
     $(
       '<li data-target="#' +
-        carouselId +
-        '" data-slide-to="' +
-        i +
-        '" class=""></li>'
+      carouselId +
+      '" data-slide-to="' +
+      i +
+      '" class=""></li>'
     ).appendTo($(carousel).find(".carousel-indicators"));
   }
   $($(carousel).find(".carousel-item")).first().addClass("active");
@@ -579,10 +579,10 @@ function handlePostCartAdd(response) {
 
     $(".add-to-cart-messages").append(
       '<div class="alert ' +
-        messageType +
-        ' add-to-basket-alert text-center" role="alert">' +
-        response.message +
-        "</div>"
+      messageType +
+      ' add-to-basket-alert text-center" role="alert">' +
+      response.message +
+      "</div>"
     );
 
     setTimeout(function () {
@@ -624,12 +624,21 @@ function getOptions($productContainer) {
       var selectedValueId = $elOption
         .find('option[value="' + urlValue + '"]')
         .data("value-id");
+
+      if ($productContainer.find('.gift-amount-div').length > 0) {
+        selectedValueId = $('button.gift-amount[disabled]').attr('gift-option');
+        return {
+          optionId: $(this).data("option-id"),
+          selectedValueId: selectedValueId,
+        };
+      }
       return {
         optionId: $(this).data("option-id"),
         selectedValueId: selectedValueId,
       };
     })
     .toArray();
+
 
   return JSON.stringify(options);
 }
@@ -659,6 +668,7 @@ module.exports = {
   handleVariantResponse: handleVariantResponse,
   updateOptions: updateOptions,
   updateQuantities: updateQuantities,
+  updateOptions: updateOptions,
   methods: {
     editBonusProducts: function (data) {
       chooseBonusProducts(data);
@@ -784,7 +794,7 @@ module.exports = {
         if (pid == "mitsubishi-lt-40148M") {
           console.log("helloooooooooooooooooooo");
           var x = $("#email5").val();
-          var giftData =[]
+          var giftData = []
           giftData.push({
             recipientEmail: $("#email5").val(),
             recipientName: $("#email1").val(),
@@ -798,7 +808,7 @@ module.exports = {
             pidsObj: pidsObj,
             childProducts: getChildProducts(),
             quantity: getQuantitySelected($(this)),
-            giftdetail:JSON.stringify(giftData)
+            giftdetail: JSON.stringify(giftData)
           };
         } else {
           var form = {
@@ -992,9 +1002,9 @@ module.exports = {
             }
             $(".add-to-cart-messages").append(
               '<div class="alert alert-danger add-to-basket-alert text-center"' +
-                ' role="alert">' +
-                data.errorMessage +
-                "</div>"
+              ' role="alert">' +
+              data.errorMessage +
+              "</div>"
             );
             setTimeout(function () {
               $(".add-to-basket-alert").remove();
@@ -1010,9 +1020,9 @@ module.exports = {
             $(".minicart-quantity").html(data.totalQty);
             $(".add-to-cart-messages").append(
               '<div class="alert alert-success add-to-basket-alert text-center"' +
-                ' role="alert">' +
-                data.msgSuccess +
-                "</div>"
+              ' role="alert">' +
+              data.msgSuccess +
+              "</div>"
             );
             setTimeout(function () {
               $(".add-to-basket-alert").remove();
