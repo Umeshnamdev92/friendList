@@ -13,6 +13,7 @@ var URLUtils = require('dw/web/URLUtils');
 var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
 var userLoggedIn = require('*/cartridge/scripts/middleware/userLoggedIn');
 var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
+var collections = require('*/cartridge/scripts/util/collections');
 
 /**
  * Order-Confirm : This endpoint is invoked when the shopper's Order is Placed and Confirmed
@@ -99,31 +100,25 @@ server.replace(
                 orderUUID: order.getUUID()
             });
         }
-        if (productId == 'mitsubishi-lt-40148M') {
+
+        if (order.allGiftCertificateLineItems.length>0) {
             var Transaction = require('dw/system/Transaction');
             var GiftCertificateMgr = require('dw/order/GiftCertificateMgr');
+            
             var GiftCertificateLineItem = require('dw/order/GiftCertificateLineItem');
-            Transaction.wrap(() => {
-                // add = ProductListMgr.getProductLists(customer, 100).toArray();
-            
-            //    GiftPL = ProductListMgr.createProductList(customer, 100);
-                // GiftPL = order.allGiftCertificateLineItems;
-                // GiftPL = order.allGiftCertificateLineItems;
-            
-            
-            //    abc.custom.RecipientEmail = formData.email5;
-            //    abc.custom.RecipientName = formData.email1;
-            //    abc.custom.SenderName = formData.email2;
-            //    abc.custom.Message = formData.email3;
-            //    abc.custom.Notes = formData.email4;
-            
-               
-            
-            
-            
-            })
-            }
-        req.session.raw.custom.orderID = req.querystring.ID; // eslint-disable-line no-param-reassign
+            Transaction.wrap(() =>{
+                var giftPl = null;
+        collections.forEach(order.allGiftCertificateLineItems, function (element) {
+            giftPl =  GiftCertificateMgr.createGiftCertificate(element.price.value);
+            giftPl.setRecipientEmail(element.recipientEmail);
+            giftPl.setRecipientName(element.recipientName);
+            giftPl.setSenderName(element.senderName);
+            giftPl.setMessage(element.message);
+            giftPl.setDescription(element.custom.note);
+        })
+        })
+        }
+        req.session.raw.custom.orderID = req.querystring.ID; //eslint-disable-line no-param-reassign
         return next();
     }
 );
