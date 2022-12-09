@@ -4,7 +4,6 @@
         var assets = require('*/cartridge/scripts/assets');
         assets.addJs('/js/productDetail.js');
         assets.addCss('/css/product/detail.css');
-        assets.addJs('/js/Giftbtn.js');
 
     </isscript>
 
@@ -118,7 +117,7 @@
                             </div>
                         </div>
 
-                        <iscomment> <div class="prices-add-to-cart-actions">
+                         <div class="prices-add-to-cart-actions">
                             <div class="row">
                                 <div class="col-12">
                                     <!-- Prices -->
@@ -127,7 +126,7 @@
                                         <isinclude template="product/components/pricing/main" />
                                     </div>
                                 </div>
-                            </div> </iscomment>
+                            </div> 
 
                             <!-- Cart and [Optionally] Apple Pay -->
                             <isinclude template="product/components/addToCartProduct" />

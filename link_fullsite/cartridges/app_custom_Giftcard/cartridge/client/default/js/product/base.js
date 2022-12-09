@@ -656,6 +656,9 @@ function miniCartReportingUrl(url) {
 
 module.exports = {
   attributeSelect: attributeSelect,
+  handleVariantResponse: handleVariantResponse,
+  updateOptions: updateOptions,
+  updateQuantities: updateQuantities,
   methods: {
     editBonusProducts: function (data) {
       chooseBonusProducts(data);
