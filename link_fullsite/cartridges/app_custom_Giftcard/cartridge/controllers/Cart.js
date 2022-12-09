@@ -79,13 +79,14 @@ server.replace('AddProduct', function (req, res, next) {
 
     if (currentBasket) {
         Transaction.wrap(function(){
-            if (productId == 'mitsubishi-lt-40148M') {
+            var text= productId.toString();
+            if (text.includes("Gift_Card")) {
 
-                var a = currentBasket.createGiftCertificateLineItem(options[0].selectedValueId, "aamir.bohra@codesquaretech.com");
+                var a = currentBasket.createGiftCertificateLineItem(parseInt(options[0].selectedValueId), "aamir.bohra@codesquaretech.com");
                 a.setRecipientEmail(data.recipientEmail);
                 a.setMessage(data.message);
                 a.setSenderName(data.senderName);
-                a.custom.note = data.notes;
+                a.custom.note = data.note;
                 a.setRecipientName(data.recipientName);
                 
                 }

@@ -221,7 +221,8 @@ function addLineItem(
 
     productLineItem.setQuantityValue(quantity);
 //custom functionality to store the data of giftCard
-    if (product.ID == 'mitsubishi-lt-40148M') {
+    var text= product.ID.toString();
+    if (text.includes("Gift_Card")) {
     // productLineItem.custom.recipientEmail = giftDetail.email;
     // productLineItem.custom.recipientName = giftDetail.rName;
     // productLineItem.custom.senderName = giftDetail.sName;

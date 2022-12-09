@@ -6,7 +6,6 @@ $(document).ready(function () {
   })
 
   $(document).on('click' , '.gift-amount' , function(){
-    $('#engraving-message').val('');
       var btnUrl = $(this).val()
       var $productContainer = $(this).closest('.set-item');
       if (!$productContainer.length) {

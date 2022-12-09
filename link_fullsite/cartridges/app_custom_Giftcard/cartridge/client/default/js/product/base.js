@@ -793,7 +793,8 @@ module.exports = {
         addToCartUrl = getAddToCartUrl();
 
         //custom code for addtoCart button in modal
-        if (pid == "mitsubishi-lt-40148M") {
+        var text= pid.toString();
+        if (text.includes("Gift_Card")) {
           document.getElementById("emailError").innerHTML="";
           document.getElementById("invalid-feedback-email1").innerHTML="";
           document.getElementById("email2").innerHTML="";
