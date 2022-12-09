@@ -73,7 +73,7 @@ server.get('sendMailTemplate',function (req, res, next) {
         code:"asdggfsdghds",
         message:"hello",
         amount: 500.00
-    };
+    }; 
     Transaction.wrap(function () {
         
         var content = HookMgr.callHook("createEmailTemplate", "createEmailTemplate",templateData)

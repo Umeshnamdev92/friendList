@@ -185,7 +185,17 @@ function updatePaymentInformation(order) {
     var htmlToAppend = '';
 
     if (order.billing.payment && order.billing.payment.selectedPaymentInstruments
-        && order.billing.payment.selectedPaymentInstruments.length > 0) {
+        && order.billing.payment.selectedPaymentInstruments.length ==1) {
+        htmlToAppend += '<span>' + order.resources.cardType + ' '
+            + order.billing.payment.selectedPaymentInstruments[0].type
+            + '</span><div>'
+            + order.billing.payment.selectedPaymentInstruments[0].maskedCreditCardNumber
+            + '</div><div><span>'
+            + order.resources.cardEnding + ' '
+            + order.billing.payment.selectedPaymentInstruments[0].expirationMonth
+            + '/' + order.billing.payment.selectedPaymentInstruments[0].expirationYear
+            + '</span></div>';
+    }else {
         htmlToAppend += '<span>' + order.resources.cardType + ' '
             + order.billing.payment.selectedPaymentInstruments[1].type
             + '</span><div>'
