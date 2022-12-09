@@ -1,12 +1,12 @@
-function SendMailFunction(to, from, subject, content) {
-   var Mail = require('dw/net/Mail');
-   var mail = new Mail();
-   mail.addTo(to);
-   mail.setFrom(from);
-   mail.setSubject(subject);
-   mail.setContent(content);
-   var status = mail.send();
-   if (status.getMessage() == 'OK') {
+ function SendMailFunction(to,from,subject,content) {
+    var Mail = require('dw/net/Mail');
+    var mail=new Mail();
+    mail.addTo(to);
+    mail.setFrom(from);
+    mail.setSubject(subject);
+    mail.setContent(content,"text/html","UTF-8");
+    var status= mail.send();
+    if (status.getMessage()=='OK') {
       return true;
     }
     else{

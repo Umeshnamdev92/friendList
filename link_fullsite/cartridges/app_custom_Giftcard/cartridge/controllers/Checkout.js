@@ -27,155 +27,6 @@ var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
  * @param {renders} - isml
  * @param {serverfunction} - get
  */
-server.replace(
-    'Begin',
-    server.middleware.https,
-    consentTracking.consent,
-    csrfProtection.generateToken,
-    function (req, res, next) {
-        var BasketMgr = require('dw/order/BasketMgr');
-        var Transaction = require('dw/system/Transaction');
-        var AccountModel = require('*/cartridge/models/account');
-        var OrderModel = require('*/cartridge/models/order');
-        var URLUtils = require('dw/web/URLUtils');
-        var reportingUrlsHelper = require('*/cartridge/scripts/reportingUrls');
-        var Locale = require('dw/util/Locale');
-        var collections = require('*/cartridge/scripts/util/collections');
-        var validationHelpers = require('*/cartridge/scripts/helpers/basketValidationHelpers');
-
-        var currentBasket = BasketMgr.getCurrentBasket();
-        if (!currentBasket) {
-            res.redirect(URLUtils.url('Cart-Show'));
-            return next();
-        }
-
-        var validatedProducts = validationHelpers.validateProducts(currentBasket);
-        if (validatedProducts.error) {
-            res.redirect(URLUtils.url('Cart-Show'));
-            return next();
-        }
-
-        var requestStage = req.querystring.stage;
-        var currentStage = requestStage || 'customer';
-        var billingAddress = currentBasket.billingAddress;
-
-        var currentCustomer = req.currentCustomer.raw;
-        var currentLocale = Locale.getLocale(req.locale.id);
-        var preferredAddress;
-
-        // only true if customer is registered
-        if (req.currentCustomer.addressBook && req.currentCustomer.addressBook.preferredAddress) {
-            var shipments = currentBasket.shipments;
-            preferredAddress = req.currentCustomer.addressBook.preferredAddress;
-
-            collections.forEach(shipments, function (shipment) {
-                if (!shipment.shippingAddress) {
-                    COHelpers.copyCustomerAddressToShipment(preferredAddress, shipment);
-                }
-            });
-
-            if (!billingAddress) {
-                COHelpers.copyCustomerAddressToBilling(preferredAddress);
-            }
-        }
-
-        // Calculate the basket
-        Transaction.wrap(function () {
-            COHelpers.ensureNoEmptyShipments(req);
-        });
-
-        if (currentBasket.shipments.length <= 1) {
-            req.session.privacyCache.set('usingMultiShipping', false);
-        }
-
-        if (currentBasket.currencyCode !== req.session.currency.currencyCode) {
-            Transaction.wrap(function () {
-                currentBasket.updateCurrency();
-            });
-        }
-
-        COHelpers.recalculateBasket(currentBasket);
-
-        var guestCustomerForm = COHelpers.prepareCustomerForm('coCustomer');
-        var registeredCustomerForm = COHelpers.prepareCustomerForm('coRegisteredCustomer');
-        var shippingForm = COHelpers.prepareShippingForm();
-        var billingForm = COHelpers.prepareBillingForm();
-        var usingMultiShipping = req.session.privacyCache.get('usingMultiShipping');
-
-        if (preferredAddress) {
-            shippingForm.copyFrom(preferredAddress);
-            billingForm.copyFrom(preferredAddress);
-        }
-
-        // Loop through all shipments and make sure all are valid
-        var allValid = COHelpers.ensureValidShipments(currentBasket);
-
-        var orderModel = new OrderModel(
-            currentBasket,
-            {
-                customer: currentCustomer,
-                usingMultiShipping: usingMultiShipping,
-                shippable: allValid,
-                countryCode: currentLocale.country,
-                containerView: 'basket'
-            }
-        );
-
-        // Get rid of this from top-level ... should be part of OrderModel???
-        var currentYear = new Date().getFullYear();
-        var creditCardExpirationYears = [];
-
-        for (var j = 0; j < 10; j++) {
-            creditCardExpirationYears.push(currentYear + j);
-        }
-
-        var accountModel = new AccountModel(req.currentCustomer);
-
-        var reportingURLs;
-        reportingURLs = reportingUrlsHelper.getCheckoutReportingURLs(
-            currentBasket.UUID,
-            2,
-            'Shipping'
-        );
-
-        if (currentStage === 'customer') {
-            if (accountModel.registeredUser) {
-                // Since the shopper already login upon starting checkout, fast forward to shipping stage
-                currentStage = 'shipping';
-
-                // Only need to update email address in basket if start checkout from other page like cart or mini-cart
-                // and not on checkout page reload.
-                if (!requestStage) {
-                    Transaction.wrap(function () {
-                        currentBasket.customerEmail = accountModel.profile.email;
-                        orderModel.orderEmail = accountModel.profile.email;
-                    });
-                }
-            } else if (currentBasket.customerEmail) {
-                // Email address has already collected so fast forward to shipping stage
-                currentStage = 'shipping';
-            }
-        }
-
-        res.render('checkout/checkout', {
-            order: orderModel,
-            customer: accountModel,
-            forms: {
-                guestCustomerForm: guestCustomerForm,
-                registeredCustomerForm: registeredCustomerForm,
-                shippingForm: shippingForm,
-                billingForm: billingForm
-            },
-            expirationYears: creditCardExpirationYears,
-            currentStage: currentStage,
-            reportingURLs: reportingURLs,
-            oAuthReentryEndpoint: 2
-        });
-
-        return next();
-    }
-);
-
 
 server.get("Applygiftcard", function (req, res, next) {
     var giftCertificateCode = req.querystring.GiftCardCode;
@@ -199,10 +50,8 @@ server.get("Applygiftcard", function (req, res, next) {
    
     if (Basket.totalGrossPrice.value < appliedAmount) {
         var data = {
-            msg: "Applied Amount Can not grater then Total order price!",
-            success: false,
-            a:Basket.totalGrossPrice.value,
-            b:Basket.totalNetPrice
+            msg: "Applied Amount Can not grater then "+Basket.totalGrossPrice.value+"!",
+            success: false
         };
         res.json(data);
         return next();
@@ -212,7 +61,16 @@ try {
     var PriceAdjustment=null;
     var realAppliedAmount=null;
     giftCertificateCode=giftCertificateCode.toString();
-    var d=GiftCertificateMgr.getGiftCertificateByCode(giftCertificateCode);
+    var giftcertificatedetail=GiftCertificateMgr.getGiftCertificateByCode(giftCertificateCode);
+
+    if (currentCustomer.profile.email!=giftcertificatedetail.recipientEmail) {
+        var data = {
+            msg: "You are not authorized owner of this gift code!!",
+            success: false,
+        };
+        res.json(data);
+        return next();
+    }
     var Money = Money(appliedAmount,currencyCode);
 
     Transaction.wrap(()=>{
@@ -222,9 +80,10 @@ try {
     })
 
     if (!redeemGiftDetail.error) {
+        giftcertificatedetail=GiftCertificateMgr.getGiftCertificateByCode(giftCertificateCode);
     
         var data = {
-            msg: "Giftcard code redeemed successfully!",
+            msg: "Giftcard code redeemed successfully! Now Available balance is $ "+giftcertificatedetail.balance.value,
             success: true,
             a:Basket.paymentInstruments.length
         };
@@ -268,7 +127,7 @@ server.get("Removegiftcard",function (req,res,next) {
             currentCustomer.profile.custom.userWallet=currentCustomer.profile.custom.userWallet - price
         })
     }
-   
+
     var presentBonusPoint=currentCustomer.profile.custom.userWallet;
     var data={
         success:true,
