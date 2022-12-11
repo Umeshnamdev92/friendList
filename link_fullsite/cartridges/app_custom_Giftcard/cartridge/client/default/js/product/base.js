@@ -837,10 +837,10 @@ module.exports = {
             return false;
           }
           // return false ;
-          var x = $("#email5").val();
+          var x = $("#emailVerify").val();
           var giftData = []
           giftData.push({
-            recipientEmail: $("#email5").val(),
+            recipientEmail: $("#emailVerify").val(),
             recipientName: $("#email1").val(),
             senderName: $("#email2").val(),
             message: $("#email3").val(),
@@ -854,6 +854,8 @@ module.exports = {
             quantity: getQuantitySelected($(this)),
             giftdetail: JSON.stringify(giftData)
           };
+          // $('#exampleModalLongGiftForm').hide() 
+          $('#exampleModalLong').modal('hide');
         } else {
           var form = {
             pid: pid,
