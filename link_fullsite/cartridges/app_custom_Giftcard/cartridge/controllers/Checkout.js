@@ -89,9 +89,7 @@ server.get("Applygiftcard", function (req, res, next) {
             GiftCertificateMgr.getGiftCertificateByCode(giftCertificateCode);
 
           var data = {
-            msg:
-              "Giftcard code redeemed successfully! Now Available balance is $ " +
-              giftcertificatedetail.balance.value,
+            msg:"Giftcard code redeemed successfully! Now Available balance is $ " + giftcertificatedetail.balance.value,
             success: true,
             a: Basket.paymentInstruments.length,
           };
@@ -99,9 +97,7 @@ server.get("Applygiftcard", function (req, res, next) {
         }
       } else {
         var data = {
-          msg:
-            "insufficient balence! your available balence is" +
-            giftcertificatedetail.balance.value,
+          msg:"insufficient balence! your available balence is" +giftcertificatedetail.balance.value,
           success: false,
         };
         res.json(data);
