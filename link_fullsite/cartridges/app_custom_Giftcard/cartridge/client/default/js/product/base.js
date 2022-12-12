@@ -856,6 +856,7 @@ module.exports = {
           };
           // $('#exampleModalLongGiftForm').hide() 
           $('#exampleModalLong').modal('hide');
+        
         } else {
           var form = {
             pid: pid,

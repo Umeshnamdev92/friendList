@@ -123,6 +123,26 @@ server.replace(
     }
 );
 
+server.get('sendMailTemplate',function (req, res, next) {
+    var HookMgr = require("dw/system/HookMgr");
+    var Transaction = require('dw/system/Transaction');
+    var templateData = {
+        name:"gajendra",
+        code:"asdggfsdghds",
+        message:"hello",
+        amount: 500.00
+    }; 
+    var success=null;
+    var content=null;
+            // content = HookMgr.callHook("createEmailTemplate", "createEmailTemplate",templateData)
+            success = HookMgr.callHook("emailSendHook", "SendMailFunction","gajendra.dubey@codesquaretech.com","noreply@us01.dx.commercecloud.salesforce.com","giftcardEmail","hiiii");
+       res.json({
+        a:"aaa",
+        success:success,
+        content:content
+       })
+     next()
+});
 
 
 module.exports = server.exports();
