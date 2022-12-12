@@ -118,9 +118,7 @@
                                 <div class="prices">
                                     <isset name="price" value="${product.price}" scope="page" />
                                     <isinclude template="product/components/pricing/main" />
-                                    <isif condition="${product.id === 'Gift_Card'}">
-                                        <isinclude template="product/GiftReg" sf-toolkit="off" />
-                                    </isif>
+                                    
 
                                 </div>
                             </div>
