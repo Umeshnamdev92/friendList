@@ -50,10 +50,7 @@ server.get("Applygiftcard", function (req, res, next) {
 
   if (Basket.totalGrossPrice.value < appliedAmount) {
     var data = {
-      msg:
-        "Applied Amount Can not grater then " +
-        Basket.totalGrossPrice.value +
-        "!",
+      msg:"Applied Amount Can not greater than " + Basket.totalGrossPrice.value +"!",
       success: false,
     };
     res.json(data);
