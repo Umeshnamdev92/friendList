@@ -127,11 +127,11 @@ server.replace(
 server.get('sendMailTemplate',function (req, res, next) {
     var HookMgr = require("dw/system/HookMgr");
     var Mail = require('dw/net/Mail');
-    var Transaction = require('dw/system/Transaction');
-    var Site = require('dw/system/Site');
-    var template=Site.getCurrent().getCustomPreferenceValue("giftCertificateEmailTemplate")
+    // var Transaction = require('dw/system/Transaction');
+    // var Site = require('dw/system/Site');
+    // var template=Site.getCurrent().getCustomPreferenceValue("giftCertificateEmailTemplate")
     var templateData = {
-        name:"gajendra",
+        name:
         code:"FSFDHFHDFGSHFHG",
         message:"hello",
         amount: 500.00
@@ -157,7 +157,7 @@ server.get('sendMailTemplate',function (req, res, next) {
     mail.addTo("gajendra.dubey@codesquaretech.com");
     mail.setFrom('noreply@us01.dx.commercecloud.salesforce.com');
     mail.setSubject('giftEmailTests');
-    mail.setContent(template,"text/html","UTF-8");
+    mail.setContent(staticTemplate,"text/html","UTF-8");
     var status= mail.send();
     if (status.getMessage()=='OK') {
         success= true;
