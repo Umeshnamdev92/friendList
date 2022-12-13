@@ -855,7 +855,10 @@ module.exports = {
             giftdetail: JSON.stringify(giftData)
           };
           // $('#exampleModalLongGiftForm').hide() 
+          //code for hiding modal 
+          
           $('#exampleModalLong').modal('hide');
+          //custom code completed
         } else {
           var form = {
             pid: pid,

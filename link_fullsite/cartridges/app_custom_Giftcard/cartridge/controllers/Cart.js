@@ -61,7 +61,9 @@ server.replace('AddProduct', function (req, res, next) {
 
     var currentBasket = BasketMgr.getCurrentOrNewBasket();
     var previousBonusDiscountLineItems = currentBasket.getBonusDiscountLineItems();
+    //custom code of 
     var productId = req.form.pid;
+    var a = req.form.giftdetail;
     if(req.form.giftdetail){
     var giftdetailData =JSON.parse(req.form.giftdetail);
     var data = giftdetailData[0]

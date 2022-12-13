@@ -1,4 +1,4 @@
-<div class="card ghost shipping">
+ <div class="card ghost shipping">
     <div class="card-header">
         <h2 class="card-header-custom">${Resource.msg('heading.checkout.shipping', 'checkout', null)}</h2>
     </div>
