@@ -858,7 +858,7 @@ module.exports = {
           //code for hiding modal 
           
           $('#exampleModalLong').modal('hide');
-          //custom code completed
+        
         } else {
           var form = {
             pid: pid,
