@@ -104,10 +104,12 @@ server.replace(
         if (order.allGiftCertificateLineItems.length>0) {
             var Transaction = require('dw/system/Transaction');
             var GiftCertificateMgr = require('dw/order/GiftCertificateMgr');
-            
+            var HookMgr = require("dw/system/HookMgr");
+            var Mail = require('dw/net/Mail');
+            var giftPl
             var GiftCertificateLineItem = require('dw/order/GiftCertificateLineItem');
             Transaction.wrap(() =>{
-                var giftPl = null;
+             giftPl = null;
         collections.forEach(order.allGiftCertificateLineItems, function (element) {
             giftPl =  GiftCertificateMgr.createGiftCertificate(element.price.value);
             giftPl.setRecipientEmail(element.recipientEmail);
@@ -116,67 +118,117 @@ server.replace(
             giftPl.setMessage(element.message);
             giftPl.setDescription(element.custom.note);
 
+            var giftSendEmail = GiftCertificateMgr.getGiftCertificateByCode(giftPl.giftCertificateCode)
+            var templateData = {
+               name:giftSendEmail.recipientName,
+               code:giftSendEmail.ID,
+               message:giftSendEmail.message,
+               amount: giftSendEmail.amount.value
+           }; 
+           var success=null;
+           var staticTemplate = `Dear `+templateData.name+`,
+       
+           A Gift Certificate has been issued to you in the amount of `+templateData.amount+`
+           
+           Message:
+           
+           `+templateData.message+`
+           
+           You can redeem your gift certificate at our online store.
+           
+           Your gift certificate code is `+templateData.code+`.
+           
+           Sincerely,
+           
+           CustomerSupport`;
+       
+           var mail=new Mail();
+           mail.addTo(giftSendEmail.recipientEmail);
+           mail.setFrom('noreply@us01.dx.commercecloud.salesforce.com');
+           mail.setSubject('you have received giftCard');
+           mail.setContent(staticTemplate,"text/html","UTF-8");
+           var status= mail.send();
+           if (status.getMessage()=='OK') {
+               success= true;
+           }
+           else{
+               success= false;
+           }
+
+
         })
-        })
+    })
+// var b=giftPl;
+         //email custom code 
+        
+        // res.json({
+        //     a:"aaa",
+        //     success:success,
+        //     content:staticTemplate
+        //    })
+ //complete email custom code    
+
         }
+
+       
         req.session.raw.custom.orderID = req.querystring.ID; //eslint-disable-line no-param-reassign
         return next();
     }
 );
 
-server.get('sendMailTemplate',function (req, res, next) {
-    var HookMgr = require("dw/system/HookMgr");
-    var Mail = require('dw/net/Mail');
-    // var Transaction = require('dw/system/Transaction');
-    // var Site = require('dw/system/Site');
-    // var template=Site.getCurrent().getCustomPreferenceValue("giftCertificateEmailTemplate")
-    var templateData = {
-        name:
-        code:"FSFDHFHDFGSHFHG",
-        message:"hello",
-        amount: 500.00
-    }; 
-    var success=null;
-    var staticTemplate = `Dear `+templateData.name+`,
+// server.get('sendMailTemplate',function (req, res, next) {
+//     var HookMgr = require("dw/system/HookMgr");
+//     var Mail = require('dw/net/Mail');
+//     // var Transaction = require('dw/system/Transaction');
+//     // var Site = require('dw/system/Site');
+//     // var template=Site.getCurrent().getCustomPreferenceValue("giftCertificateEmailTemplate")
+//     var templateData = {
+//         name:
+//         code:"FSFDHFHDFGSHFHG",
+//         message:"hello",
+//         amount: 500.00
+//     }; 
+//     var success=null;
+//     var staticTemplate = `Dear `+templateData.name+`,
 
-    A Gift Certificate has been issued to you in the amount of `+templateData.amount+`
+//     A Gift Certificate has been issued to you in the amount of `+templateData.amount+`
     
-    Message:
+//     Message:
     
-    `+templateData.message+`
+//     `+templateData.message+`
     
-    You can redeem your gift certificate at our online store.
+//     You can redeem your gift certificate at our online store.
     
-    Your gift certificate code is `+templateData.code+`.
+//     Your gift certificate code is `+templateData.code+`.
     
-    Sincerely,
+//     Sincerely,
     
-    CustomerSupport`;
+//     CustomerSupport`;
 
-    var mail=new Mail();
-    mail.addTo("gajendra.dubey@codesquaretech.com");
-    mail.setFrom('noreply@us01.dx.commercecloud.salesforce.com');
-    mail.setSubject('giftEmailTests');
-    mail.setContent(staticTemplate,"text/html","UTF-8");
-    var status= mail.send();
-    if (status.getMessage()=='OK') {
-        success= true;
-    }
-    else{
-        success= false;
-    }
+//     var mail=new Mail();
+//     mail.addTo("gajendra.dubey@codesquaretech.com");
+//     mail.setFrom('noreply@us01.dx.commercecloud.salesforce.com');
+//     mail.setSubject('giftEmailTests');
+//     mail.setContent(staticTemplate,"text/html","UTF-8");
+//     var status= mail.send();
+//     if (status.getMessage()=='OK') {
+//         success= true;
+//     }
+//     else{
+//         success= false;
+//     }
  
 
-    // var content=null;
-            // content = HookMgr.callHook("createEmailTemplate", "createEmailTemplate",templateData)
-            // success = HookMgr.callHook("emailSendHook", "SendMailFunction","gajendra.dubey@codesquaretech.com","noreply@us01.dx.commercecloud.salesforce.com","giftcardEmail","hiiii");
-       res.json({
-        a:"aaa",
-        success:success,
-        content:staticTemplate
-       })
-     next()
-});
+//     // var content=null;
+//             // content = HookMgr.callHook("createEmailTemplate", "createEmailTemplate",templateData)
+//             // success = HookMgr.callHook("emailSendHook", "SendMailFunction","gajendra.dubey@codesquaretech.com","noreply@us01.dx.commercecloud.salesforce.com","giftcardEmail","hiiii");
+//        res.json({
+//         a:"aaa",
+//         success:success,
+//         content:staticTemplate
+//        })
+//      next()
+// });
 
 
 module.exports = server.exports();
