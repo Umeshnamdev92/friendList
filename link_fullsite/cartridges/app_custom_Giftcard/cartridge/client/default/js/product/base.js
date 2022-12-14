@@ -805,12 +805,12 @@ module.exports = {
           var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
           if(rEmail==""){
           $('#emailError').html('<p class="text-danger">please fill out this field<p>');
+           return false;
           }
-          else if (!rEmail.match(mailformat)) {
+           if (!rEmail.match(mailformat)) {
             console.log("not correct");
             $('#emailError').html('<p class="text-danger">Email is incorrect<p>');
-          }else{
-            console.log(rEmail);
+            return false;
           }
           var rEmail1=$("#email1").val();
           if (rEmail1=='') {
