@@ -805,14 +805,16 @@ module.exports = {
           var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
           if(rEmail==""){
           $('#emailError').html('<p class="text-danger">please fill out this field<p>');
+          return false;
           }
-          else if (!rEmail.match(mailformat)) {
+          if (!rEmail.match(mailformat)) {
             console.log("not correct");
             $('#emailError').html('<p class="text-danger">Email is incorrect<p>');
-          }else{
-            console.log(rEmail);
+            return false;
           }
+           
           var rEmail1=$("#email1").val();
+
           if (rEmail1=='') {
             console.log("empty remail");
             $('#invalid-feedback-email1').html('<p class="text-danger">please fill out this field<p>');
@@ -823,6 +825,8 @@ module.exports = {
             console.log("empty remail");
             $('.invalid-feedback-email2').html('<p class="text-danger">please fill out this field<p>');
             return false;
+          }else{
+            $('.invalid-feedback-email2').html('');
           }
           var rEmail3=$("#email3").val();
           if (rEmail3=='') {
@@ -830,11 +834,16 @@ module.exports = {
             $('.invalid-feedback-email3').html('<p class="text-danger">please fill out this field<p>');
             return false;
           }
+          else{
+            $('.invalid-feedback-email3').html('');
+          }
           var rEmail4=$("#email4").val();
           if (rEmail4=='') {
             console.log("empty remail");
             $('.invalid-feedback-email4').html('<p class="text-danger">please fill out this field<p>');
             return false;
+          }else{
+            $('.invalid-feedback-email4').html('');
           }
           // return false ;
           var x = $("#emailVerify").val();
