@@ -57,14 +57,14 @@ server.append(
                     var staticTemplate =`
                     <p><img alt="Gift Template" src="https://bjxc-002.sandbox.us01.dx.commercecloud.salesforce.com/on/demandware.static/-/Sites-apparel-m-catalog/default/dwae026319/images/gift%20cards/birthday2.png" title="Gift" /></p>
 
-                    <p>Dear `+templateData.name+`,</p>
+                    <p>Dear <b>`+templateData.name+`</b>,</p>
 
-                    <p>A Gift Certificate has been issued to you in the amount of `+templateData.amount+`</p>
+                    <p>A Gift Certificate has been issued to you in the amount of <b>`+templateData.amount+`</b></p>
                     
                     <p>Message:</p>
-                    <p>`+templateData.amount+`</p>
+                    <p><b>`+templateData.message+`</b></p>
                     <p>You can redeem your gift certificate at our online store.</p>
-                    <p>Your gift certificate code is `+templateData.code+`</p>
+                    <p>Your gift certificate code is <b>`+templateData.code+`</b></p>
                     <p>Sincerely,</p>
                     <p>CustomerSupport</p>
                     `;
