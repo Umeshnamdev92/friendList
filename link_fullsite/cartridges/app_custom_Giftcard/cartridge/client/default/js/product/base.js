@@ -858,6 +858,11 @@ module.exports = {
           //code for hiding modal 
           
           $('#exampleModalLong').modal('hide');
+          $("#emailVerify").val('');
+            $("#email1").val('');
+            $("#email2").val('');
+            $("#email3").val('');
+            $("#email4").val('');
         
         } else {
           var form = {

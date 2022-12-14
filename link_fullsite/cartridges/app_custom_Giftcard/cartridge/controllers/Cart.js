@@ -83,7 +83,7 @@ server.replace('AddProduct', function (req, res, next) {
         Transaction.wrap(function(){
             var text= productId.toString();
             if (text.includes("Gift_Card")) {
-
+                
                 var a = currentBasket.createGiftCertificateLineItem(parseInt(options[0].selectedValueId), "aamir.bohra@codesquaretech.com");
                 a.setRecipientEmail(data.recipientEmail);
                 a.setMessage(data.message);
