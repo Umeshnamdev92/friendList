@@ -84,11 +84,11 @@ server.replace('AddProduct', function (req, res, next) {
             var text= productId.toString();
             if (text.includes("Gift_Card")) {
                 
-                var a = currentBasket.createGiftCertificateLineItem(parseInt(options[0].selectedValueId), "aamir.bohra@codesquaretech.com");
+                var a = currentBasket.createGiftCertificateLineItem(parseInt(options[0].selectedValueId), data.recipientEmail);
                 a.setRecipientEmail(data.recipientEmail);
                 a.setMessage(data.message);
                 a.setSenderName(data.senderName);
-                a.custom.note = data.note;
+                // a.custom.note = data.note;
                 a.setRecipientName(data.recipientName);
                 
                 }
@@ -181,169 +181,88 @@ server.replace('AddProduct', function (req, res, next) {
     next();
 });
 
+
 /**
- * Cart-Show : The Cart-Show endpoint renders the cart page with the current basket
- * @name Base/Cart-Show
+ * Cart-RemoveProductLineItem : The Cart-RemoveProductLineItem endpoint removes a product line item from the basket
+ * @name Base/Cart-RemoveProductLineItem
  * @function
  * @memberof Cart
- * @param {middleware} - server.middleware.https
- * @param {middleware} - consentTracking.consent
- * @param {middleware} - csrfProtection.generateToken
+ * @param {querystringparameter} - pid - the product id
+ * @param {querystringparameter} - uuid - the universally unique identifier of the product object
  * @param {category} - sensitive
- * @param {renders} - isml
+ * @param {returns} - json
  * @param {serverfunction} - get
  */
-// server.get(
-//     'Show',
-//     server.middleware.https,
-//     consentTracking.consent,
-//     csrfProtection.generateToken,
-//     function (req, res, next) {
-//         var BasketMgr = require('dw/order/BasketMgr');
-//         var Transaction = require('dw/system/Transaction');
-//         var CartModel = require('*/cartridge/models/cart');
-//         var cartHelper = require('*/cartridge/scripts/cart/cartHelpers');
-//         var reportingUrlsHelper = require('*/cartridge/scripts/reportingUrls');
-//         var basketCalculationHelpers = require('*/cartridge/scripts/helpers/basketCalculationHelpers');
+server.replace('RemoveProductLineItem', function (req, res, next) {
+    var BasketMgr = require('dw/order/BasketMgr');
+    var Resource = require('dw/web/Resource');
+    var Transaction = require('dw/system/Transaction');
+    var URLUtils = require('dw/web/URLUtils');
+    var CartModel = require('*/cartridge/models/cart');
+    var basketCalculationHelpers = require('*/cartridge/scripts/helpers/basketCalculationHelpers');
 
-//         var currentBasket = BasketMgr.getCurrentBasket();
-//         var reportingURLs;
+    var currentBasket = BasketMgr.getCurrentBasket();
 
-//         if (currentBasket) {
-//             Transaction.wrap(function () {
-//                 if (currentBasket.currencyCode !== req.session.currency.currencyCode) {
-//                     currentBasket.updateCurrency();
-//                 }
-//                 cartHelper.ensureAllShipmentsHaveMethods(currentBasket);
+    if (!currentBasket) {
+        res.setStatusCode(500);
+        res.json({
+            error: true,
+            redirectUrl: URLUtils.url('Cart-Show').toString()
+        });
 
-//                 basketCalculationHelpers.calculateTotals(currentBasket);
-//             });
-//         }
+        return next();
+    }
 
-//         if (currentBasket && currentBasket.allLineItems.length) {
-//             reportingURLs = reportingUrlsHelper.getBasketOpenReportingURLs(currentBasket);
-//         }
+    var isProductLineItemFound = false;
+    var bonusProductsUUIDs = [];
 
-//         res.setViewData({ reportingURLs: reportingURLs });
+    Transaction.wrap(function () {
+        if (req.querystring.pid && req.querystring.uuid) {
 
-//         var basketModel = new CartModel(currentBasket);
-//         res.render('cart/cart', basketModel);
-//         next();
-//     }
-// );
+            var productLineItems = currentBasket.getAllProductLineItems(req.querystring.pid);
+            var bonusProductLineItems = currentBasket.bonusLineItems;
+            var mainProdItem;
+            for (var i = 0; i < productLineItems.length; i++) {
+                var item = productLineItems[i];
+                if ((item.UUID === req.querystring.uuid)) {
+                    if (bonusProductLineItems && bonusProductLineItems.length > 0) {
+                        for (var j = 0; j < bonusProductLineItems.length; j++) {
+                            var bonusItem = bonusProductLineItems[j];
+                            mainProdItem = bonusItem.getQualifyingProductLineItemForBonusProduct();
+                            if (mainProdItem !== null
+                                && (mainProdItem.productID === item.productID)) {
+                                bonusProductsUUIDs.push(bonusItem.UUID);
+                            }
+                        }
+                    }
 
-// /**
-//  * Cart-Get : The Cart-Get endpoints is responsible for returning the current basket in JSON format
-//  * @name Base/Cart-Get
-//  * @function
-//  * @memberof Cart
-//  * @param {category} - sensitive
-//  * @param {returns} - json
-//  * @param {serverfunction} - get
-//  */
-// server.get('Get', function (req, res, next) {
-//     var BasketMgr = require('dw/order/BasketMgr');
-//     var Transaction = require('dw/system/Transaction');
-//     var CartModel = require('*/cartridge/models/cart');
-//     var cartHelper = require('*/cartridge/scripts/cart/cartHelpers');
-//     var basketCalculationHelpers = require('*/cartridge/scripts/helpers/basketCalculationHelpers');
+                    var shipmentToRemove = item.shipment;
+                    currentBasket.removeProductLineItem(item);
+                    if (shipmentToRemove.productLineItems.empty && !shipmentToRemove.default) {
+                        currentBasket.removeShipment(shipmentToRemove);
+                    }
+                    isProductLineItemFound = true;
+                    break;
+                }
+            }
+        }
+        basketCalculationHelpers.calculateTotals(currentBasket);
+    });
 
-//     var currentBasket = BasketMgr.getCurrentBasket();
+    if (isProductLineItemFound) {
+        var basketModel = new CartModel(currentBasket);
+        var basketModelPlus = {
+            basket: basketModel,
+            toBeDeletedUUIDs: bonusProductsUUIDs
+        };
+        res.json(basketModelPlus);
+    } else {
+        res.setStatusCode(500);
+        res.json({ errorMessage: Resource.msg('error.cannot.remove.product', 'cart', null) });
+    }
 
-//     if (currentBasket) {
-//         Transaction.wrap(function () {
-//             cartHelper.ensureAllShipmentsHaveMethods(currentBasket);
-
-//             basketCalculationHelpers.calculateTotals(currentBasket);
-//         });
-//     }
-
-//     var basketModel = new CartModel(currentBasket);
-
-//     res.json(basketModel);
-//     next();
-// });
-
-// /**
-//  * Cart-RemoveProductLineItem : The Cart-RemoveProductLineItem endpoint removes a product line item from the basket
-//  * @name Base/Cart-RemoveProductLineItem
-//  * @function
-//  * @memberof Cart
-//  * @param {querystringparameter} - pid - the product id
-//  * @param {querystringparameter} - uuid - the universally unique identifier of the product object
-//  * @param {category} - sensitive
-//  * @param {returns} - json
-//  * @param {serverfunction} - get
-//  */
-// server.get('RemoveProductLineItem', function (req, res, next) {
-//     var BasketMgr = require('dw/order/BasketMgr');
-//     var Resource = require('dw/web/Resource');
-//     var Transaction = require('dw/system/Transaction');
-//     var URLUtils = require('dw/web/URLUtils');
-//     var CartModel = require('*/cartridge/models/cart');
-//     var basketCalculationHelpers = require('*/cartridge/scripts/helpers/basketCalculationHelpers');
-
-//     var currentBasket = BasketMgr.getCurrentBasket();
-
-//     if (!currentBasket) {
-//         res.setStatusCode(500);
-//         res.json({
-//             error: true,
-//             redirectUrl: URLUtils.url('Cart-Show').toString()
-//         });
-
-//         return next();
-//     }
-
-//     var isProductLineItemFound = false;
-//     var bonusProductsUUIDs = [];
-
-//     Transaction.wrap(function () {
-//         if (req.querystring.pid && req.querystring.uuid) {
-//             var productLineItems = currentBasket.getAllProductLineItems(req.querystring.pid);
-//             var bonusProductLineItems = currentBasket.bonusLineItems;
-//             var mainProdItem;
-//             for (var i = 0; i < productLineItems.length; i++) {
-//                 var item = productLineItems[i];
-//                 if ((item.UUID === req.querystring.uuid)) {
-//                     if (bonusProductLineItems && bonusProductLineItems.length > 0) {
-//                         for (var j = 0; j < bonusProductLineItems.length; j++) {
-//                             var bonusItem = bonusProductLineItems[j];
-//                             mainProdItem = bonusItem.getQualifyingProductLineItemForBonusProduct();
-//                             if (mainProdItem !== null
-//                                 && (mainProdItem.productID === item.productID)) {
-//                                 bonusProductsUUIDs.push(bonusItem.UUID);
-//                             }
-//                         }
-//                     }
-
-//                     var shipmentToRemove = item.shipment;
-//                     currentBasket.removeProductLineItem(item);
-//                     if (shipmentToRemove.productLineItems.empty && !shipmentToRemove.default) {
-//                         currentBasket.removeShipment(shipmentToRemove);
-//                     }
-//                     isProductLineItemFound = true;
-//                     break;
-//                 }
-//             }
-//         }
-//         basketCalculationHelpers.calculateTotals(currentBasket);
-//     });
-
-//     if (isProductLineItemFound) {
-//         var basketModel = new CartModel(currentBasket);
-//         var basketModelPlus = {
-//             basket: basketModel,
-//             toBeDeletedUUIDs: bonusProductsUUIDs
-//         };
-//         res.json(basketModelPlus);
-//     } else {
-//         res.setStatusCode(500);
-//         res.json({ errorMessage: Resource.msg('error.cannot.remove.product', 'cart', null) });
-//     }
-
-//     return next();
-// });
+    return next();
+});
 
 // /**
 //  * Cart-UpdateQuantity : The Cart-UpdateQuantity endpoint handles updating the quantity of a product line item in the basket

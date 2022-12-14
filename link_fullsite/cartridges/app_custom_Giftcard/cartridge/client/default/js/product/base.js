@@ -799,7 +799,7 @@ module.exports = {
           document.getElementById("invalid-feedback-email1").innerHTML="";
           document.getElementById("email2").innerHTML="";
           document.getElementById("email3").innerHTML="";
-          document.getElementById("email4").innerHTML="";
+          
 
           var rEmail=$("#emailVerify").val();
           var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -823,6 +823,8 @@ module.exports = {
             console.log("empty remail");
             $('.invalid-feedback-email2').html('<p class="text-danger">please fill out this field<p>');
             return false;
+          }else{
+            $('.invalid-feedback-email2').html('');
           }
           var rEmail3=$("#email3").val();
           if (rEmail3=='') {
@@ -830,12 +832,18 @@ module.exports = {
             $('.invalid-feedback-email3').html('<p class="text-danger">please fill out this field<p>');
             return false;
           }
+          else{
+            $('.invalid-feedback-email3').html('');
+          }
           var rEmail4=$("#email4").val();
           if (rEmail4=='') {
             console.log("empty remail");
             $('.invalid-feedback-email4').html('<p class="text-danger">please fill out this field<p>');
             return false;
+          }else{
+            $('.invalid-feedback-email4').html('');
           }
+        
           // return false ;
           var x = $("#emailVerify").val();
           var giftData = []
