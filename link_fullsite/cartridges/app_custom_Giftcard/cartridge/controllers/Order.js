@@ -34,8 +34,9 @@ server.append(
             var Transaction = require('dw/system/Transaction');
             var GiftCertificateMgr = require('dw/order/GiftCertificateMgr');
             var GiftCertificateLineItem = require('dw/order/GiftCertificateLineItem');
-            var mail = new Mail();
+            
             Transaction.wrap(() => {
+                var mail = new Mail();
                 var giftPl = null;
                 collections.forEach(order.allGiftCertificateLineItems, function (element) {
                     giftPl = GiftCertificateMgr.createGiftCertificate(element.price.value);
@@ -53,7 +54,10 @@ server.append(
                         amount: giftSendEmail.amount.value
                     };
                     var success = null;
-                    var staticTemplate =`<p>Dear `+templateData.name+`,</p>
+                    var staticTemplate =`
+                    <p><img alt="Gift Template" src="https://bjxc-002.sandbox.us01.dx.commercecloud.salesforce.com/on/demandware.static/-/Sites-apparel-m-catalog/default/dwae026319/images/gift%20cards/birthday2.png" title="Gift" /></p>
+
+                    <p>Dear `+templateData.name+`,</p>
 
                     <p>A Gift Certificate has been issued to you in the amount of `+templateData.amount+`</p>
                     
@@ -68,9 +72,8 @@ server.append(
                     mail.setFrom('noreply@us01.dx.commercecloud.salesforce.com');
                     mail.setSubject('you have received giftCard');
                     mail.setContent(staticTemplate, "text/html", "UTF-8");
-                    
+                    mail.send();
                 })
-                mail.send();
             })
         }
         next();
