@@ -837,14 +837,14 @@ module.exports = {
           else{
             $('.invalid-feedback-email3').html('');
           }
-          var rEmail4=$("#email4").val();
-          if (rEmail4=='') {
-            console.log("empty remail");
-            $('.invalid-feedback-email4').html('<p class="text-danger">please fill out this field<p>');
-            return false;
-          }else{
-            $('.invalid-feedback-email4').html('');
-          }
+          // var rEmail4=$("#email4").val();
+          // if (rEmail4=='') {
+          //   console.log("empty remail");
+          //   $('.invalid-feedback-email4').html('<p class="text-danger">please fill out this field<p>');
+          //   return false;
+          // }else{
+          //   $('.invalid-feedback-email4').html('');
+          // }
         
           // return false ;
           var x = $("#emailVerify").val();

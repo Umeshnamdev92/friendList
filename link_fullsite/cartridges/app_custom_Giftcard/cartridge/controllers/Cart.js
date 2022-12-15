@@ -218,6 +218,18 @@ server.replace('RemoveProductLineItem', function (req, res, next) {
 
     Transaction.wrap(function () {
         if (req.querystring.pid && req.querystring.uuid) {
+            
+            var text= req.querystring.pid.toString();
+            if (text.includes("Gift_Card")) {
+                // currentBasket.RemoveGiftCertificateLineItem()
+                var allGiftLineItems=currentBasket.getGiftCertificateLineItems()
+                
+                for (let i = 0; i < allGiftLineItems.length; i++) {
+                  
+                    currentBasket.removeGiftCertificateLineItem(allGiftLineItems[i])
+                    
+                }
+            }
 
             var productLineItems = currentBasket.getAllProductLineItems(req.querystring.pid);
             var bonusProductLineItems = currentBasket.bonusLineItems;
