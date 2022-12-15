@@ -51,6 +51,7 @@ var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
  */
 server.append('AddProduct', function (req, res, next) {
     var BasketMgr = require('dw/order/BasketMgr');
+    var ProductMgr = require('dw/catalog/ProductMgr');
     var Resource = require('dw/web/Resource');
     var URLUtils = require('dw/web/URLUtils');
     var ProductMgr = require('dw/catalog/ProductMgr');
@@ -63,7 +64,15 @@ server.append('AddProduct', function (req, res, next) {
     var currentBasket = BasketMgr.getCurrentOrNewBasket();
     var previousBonusDiscountLineItems = currentBasket.getBonusDiscountLineItems();
     var productId = req.form.pid;
+
+     if(req.form.giftdetail){
+    var giftdetailData =JSON.parse(req.form.giftdetail);
+    var data = giftdetailData[0]
     
+    var giftDetail= {};
+    // condition check for data come through ajax
+    }
+
     var childProducts = Object.hasOwnProperty.call(req.form, 'childProducts')
         ? JSON.parse(req.form.childProducts)
         : [];
@@ -71,9 +80,12 @@ server.append('AddProduct', function (req, res, next) {
     var quantity;
     var result;
     var pidsObj;
-
+   
     if (currentBasket) {
         Transaction.wrap(function () {
+            
+            
+
             if (!req.form.pidsObj) {
                 quantity = parseInt(req.form.quantity, 10);
                 result = cartHelper.addProductToCart(
@@ -107,6 +119,21 @@ server.append('AddProduct', function (req, res, next) {
                     }
                 });
             }
+             
+            if (productId.includes("Gift_Card")) {
+                var tempProduct = ProductMgr.getProduct(productId);
+                var imgUrl = tempProduct.getImages('medium')[0].url
+                var giftLineItem = currentBasket.createGiftCertificateLineItem(parseInt(options[0].selectedValueId), data.recipientEmail);
+               giftLineItem.setRecipientEmail(data.recipientEmail);
+               giftLineItem.setMessage(data.message);
+               giftLineItem.setSenderName(data.senderName);
+               giftLineItem.setRecipientName(data.recipientName);
+               giftLineItem.custom.imgUrl = URLUtils.https(imgUrl) ;
+
+               giftLineItem.custom.productLineItemUUID = result.uuid ;
+                
+                }
+            
             if (!result.error) {
                 var productId= productId.toString();
                 if (productId.includes("Gift_Card")) {
