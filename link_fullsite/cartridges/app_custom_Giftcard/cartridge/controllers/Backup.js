@@ -49,11 +49,10 @@ var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
  * @param {returns} - json
  * @param {serverfunction} - post
  */
-server.append('AddProduct', function (req, res, next) {
+server.replace('AddProduct', function (req, res, next) {
     var BasketMgr = require('dw/order/BasketMgr');
     var Resource = require('dw/web/Resource');
     var URLUtils = require('dw/web/URLUtils');
-    var ProductMgr = require('dw/catalog/ProductMgr');
     var Transaction = require('dw/system/Transaction');
     var CartModel = require('*/cartridge/models/cart');
     var ProductLineItemsModel = require('*/cartridge/models/productLineItems');
@@ -62,8 +61,16 @@ server.append('AddProduct', function (req, res, next) {
 
     var currentBasket = BasketMgr.getCurrentOrNewBasket();
     var previousBonusDiscountLineItems = currentBasket.getBonusDiscountLineItems();
+    //custom code of 
     var productId = req.form.pid;
+    var a = req.form.giftdetail;
+    if(req.form.giftdetail){
+    var giftdetailData =JSON.parse(req.form.giftdetail);
+    var data = giftdetailData[0]
     
+    var giftDetail= {};
+    // condition check for data come through ajax
+    }
     var childProducts = Object.hasOwnProperty.call(req.form, 'childProducts')
         ? JSON.parse(req.form.childProducts)
         : [];
@@ -73,7 +80,9 @@ server.append('AddProduct', function (req, res, next) {
     var pidsObj;
 
     if (currentBasket) {
-        Transaction.wrap(function () {
+        Transaction.wrap(function(){
+          
+          
             if (!req.form.pidsObj) {
                 quantity = parseInt(req.form.quantity, 10);
                 result = cartHelper.addProductToCart(
@@ -110,15 +119,13 @@ server.append('AddProduct', function (req, res, next) {
             if (!result.error) {
                 var productId= productId.toString();
                 if (productId.includes("Gift_Card")) {
-                    var tempProduct = ProductMgr.getProduct(productId);
-                    var imgUrl = tempProduct.getImages('medium')[0].url
                     
                     var a = currentBasket.createGiftCertificateLineItem(parseInt(options[0].selectedValueId), data.recipientEmail);
                     a.setRecipientEmail(data.recipientEmail);
                     a.setMessage(data.message);
                     a.setSenderName(data.senderName);
                     a.setRecipientName(data.recipientName);
-                    a.custom.imgUrl = imgUrl ;
+                    a.custom.productLineItemUUID = result.uuid ;
                     
                     }
                 cartHelper.ensureAllShipmentsHaveMethods(currentBasket);
@@ -127,8 +134,7 @@ server.append('AddProduct', function (req, res, next) {
         });
     }
 
-    var quantityTotal = Produ
-    ItemsModel.getTotalQuantity(currentBasket.productLineItems);
+    var quantityTotal = ProductLineItemsModel.getTotalQuantity(currentBasket.productLineItems);
     var cartModel = new CartModel(currentBasket);
 
     var urlObject = {
