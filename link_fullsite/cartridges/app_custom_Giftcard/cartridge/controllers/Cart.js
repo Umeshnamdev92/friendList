@@ -62,7 +62,15 @@ server.replace('AddProduct', function (req, res, next) {
     var currentBasket = BasketMgr.getCurrentOrNewBasket();
     var previousBonusDiscountLineItems = currentBasket.getBonusDiscountLineItems();
     var productId = req.form.pid;
+
+     if(req.form.giftdetail){
+    var giftdetailData =JSON.parse(req.form.giftdetail);
+    var data = giftdetailData[0]
     
+    var giftDetail= {};
+    // condition check for data come through ajax
+    }
+
     var childProducts = Object.hasOwnProperty.call(req.form, 'childProducts')
         ? JSON.parse(req.form.childProducts)
         : [];
@@ -73,6 +81,9 @@ server.replace('AddProduct', function (req, res, next) {
 
     if (currentBasket) {
         Transaction.wrap(function () {
+            
+            
+
             if (!req.form.pidsObj) {
                 quantity = parseInt(req.form.quantity, 10);
                 result = cartHelper.addProductToCart(
@@ -106,6 +117,18 @@ server.replace('AddProduct', function (req, res, next) {
                     }
                 });
             }
+             
+            if (productId.includes("Gift_Card")) {
+            
+                var giftLineItem = currentBasket.createGiftCertificateLineItem(parseInt(options[0].selectedValueId), data.recipientEmail);
+               giftLineItem.setRecipientEmail(data.recipientEmail);
+               giftLineItem.setMessage(data.message);
+               giftLineItem.setSenderName(data.senderName);
+               giftLineItem.setRecipientName(data.recipientName);
+               giftLineItem.custom.productLineItemUUID = result.uuid ;
+                
+                }
+            
             if (!result.error) {
                 cartHelper.ensureAllShipmentsHaveMethods(currentBasket);
                 basketCalculationHelpers.calculateTotals(currentBasket);
