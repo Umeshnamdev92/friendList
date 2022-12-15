@@ -1,14 +1,14 @@
-'use strict';
+"use strict";
 
-var ProductMgr = require('dw/catalog/ProductMgr');
-var Resource = require('dw/web/Resource');
-var Transaction = require('dw/system/Transaction');
-var URLUtils = require('dw/web/URLUtils');
+var ProductMgr = require("dw/catalog/ProductMgr");
+var Resource = require("dw/web/Resource");
+var Transaction = require("dw/system/Transaction");
+var URLUtils = require("dw/web/URLUtils");
 
-var collections = require('*/cartridge/scripts/util/collections');
-var ShippingHelpers = require('*/cartridge/scripts/checkout/shippingHelpers');
-var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
-var arrayHelper = require('*/cartridge/scripts/util/array');
+var collections = require("*/cartridge/scripts/util/collections");
+var ShippingHelpers = require("*/cartridge/scripts/checkout/shippingHelpers");
+var productHelper = require("*/cartridge/scripts/helpers/productHelpers");
+var arrayHelper = require("*/cartridge/scripts/util/array");
 var BONUS_PRODUCTS_PAGE_SIZE = 6;
 
 /**
@@ -19,25 +19,26 @@ var BONUS_PRODUCTS_PAGE_SIZE = 6;
  *     ID's
  */
 function updateBundleProducts(apiLineItem, childProducts) {
-    var bundle = apiLineItem.product;
-    var bundleProducts = bundle.getBundledProducts();
-    var bundlePids = collections.map(bundleProducts, function (product) { return product.ID; });
-    var selectedProducts = childProducts.filter(function (product) {
-        return bundlePids.indexOf(product.pid) === -1;
-    });
-    var bundleLineItems = apiLineItem.getBundledProductLineItems();
+  var bundle = apiLineItem.product;
+  var bundleProducts = bundle.getBundledProducts();
+  var bundlePids = collections.map(bundleProducts, function (product) {
+    return product.ID;
+  });
+  var selectedProducts = childProducts.filter(function (product) {
+    return bundlePids.indexOf(product.pid) === -1;
+  });
+  var bundleLineItems = apiLineItem.getBundledProductLineItems();
 
-    selectedProducts.forEach(function (product) {
-        var variant = ProductMgr.getProduct(product.pid);
+  selectedProducts.forEach(function (product) {
+    var variant = ProductMgr.getProduct(product.pid);
 
-        collections.forEach(bundleLineItems, function (item) {
-            if (item.productID === variant.masterProduct.ID) {
-                item.replaceProduct(variant);
-            }
-        });
+    collections.forEach(bundleLineItems, function (item) {
+      if (item.productID === variant.masterProduct.ID) {
+        item.replaceProduct(variant);
+      }
     });
+  });
 }
-
 
 /**
  * @typedef urlObject
@@ -58,51 +59,89 @@ function updateBundleProducts(apiLineItem, childProducts) {
  *                    bonus products modal window or undefined
  */
 function getNewBonusDiscountLineItem(
-    currentBasket,
-    previousBonusDiscountLineItems,
-    urlObject,
-    pliUUID) {
-    var bonusDiscountLineItems = currentBasket.getBonusDiscountLineItems();
-    var newBonusDiscountLineItem;
-    var result = {};
+  currentBasket,
+  previousBonusDiscountLineItems,
+  urlObject,
+  pliUUID
+) {
+  var bonusDiscountLineItems = currentBasket.getBonusDiscountLineItems();
+  var newBonusDiscountLineItem;
+  var result = {};
 
-    newBonusDiscountLineItem = collections.find(bonusDiscountLineItems, function (item) {
-        return !previousBonusDiscountLineItems.contains(item);
-    });
-
-    collections.forEach(bonusDiscountLineItems, function (item) {
-        if (!previousBonusDiscountLineItems.contains(item)) {
-            Transaction.wrap(function () {
-                item.custom.bonusProductLineItemUUID = pliUUID; // eslint-disable-line no-param-reassign
-            });
-        }
-    });
-
-    if (newBonusDiscountLineItem) {
-        result.bonusChoiceRuleBased = newBonusDiscountLineItem.bonusChoiceRuleBased;
-        result.bonuspids = [];
-        var iterBonusProducts = newBonusDiscountLineItem.bonusProducts.iterator();
-        while (iterBonusProducts.hasNext()) {
-            var newBProduct = iterBonusProducts.next();
-            result.bonuspids.push(newBProduct.ID);
-        }
-        result.uuid = newBonusDiscountLineItem.UUID;
-        result.pliUUID = pliUUID;
-        result.maxBonusItems = newBonusDiscountLineItem.maxBonusItems;
-        result.addToCartUrl = urlObject.addToCartUrl;
-        result.showProductsUrl = urlObject.configureProductstUrl;
-        result.showProductsUrlListBased = URLUtils.url('Product-ShowBonusProducts', 'DUUID', newBonusDiscountLineItem.UUID, 'pids', result.bonuspids.toString(), 'maxpids', newBonusDiscountLineItem.maxBonusItems).toString();
-        result.showProductsUrlRuleBased = URLUtils.url('Product-ShowBonusProducts', 'DUUID', newBonusDiscountLineItem.UUID, 'pagesize', BONUS_PRODUCTS_PAGE_SIZE, 'pagestart', 0, 'maxpids', newBonusDiscountLineItem.maxBonusItems).toString();
-        result.pageSize = BONUS_PRODUCTS_PAGE_SIZE;
-        result.configureProductstUrl = URLUtils.url('Product-ShowBonusProducts', 'pids', result.bonuspids.toString(), 'maxpids', newBonusDiscountLineItem.maxBonusItems).toString();
-        result.newBonusDiscountLineItem = newBonusDiscountLineItem;
-        result.labels = {
-            close: Resource.msg('link.choiceofbonus.close', 'product', null),
-            selectprods: Resource.msgf('modal.header.selectproducts', 'product', null, null),
-            maxprods: Resource.msgf('label.choiceofbonus.selectproducts', 'product', null, newBonusDiscountLineItem.maxBonusItems)
-        };
+  newBonusDiscountLineItem = collections.find(
+    bonusDiscountLineItems,
+    function (item) {
+      return !previousBonusDiscountLineItems.contains(item);
     }
-    return newBonusDiscountLineItem ? result : undefined;
+  );
+
+  collections.forEach(bonusDiscountLineItems, function (item) {
+    if (!previousBonusDiscountLineItems.contains(item)) {
+      Transaction.wrap(function () {
+        item.custom.bonusProductLineItemUUID = pliUUID; // eslint-disable-line no-param-reassign
+      });
+    }
+  });
+
+  if (newBonusDiscountLineItem) {
+    result.bonusChoiceRuleBased = newBonusDiscountLineItem.bonusChoiceRuleBased;
+    result.bonuspids = [];
+    var iterBonusProducts = newBonusDiscountLineItem.bonusProducts.iterator();
+    while (iterBonusProducts.hasNext()) {
+      var newBProduct = iterBonusProducts.next();
+      result.bonuspids.push(newBProduct.ID);
+    }
+    result.uuid = newBonusDiscountLineItem.UUID;
+    result.pliUUID = pliUUID;
+    result.maxBonusItems = newBonusDiscountLineItem.maxBonusItems;
+    result.addToCartUrl = urlObject.addToCartUrl;
+    result.showProductsUrl = urlObject.configureProductstUrl;
+    result.showProductsUrlListBased = URLUtils.url(
+      "Product-ShowBonusProducts",
+      "DUUID",
+      newBonusDiscountLineItem.UUID,
+      "pids",
+      result.bonuspids.toString(),
+      "maxpids",
+      newBonusDiscountLineItem.maxBonusItems
+    ).toString();
+    result.showProductsUrlRuleBased = URLUtils.url(
+      "Product-ShowBonusProducts",
+      "DUUID",
+      newBonusDiscountLineItem.UUID,
+      "pagesize",
+      BONUS_PRODUCTS_PAGE_SIZE,
+      "pagestart",
+      0,
+      "maxpids",
+      newBonusDiscountLineItem.maxBonusItems
+    ).toString();
+    result.pageSize = BONUS_PRODUCTS_PAGE_SIZE;
+    result.configureProductstUrl = URLUtils.url(
+      "Product-ShowBonusProducts",
+      "pids",
+      result.bonuspids.toString(),
+      "maxpids",
+      newBonusDiscountLineItem.maxBonusItems
+    ).toString();
+    result.newBonusDiscountLineItem = newBonusDiscountLineItem;
+    result.labels = {
+      close: Resource.msg("link.choiceofbonus.close", "product", null),
+      selectprods: Resource.msgf(
+        "modal.header.selectproducts",
+        "product",
+        null,
+        null
+      ),
+      maxprods: Resource.msgf(
+        "label.choiceofbonus.selectproducts",
+        "product",
+        null,
+        newBonusDiscountLineItem.maxBonusItems
+      ),
+    };
+  }
+  return newBonusDiscountLineItem ? result : undefined;
 }
 
 /**
@@ -120,13 +159,13 @@ function getNewBonusDiscountLineItem(
  * @return {boolean} - Whether a product's current options are the same as those just selected
  */
 function hasSameOptions(existingOptions, selectedOptions) {
-    var selected = {};
-    for (var i = 0, j = selectedOptions.length; i < j; i++) {
-        selected[selectedOptions[i].optionId] = selectedOptions[i].selectedValueId;
-    }
-    return collections.every(existingOptions, function (option) {
-        return option.optionValueID === selected[option.optionID];
-    });
+  var selected = {};
+  for (var i = 0, j = selectedOptions.length; i < j; i++) {
+    selected[selectedOptions[i].optionId] = selectedOptions[i].selectedValueId;
+  }
+  return collections.every(existingOptions, function (option) {
+    return option.optionValueID === selected[option.optionID];
+  });
 }
 
 /**
@@ -139,11 +178,11 @@ function hasSameOptions(existingOptions, selectedOptions) {
  * @return {boolean} - Whether provided Bundle items are in the list of submitted bundle item IDs
  */
 function allBundleItemsSame(productLineItems, childProducts) {
-    return collections.every(productLineItems, function (item) {
-        return arrayHelper.find(childProducts, function (childProduct) {
-            return item.productID === childProduct.pid;
-        });
+  return collections.every(productLineItems, function (item) {
+    return arrayHelper.find(childProducts, function (childProduct) {
+      return item.productID === childProduct.pid;
     });
+  });
 }
 
 /**
@@ -158,26 +197,26 @@ function allBundleItemsSame(productLineItems, childProducts) {
  * @return {dw.order.ProductLineItem} - The added product line item
  */
 function addLineItem(
-    currentBasket,
+  currentBasket,
+  product,
+  quantity,
+  childProducts,
+  optionModel,
+  defaultShipment
+) {
+  var productLineItem = currentBasket.createProductLineItem(
     product,
-    quantity,
-    childProducts,
     optionModel,
     defaultShipment
-) {
-    var productLineItem = currentBasket.createProductLineItem(
-        product,
-        optionModel,
-        defaultShipment
-    );
+  );
 
-    if (product.bundle && childProducts.length) {
-        updateBundleProducts(productLineItem, childProducts);
-    }
+  if (product.bundle && childProducts.length) {
+    updateBundleProducts(productLineItem, childProducts);
+  }
 
-    productLineItem.setQuantityValue(quantity);
+  productLineItem.setQuantityValue(quantity);
 
-    return productLineItem;
+  return productLineItem;
 }
 
 /**
@@ -189,9 +228,7 @@ function addLineItem(
  * @return {boolean} - Whether to include the line item's quantity
  */
 function excludeUuid(selectedUuid, itemUuid) {
-    return selectedUuid
-        ? itemUuid !== selectedUuid
-        : true;
+  return selectedUuid ? itemUuid !== selectedUuid : true;
 }
 
 /**
@@ -208,20 +245,23 @@ function excludeUuid(selectedUuid, itemUuid) {
  *     requested
  */
 function getQtyAlreadyInCart(productId, lineItems, uuid) {
-    var qtyAlreadyInCart = 0;
+  var qtyAlreadyInCart = 0;
 
-    collections.forEach(lineItems, function (item) {
-        if (item.bundledProductLineItems.length) {
-            collections.forEach(item.bundledProductLineItems, function (bundleItem) {
-                if (bundleItem.productID === productId && excludeUuid(uuid, bundleItem.UUID)) {
-                    qtyAlreadyInCart += bundleItem.quantityValue;
-                }
-            });
-        } else if (item.productID === productId && excludeUuid(uuid, item.UUID)) {
-            qtyAlreadyInCart += item.quantityValue;
+  collections.forEach(lineItems, function (item) {
+    if (item.bundledProductLineItems.length) {
+      collections.forEach(item.bundledProductLineItems, function (bundleItem) {
+        if (
+          bundleItem.productID === productId &&
+          excludeUuid(uuid, bundleItem.UUID)
+        ) {
+          qtyAlreadyInCart += bundleItem.quantityValue;
         }
-    });
-    return qtyAlreadyInCart;
+      });
+    } else if (item.productID === productId && excludeUuid(uuid, item.UUID)) {
+      qtyAlreadyInCart += item.quantityValue;
+    }
+  });
+  return qtyAlreadyInCart;
 }
 
 /**
@@ -237,18 +277,18 @@ function getQtyAlreadyInCart(productId, lineItems, uuid) {
  * @return {dw.order.ProductLineItem[]} - Filtered list of product line items matching productId
  */
 function getMatchingProducts(productId, productLineItems) {
-    var matchingProducts = [];
-    var uuid;
-    collections.forEach(productLineItems, function (item) {
-        if (item.productID === productId) {
-            matchingProducts.push(item);
-            uuid = item.UUID;
-        }
-    });
-    return {
-        matchingProducts: matchingProducts,
-        uuid: uuid
-    };
+  var matchingProducts = [];
+  var uuid;
+  collections.forEach(productLineItems, function (item) {
+    if (item.productID === productId) {
+      matchingProducts.push(item);
+      uuid = item.UUID;
+    }
+  });
+  return {
+    matchingProducts: matchingProducts,
+    uuid: uuid,
+  };
 }
 
 /**
@@ -263,16 +303,27 @@ function getMatchingProducts(productId, productLineItems) {
  * @return {dw.order.ProductLineItem[]} - Filtered all the product line item matching productId and
  *     has the same bundled items or options
  */
-function getExistingProductLineItemsInCart(product, productId, productLineItems, childProducts, options) {
-    var matchingProductsObj = getMatchingProducts(productId, productLineItems);
-    var matchingProducts = matchingProductsObj.matchingProducts;
-    var productLineItemsInCart = matchingProducts.filter(function (matchingProduct) {
-        return product.bundle
-            ? allBundleItemsSame(matchingProduct.bundledProductLineItems, childProducts)
-            : hasSameOptions(matchingProduct.optionProductLineItems, options || []);
-    });
+function getExistingProductLineItemsInCart(
+  product,
+  productId,
+  productLineItems,
+  childProducts,
+  options
+) {
+  var matchingProductsObj = getMatchingProducts(productId, productLineItems);
+  var matchingProducts = matchingProductsObj.matchingProducts;
+  var productLineItemsInCart = matchingProducts.filter(function (
+    matchingProduct
+  ) {
+    return product.bundle
+      ? allBundleItemsSame(
+          matchingProduct.bundledProductLineItems,
+          childProducts
+        )
+      : hasSameOptions(matchingProduct.optionProductLineItems, options || []);
+  });
 
-    return productLineItemsInCart;
+  return productLineItemsInCart;
 }
 
 /**
@@ -287,8 +338,41 @@ function getExistingProductLineItemsInCart(product, productId, productLineItems,
  * @return {dw.order.ProductLineItem} - get the first product line item matching productId and
  *     has the same bundled items or options
  */
-function getExistingProductLineItemInCart(product, productId, productLineItems, childProducts, options) {
-    return getExistingProductLineItemsInCart(product, productId, productLineItems, childProducts, options)[0];
+function getExistingProductLineItemInCart(
+  product,
+  productId,
+  productLineItems,
+  childProducts,
+  options
+) {
+  var tempExisting = getExistingProductLineItemsInCart(
+    product,
+    productId,
+    productLineItems,
+    childProducts,
+    options
+  );
+  if (options.length > 0) {
+    if (options[0].optionId == "gift") {
+      return false;
+    } else {
+      return getExistingProductLineItemsInCart(
+        product,
+        productId,
+        productLineItems,
+        childProducts,
+        options
+      )[0];
+    }
+  } else {
+    return getExistingProductLineItemsInCart(
+      product,
+      productId,
+      productLineItems,
+      childProducts,
+      options
+    )[0];
+  }
 }
 
 /**
@@ -299,26 +383,31 @@ function getExistingProductLineItemInCart(product, productId, productLineItems, 
  * @param {number} quantity - the number of products to the cart
  * @return {boolean} - return true if the bundled product can be added
  */
-function checkBundledProductCanBeAdded(childProducts, productLineItems, quantity) {
-    var atsValueByChildPid = {};
-    var totalQtyRequested = 0;
-    var canBeAdded = false;
+function checkBundledProductCanBeAdded(
+  childProducts,
+  productLineItems,
+  quantity
+) {
+  var atsValueByChildPid = {};
+  var totalQtyRequested = 0;
+  var canBeAdded = false;
 
-    childProducts.forEach(function (childProduct) {
-        var apiChildProduct = ProductMgr.getProduct(childProduct.pid);
-        atsValueByChildPid[childProduct.pid] =
-            apiChildProduct.availabilityModel.inventoryRecord.ATS.value;
-    });
+  childProducts.forEach(function (childProduct) {
+    var apiChildProduct = ProductMgr.getProduct(childProduct.pid);
+    atsValueByChildPid[childProduct.pid] =
+      apiChildProduct.availabilityModel.inventoryRecord.ATS.value;
+  });
 
-    canBeAdded = childProducts.every(function (childProduct) {
-        var bundleQuantity = quantity;
-        var itemQuantity = bundleQuantity * childProduct.quantity;
-        var childPid = childProduct.pid;
-        totalQtyRequested = itemQuantity + getQtyAlreadyInCart(childPid, productLineItems);
-        return totalQtyRequested <= atsValueByChildPid[childPid];
-    });
+  canBeAdded = childProducts.every(function (childProduct) {
+    var bundleQuantity = quantity;
+    var itemQuantity = bundleQuantity * childProduct.quantity;
+    var childPid = childProduct.pid;
+    totalQtyRequested =
+      itemQuantity + getQtyAlreadyInCart(childPid, productLineItems);
+    return totalQtyRequested <= atsValueByChildPid[childPid];
+  });
 
-    return canBeAdded;
+  return canBeAdded;
 }
 
 /**
@@ -331,78 +420,105 @@ function checkBundledProductCanBeAdded(childProducts, productLineItems, quantity
  * @param {SelectedOption[]} options - product options
  *  @return {Object} returns an error object
  */
-function addProductToCart(currentBasket, productId, quantity, childProducts, options) {
-    var availableToSell;
-    var defaultShipment = currentBasket.defaultShipment;
-    var perpetual;
-    var product = ProductMgr.getProduct(productId);
-    var productInCart;
-    var productLineItems = currentBasket.productLineItems;
-    var productQuantityInCart;
-    var quantityToSet;
-    var optionModel = productHelper.getCurrentOptionModel(product.optionModel, options);
-    var result = {
-        error: false,
-        message: Resource.msg('text.alert.addedtobasket', 'product', null)
-    };
+function addProductToCart(
+  currentBasket,
+  productId,
+  quantity,
+  childProducts,
+  options
+) {
+  var availableToSell;
+  var defaultShipment = currentBasket.defaultShipment;
+  var perpetual;
+  var product = ProductMgr.getProduct(productId);
+  var productInCart;
+  var productLineItems = currentBasket.productLineItems;
+  var productQuantityInCart;
+  var quantityToSet;
+  var optionModel = productHelper.getCurrentOptionModel(
+    product.optionModel,
+    options
+  );
+  var result = {
+    error: false,
+    message: Resource.msg("text.alert.addedtobasket", "product", null),
+  };
 
-    var totalQtyRequested = 0;
-    var canBeAdded = false;
+  var totalQtyRequested = 0;
+  var canBeAdded = false;
 
-    if (product.bundle) {
-        canBeAdded = checkBundledProductCanBeAdded(childProducts, productLineItems, quantity);
-    } else {
-        totalQtyRequested = quantity + getQtyAlreadyInCart(productId, productLineItems);
-        perpetual = product.availabilityModel.inventoryRecord.perpetual;
-        canBeAdded =
-            (perpetual
-            || totalQtyRequested <= product.availabilityModel.inventoryRecord.ATS.value);
-    }
+  if (product.bundle) {
+    canBeAdded = checkBundledProductCanBeAdded(
+      childProducts,
+      productLineItems,
+      quantity
+    );
+  } else {
+    totalQtyRequested =
+      quantity + getQtyAlreadyInCart(productId, productLineItems);
+    perpetual = product.availabilityModel.inventoryRecord.perpetual;
+    canBeAdded =
+      perpetual ||
+      totalQtyRequested <= product.availabilityModel.inventoryRecord.ATS.value;
+  }
 
-    if (!canBeAdded) {
-        result.error = true;
-        result.message = Resource.msgf(
-            'error.alert.selected.quantity.cannot.be.added.for',
-            'product',
-            null,
-            product.availabilityModel.inventoryRecord.ATS.value,
-            product.name
-        );
-        return result;
-    }
-
-    productInCart = getExistingProductLineItemInCart(
-        product, productId, productLineItems, childProducts, options);
-
-    if (productInCart) {
-        productQuantityInCart = productInCart.quantity.value;
-        quantityToSet = quantity ? quantity + productQuantityInCart : productQuantityInCart + 1;
-        availableToSell = productInCart.product.availabilityModel.inventoryRecord.ATS.value;
-
-        if (availableToSell >= quantityToSet || perpetual) {
-            productInCart.setQuantityValue(quantityToSet);
-            result.uuid = productInCart.UUID;
-        } else {
-            result.error = true;
-            result.message = availableToSell === productQuantityInCart
-                ? Resource.msg('error.alert.max.quantity.in.cart', 'product', null)
-                : Resource.msg('error.alert.selected.quantity.cannot.be.added', 'product', null);
-        }
-    } else {
-        var productLineItem;
-        productLineItem = addLineItem(
-            currentBasket,
-            product,
-            quantity,
-            childProducts,
-            optionModel,
-            defaultShipment
-        );
-
-        result.uuid = productLineItem.UUID;
-    }
-
+  if (!canBeAdded) {
+    result.error = true;
+    result.message = Resource.msgf(
+      "error.alert.selected.quantity.cannot.be.added.for",
+      "product",
+      null,
+      product.availabilityModel.inventoryRecord.ATS.value,
+      product.name
+    );
     return result;
+  }
+
+  productInCart = getExistingProductLineItemInCart(
+    product,
+    productId,
+    productLineItems,
+    childProducts,
+    options
+  );
+
+  if (productInCart) {
+    productQuantityInCart = productInCart.quantity.value;
+    quantityToSet = quantity
+      ? quantity + productQuantityInCart
+      : productQuantityInCart + 1;
+    availableToSell =
+      productInCart.product.availabilityModel.inventoryRecord.ATS.value;
+
+    if (availableToSell >= quantityToSet || perpetual) {
+      productInCart.setQuantityValue(quantityToSet);
+      result.uuid = productInCart.UUID;
+    } else {
+      result.error = true;
+      result.message =
+        availableToSell === productQuantityInCart
+          ? Resource.msg("error.alert.max.quantity.in.cart", "product", null)
+          : Resource.msg(
+              "error.alert.selected.quantity.cannot.be.added",
+              "product",
+              null
+            );
+    }
+  } else {
+    var productLineItem;
+    productLineItem = addLineItem(
+      currentBasket,
+      product,
+      quantity,
+      childProducts,
+      optionModel,
+      defaultShipment
+    );
+
+    result.uuid = productLineItem.UUID;
+  }
+
+  return result;
 }
 
 /**
@@ -410,11 +526,11 @@ function addProductToCart(currentBasket, productId, quantity, childProducts, opt
  * @param {dw.order.Basket} basket - the target Basket object
  */
 function ensureAllShipmentsHaveMethods(basket) {
-    var shipments = basket.shipments;
+  var shipments = basket.shipments;
 
-    collections.forEach(shipments, function (shipment) {
-        ShippingHelpers.ensureShipmentHasMethod(shipment);
-    });
+  collections.forEach(shipments, function (shipment) {
+    ShippingHelpers.ensureShipmentHasMethod(shipment);
+  });
 }
 
 /**
@@ -424,26 +540,26 @@ function ensureAllShipmentsHaveMethods(basket) {
  * @return {string|boolean} returns a url or boolean value false
  */
 function getReportingUrlAddToCart(currentBasket, resultError) {
-    if (currentBasket && currentBasket.allLineItems.length && !resultError) {
-        return URLUtils.url('ReportingEvent-MiniCart').toString();
-    }
+  if (currentBasket && currentBasket.allLineItems.length && !resultError) {
+    return URLUtils.url("ReportingEvent-MiniCart").toString();
+  }
 
-    return false;
+  return false;
 }
 
 module.exports = {
-    addLineItem: addLineItem,
-    addProductToCart: addProductToCart,
-    checkBundledProductCanBeAdded: checkBundledProductCanBeAdded,
-    ensureAllShipmentsHaveMethods: ensureAllShipmentsHaveMethods,
-    getQtyAlreadyInCart: getQtyAlreadyInCart,
-    getNewBonusDiscountLineItem: getNewBonusDiscountLineItem,
-    getExistingProductLineItemInCart: getExistingProductLineItemInCart,
-    getExistingProductLineItemsInCart: getExistingProductLineItemsInCart,
-    getMatchingProducts: getMatchingProducts,
-    allBundleItemsSame: allBundleItemsSame,
-    hasSameOptions: hasSameOptions,
-    BONUS_PRODUCTS_PAGE_SIZE: BONUS_PRODUCTS_PAGE_SIZE,
-    updateBundleProducts: updateBundleProducts,
-    getReportingUrlAddToCart: getReportingUrlAddToCart
+  addLineItem: addLineItem,
+  addProductToCart: addProductToCart,
+  checkBundledProductCanBeAdded: checkBundledProductCanBeAdded,
+  ensureAllShipmentsHaveMethods: ensureAllShipmentsHaveMethods,
+  getQtyAlreadyInCart: getQtyAlreadyInCart,
+  getNewBonusDiscountLineItem: getNewBonusDiscountLineItem,
+  getExistingProductLineItemInCart: getExistingProductLineItemInCart,
+  getExistingProductLineItemsInCart: getExistingProductLineItemsInCart,
+  getMatchingProducts: getMatchingProducts,
+  allBundleItemsSame: allBundleItemsSame,
+  hasSameOptions: hasSameOptions,
+  BONUS_PRODUCTS_PAGE_SIZE: BONUS_PRODUCTS_PAGE_SIZE,
+  updateBundleProducts: updateBundleProducts,
+  getReportingUrlAddToCart: getReportingUrlAddToCart,
 };

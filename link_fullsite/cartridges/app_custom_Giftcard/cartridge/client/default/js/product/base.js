@@ -799,7 +799,7 @@ module.exports = {
           document.getElementById("invalid-feedback-email1").innerHTML="";
           document.getElementById("email2").innerHTML="";
           document.getElementById("email3").innerHTML="";
-          document.getElementById("email4").innerHTML="";
+          
 
           var rEmail=$("#emailVerify").val();
           var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -845,6 +845,7 @@ module.exports = {
           // }else{
           //   $('.invalid-feedback-email4').html('');
           // }
+        
           // return false ;
           var x = $("#emailVerify").val();
           var giftData = []

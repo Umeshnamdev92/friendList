@@ -29,14 +29,15 @@
                         <div class="line-item-option">${option.displayName}</div>
                     </isloop>
                 </div>
-
+               <isif condition="${lineItem.productName!='GiftCard'}">
                 <isif condition="${(pdict.order && !pdict.order.orderStatus) || miniCart}">
                     <isinclude template="cart/productCard/cartProductCardAvailability" />
+                </isif>
                 </isif>
             </div>
         </div>
     </isif>
-
+<isif condition="${lineItem.productName!='GiftCard'}">
     <div><hr class="line-item-divider"></div>
     <isif condition="${lineItem.productType === 'bundle' && ((pdict.order && !pdict.order.orderStatus) || miniCart)}">
         <isinclude template="cart/productCard/cartProductCardAvailability" />
@@ -44,6 +45,11 @@
     <div class="row align-items-start">
         <!--- item price --->
         <div class="col-4 line-item-unit-price">
+        <iscomment> <isif condition="${lineItem.price}">
+            
+        <iselse/>
+            
+        </isif> </iscomment>
             <isif condition="${lineItem.price}">
             <p class="line-item-pricing-info">
                 <span class="line-item-total-text unit-price-label">
@@ -80,5 +86,6 @@
         <div class="line-item-promo item-${lineItem.UUID}">
             <isinclude template="checkout/productCard/productCardProductPromotions" />
         </div>
+    </isif>
     </isif>
 </div>
