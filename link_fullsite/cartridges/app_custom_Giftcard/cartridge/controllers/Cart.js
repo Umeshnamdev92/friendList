@@ -49,10 +49,11 @@ var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
  * @param {returns} - json
  * @param {serverfunction} - post
  */
-server.replace('AddProduct', function (req, res, next) {
+server.append('AddProduct', function (req, res, next) {
     var BasketMgr = require('dw/order/BasketMgr');
     var Resource = require('dw/web/Resource');
     var URLUtils = require('dw/web/URLUtils');
+    var ProductMgr = require('dw/catalog/ProductMgr');
     var Transaction = require('dw/system/Transaction');
     var CartModel = require('*/cartridge/models/cart');
     var ProductLineItemsModel = require('*/cartridge/models/productLineItems');
@@ -121,13 +122,15 @@ server.replace('AddProduct', function (req, res, next) {
             if (!result.error) {
                 var productId= productId.toString();
                 if (productId.includes("Gift_Card")) {
+                    var tempProduct = ProductMgr.getProduct(productId);
+                    var imgUrl = tempProduct.getImages('medium')[0].url
                     
                     var a = currentBasket.createGiftCertificateLineItem(parseInt(options[0].selectedValueId), data.recipientEmail);
                     a.setRecipientEmail(data.recipientEmail);
                     a.setMessage(data.message);
                     a.setSenderName(data.senderName);
                     a.setRecipientName(data.recipientName);
-                    a.custom.productLineItemUUID = result.uuid ;
+                    a.custom.imgUrl = imgUrl ;
                     
                     }
                 cartHelper.ensureAllShipmentsHaveMethods(currentBasket);
