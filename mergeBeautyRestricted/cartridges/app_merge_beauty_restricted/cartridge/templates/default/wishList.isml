@@ -44,6 +44,7 @@
         </isloop>
     </div>
 <iselse/>
+
      <h1 class="empty-wishlisterror text-center">${Resource.msg('label.empty', 'wishlist', null)}</h1>
 </isif>
    
