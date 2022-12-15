@@ -1,0 +1,15 @@
+.progress {
+  height: 8px; }
+
+.progress-bar {
+  border-radius: 15px; }
+
+#starIcon {
+  color: green; }
+
+.ratingDiv {
+  justify-content: end;
+  display: flex; }
+
+.star {
+  font-family: system-ui; }

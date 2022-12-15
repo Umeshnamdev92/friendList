@@ -1,0 +1,49 @@
+<!-- Update Gift options to button -->
+<isif condition="${option.id == 'gift'}">
+   <div class="gift-amount-div">
+        <isloop items="${option.values}" var="value" status="loopstatus">
+        <button class="btn btn-primary gift-amount"
+        gift-option="${value.id}" id="add-engraving-btn" data-pid="${product.ID}" data-button-id="1"
+        value="${value.url}" <isif
+                condition="${value.id === option.selectedValueId}">disabled </isif>>
+     ${value.displayValue}
+    </button>
+    </isloop>
+   </div>
+<iselse/>
+<!-- Update Engraving options to button -->
+<isif condition="${option.id == 'engravingOptions'}">
+    <div style="display: flex; width: 135%;"><button class="engrave-toggle-button btn btn-primary button-select-engrave"
+        engraving-option-id="${option.values[1].id}" id="add-engraving-btn" data-pid="${product.ID}" data-button-id="1"
+        value="${option.values[1].url}">
+        ${Resource.msg('engrave.product', 'common', null)}
+    </button>
+    <button style="display: none;" engraving-option-id="${option.values[0].id}" id="cancal-engraving"
+        class="engrave-toggle-button btn btn-primary button-select-engrave" data-pid="${product.ID}" data-button-id="1"
+        value="${option.values[0].url}" disabled>
+        ${Resource.msg('cancel-engrave', 'forms', null)}
+    </button></div>
+
+    <div class="mt-3" id="engraving" style="display: none">
+        <div class="form-group">
+            <h3 class="text-dark" >${Resource.msg('labal.engraving' , 'account' , null)}</h3>
+            <textarea class="form-controll" id="engraving-message" rows="3" cols="65"></textarea>
+            <div id="invalid-feedback-message" class="mb-3"></div>
+        </div>
+    </div>
+<iselse/>
+    <label>${option.name}</label>
+
+    <select class="options-select custom-select form-control">
+        <isloop items="${option.values}" var="value">
+            <option data-value-id="${value.id}" value="${value.url}" <isif
+                condition="${value.id === option.selectedValueId}">selected
+</isif>
+>
+[${value.price}] ${value.displayValue}
+</option>
+</isloop>
+</select>
+</isif>
+</isif>
+

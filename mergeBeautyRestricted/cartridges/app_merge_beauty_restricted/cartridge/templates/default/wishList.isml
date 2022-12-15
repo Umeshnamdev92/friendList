@@ -1,0 +1,53 @@
+<isscript>
+    var assets = require('*/cartridge/scripts/assets');
+    assets.addJs('/js/wishlist.js');
+    assets.addCss('/css/wishlist.css');
+</isscript>
+
+<isdecorate template="common/layout/page">
+    <input id="countValue" type="hidden" name="count" value="${pdict.count}">
+    <div id="deletedMsg" class="container my-2">
+    </div>
+<isif condition="${pdict.productList.length > 0}">
+     <div class="container my-3" style="width:61%">
+        <isloop items="${pdict.productList}" var="items" status="loopstatus">
+            <div class="card" id="${items.ID}">
+                <div class="row">
+                    <div class="col-3">
+                        <a href="${URLUtils.url('Product-Show', 'pid', items.productID)}">
+                            <img src="${items.product.getImages('medium')[0].url}" class="card-img-top" alt="...">
+                        </a>
+                    </div>
+                    <div class="col-7 card-body">
+                        <a href="${URLUtils.url('Product-Show', 'pid', items.productID)}">
+                            <h5 class="card-title">${items.product.name}</h5>
+                        </a>
+                        <p class="card-text">${items.product.shortDescription}</p>
+                        <button type="button" class="addToCart btn btn-light" style="background-color:#890076;"
+                            id="${items.product.ID}">
+                            <label class="form-control-label" style="color:white;"> <i style="color:white; margin-top:10px;" class="fa fa-shopping-bag"></i>
+                                ${Resource.msg('label.input.addtocart', 'wishlist', null)}
+                            </label>
+                        </button>
+                        <isinclude url="${URLUtils.url('Wishlist-GetSize', 'optionID', items.product.ID, 'isVarient', items.product.variant)}"
+                            sf-toolkit="on" />
+                    </div>
+                    <div class="removeDiv col-2">
+                        <iscomment> <a href="${URLUtils.url('Wishlist-Delete', 'pid', items.ID)}">delete</a>
+                        </iscomment>
+                        <button class="btn removeItemBtn" data-url="${URLUtils.url('Wishlist-Delete', 'pid', items.ID)}"
+                            type="button" class="btn btn-light">
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </isloop>
+    </div>
+<iselse/>
+     <h1 class="empty-wishlisterror text-center">${Resource.msg('label.empty', 'wishlist', null)}</h1>
+</isif>
+   
+    <input id="variantProductId" type="hidden" value="">
+    <input type="hidden" id="addToCartUrl"
+        value="/on/demandware.store/Sites-RefArch-allCS-Site/en_US/Cart-AddProduct">
+</isdecorate>

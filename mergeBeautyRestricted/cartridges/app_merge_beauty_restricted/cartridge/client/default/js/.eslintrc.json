@@ -1,0 +1,10 @@
+{
+    "env": {
+        "jquery": true
+    },
+    "rules": {
+        "global-require": "on",
+        "no-var": "on",
+        "prefer-const": "on"
+    }
+}

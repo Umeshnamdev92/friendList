@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://www.demandware.com/xml/impex/metadata/2006-10-31">
+    <type-extension type-id="Product">
+        <custom-attribute-definitions>
+            <attribute-definition attribute-id="engravingOptions">
+                <display-name xml:lang="x-default">Engraving Options</display-name>
+                <type>string</type>
+                <localizable-flag>false</localizable-flag>
+                <site-specific-flag>false</site-specific-flag>
+                <mandatory-flag>false</mandatory-flag>
+                <visible-flag>false</visible-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <order-required-flag>false</order-required-flag>
+                <externally-defined-flag>false</externally-defined-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="is`Personalizable">
+                <display-name xml:lang="x-default">Presonalize</display-name>
+                <type>boolean</type>
+                <site-specific-flag>true</site-specific-flag>
+                <mandatory-flag>false</mandatory-flag>
+                <visible-flag>false</visible-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <order-required-flag>false</order-required-flag>
+                <externally-defined-flag>false</externally-defined-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="isWineOrNot">
+                <display-name xml:lang="x-default">Is Wine Or Not</display-name>
+                <type>boolean</type>
+                <site-specific-flag>true</site-specific-flag>
+                <mandatory-flag>false</mandatory-flag>
+                <visible-flag>false</visible-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <order-required-flag>false</order-required-flag>
+                <externally-defined-flag>false</externally-defined-flag>
+            </attribute-definition>
+        </custom-attribute-definitions>
+        <group-definitions>
+            <attribute-group group-id="customAttribute">
+                <display-name xml:lang="x-default">Custom Attributes</display-name>
+                <attribute attribute-id="isWineOrNot"/>
+                <attribute attribute-id="engravingOptions"/>
+                <attribute attribute-id="isPersonalizable"/>
+            </attribute-group>
+        </group-definitions>
+    </type-extension>
+    <type-extension type-id="Profile">
+        <custom-attribute-definitions>
+            <attribute-definition attribute-id="customerEyeColor">
+                <display-name xml:lang="x-default">Eye Color</display-name>
+                <description xml:lang="x-default">Eye Color</description>
+                <type>enum-of-string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <value-definitions>
+                    <value-definition>
+                        <display xml:lang="x-default">Black</display>
+                        <value>black</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">Blue</display>
+                        <value>blue</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">Brown</display>
+                        <value>brown</value>
+                    </value-definition>
+                </value-definitions>
+            </attribute-definition>
+            <attribute-definition attribute-id="customerHairColor">
+                <display-name xml:lang="x-default">Hair Color</display-name>
+                <description xml:lang="x-default">Hair Color</description>
+                <type>enum-of-string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <value-definitions>
+                    <value-definition>
+                        <display xml:lang="x-default">Black</display>
+                        <value>black</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">Brown</display>
+                        <value>brown</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">Red</display>
+                        <value>red</value>
+                    </value-definition>
+                </value-definitions>
+            </attribute-definition>
+            <attribute-definition attribute-id="customerSkinTone">
+                <display-name xml:lang="x-default">Skin Tone</display-name>
+                <description xml:lang="x-default">Skin Tone of Customer</description>
+                <type>enum-of-string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <value-definitions>
+                    <value-definition>
+                        <display xml:lang="x-default">Black</display>
+                        <value>black</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">Brown</display>
+                        <value>brown</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">White</display>
+                        <value>white</value>
+                    </value-definition>
+                </value-definitions>
+            </attribute-definition>
+            <attribute-definition attribute-id="customerSkinType">
+                <display-name xml:lang="x-default">Skin Type</display-name>
+                <description xml:lang="x-default">Skin Type</description>
+                <type>enum-of-string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <value-definitions>
+                    <value-definition>
+                        <display xml:lang="x-default">Oily</display>
+                        <value>oily</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">Dry</display>
+                        <value>dry</value>
+                    </value-definition>
+                </value-definitions>
+            </attribute-definition>
+              <attribute-definition attribute-id="cutomerAashuAge">
+                <display-name xml:lang="x-default">cutomerAashuAge</display-name>
+                <type>double</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+        </custom-attribute-definitions>
+        <group-definitions>
+            <attribute-group group-id="customAashu">
+                <display-name xml:lang="x-default">CustomAashu</display-name>
+                <attribute attribute-id="customerEyeColor"/>
+                <attribute attribute-id="customerSkinTone"/>
+                <attribute attribute-id="customerSkinType"/>
+                <attribute attribute-id="customerHairColor"/>
+                <attribute attribute-id="cutomerAashuAge"/>
+            </attribute-group>
+        </group-definitions>
+    </type-extension>
+    <type-extension type-id="ProductLineItem">
+        <custom-attribute-definitions>
+            <attribute-definition attribute-id="engravingMessage">
+                <display-name xml:lang="x-default">Engraving Message</display-name>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+                <field-length>50</field-length>
+            </attribute-definition>
+        </custom-attribute-definitions>
+        <group-definitions>
+            <attribute-group group-id="customAashu">
+                <display-name xml:lang="x-default">AffiliatedShopGroup</display-name>
+                <attribute attribute-id="engravingMessage"/>
+            </attribute-group>
+        </group-definitions>
+    </type-extension>
+     <type-extension type-id="SitePreferences">
+        <custom-attribute-definitions>
+            <attribute-definition attribute-id="numberOfProductTiles">
+                <display-name xml:lang="x-default">numberOfProductTiles</display-name>
+                <description xml:lang="x-default">numberOfProductTiles</description>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+
+            <attribute-definition attribute-id="aashuRecaptchaSiteKey">
+                <display-name xml:lang="x-default">Recaptcha Site Key</display-name>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+
+                <attribute-definition attribute-id="aashuRecaptchaSecretKey">
+                <display-name xml:lang="x-default">Recaptcha Secret Key</display-name>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="isBeautyFieldsEditable">
+                <display-name xml:lang="x-default">Beauty Fields Editable</display-name>
+                <description xml:lang="x-default">Manage the Beauty fields on registration</description>
+                <type>boolean</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <default-value>false</default-value>
+            </attribute-definition>
+            <attribute-definition attribute-id="BeautyAttributeOptions">
+                <display-name xml:lang="x-default">Beauty Attributes Options</display-name>
+                <description xml:lang="x-default">Options for beauty fields</description>
+                <type>text</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+        </custom-attribute-definitions>
+        <group-definitions>
+            <attribute-group group-id="customPreferencesGroupAashu">
+                <display-name xml:lang="x-default">PreferencesCustomGroupAashu</display-name>
+                <attribute attribute-id="numberOfProductTiles"/>
+                <attribute attribute-id="aashuRecaptchaSiteKey"/>
+                <attribute attribute-id="aashuRecaptchaSecretKey"/>
+                <attribute attribute-id="isBeautyFieldsEditable"/>
+                <attribute attribute-id="BeautyAttributeOptions"/>
+            </attribute-group>
+        </group-definitions>
+    </type-extension>
+</metadata>

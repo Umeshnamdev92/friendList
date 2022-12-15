@@ -1,0 +1,156 @@
+<isdecorate template="common/layout/page">
+    <isscript>
+        var assets = require('*/cartridge/scripts/assets.js');
+        assets.addJs('/js/productTile.js');
+        assets.addCss('/css/homePage.css');
+    </isscript>
+
+    <!-- +1.888.555.0199 -->
+    <!--This phone is a requirement to support existing Gomez monitor of SiteGenesis. Demandware customers can remove this.-->
+    <div class="home-main homepage">
+        <isslot id="home-main-m" description="Main home page slot." context="global" />
+    </div>
+
+    <div
+        style='background-color:#ededed;'>
+
+
+
+        <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active ">
+                    <h5 style="font-size:xx-large;font-weight:bolder;justify-content:flex;text-align:center"><span
+                            style="color:purple;">&nbsp;&nbsp;MENS & WOMENS WEAR&nbsp;&nbsp;</span></h5>
+                    <div class="card-deck">
+                        <div class="card" style="border:none">
+                            <isslot id="mens-clothing" description="Main home page Mens clothing redirection."
+                                context="global" />
+                        </div>
+                        <div class="card" style="border:none">
+                            <isslot id="women-jwellery" description="Main home page Womens jwellery redirection."
+                                context="global" />
+                        </div>
+                        <div class="card" style="border:none">
+                            <isslot id="women-clothing" description="Main home page women-clothing redirection."
+                                context="global" />
+                        </div>
+                        <div class="card" style="border:none">
+                            <isslot id="womens-accessories" description="Main home page women accessories redirection."
+                                context="global" />
+                        </div>
+                        <div class="card" style="border:none">
+                            <isslot id="mens-accessories" description="Main home page mens accessories redirection."
+                                context="global" />
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <h5 style="font-size:xx-large;font-weight:bolder;justify-content:flex;text-align:center"><span
+                            style="color:purple;;">&nbsp;&nbsp;ELECTRONICS&nbsp;&nbsp;</span></h5>
+                    <div class="card-deck" style="padding-bottom:4%">
+                        <div class="card" style="border:none">
+                            <isslot id="electronics-televisions"
+                                description="Main home page electronincs-televisions redirection." context="global" />
+                        </div>
+                        <div class="card" style="border:none">
+                            <isslot id="electronics-digital-cameras"
+                                description="Main home page electronics digitalCamera redirection." context="global" />
+                        </div>
+                        <div class="card" style="border:none">
+                            <isslot id="electronics-GPS-Navigation"
+                                description="Main home page electronics-GPS navigation redirection." context="global" />
+                        </div>
+                        <div class="card" style="border:none">
+                            <isslot id="electronics-gaming" description="Main home page electronics gaming redirection."
+                                context="global" />
+                        </div>
+                        <div class="card" style="border:none">
+                            <isslot id="electronics" description="Main home page electronics redirection."
+                                context="global" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="container-fluid" id="MostlyBuyed">
+        <div
+            style='background-color:#ededed;'>
+            <h5 style="font-size:xx-large;font-weight:bolder;justify-content:flex;text-align:center"><span
+                    style="color:purple;;">&nbsp;&nbsp;MOSTLY BUYED PRODUCTS&nbsp;&nbsp;</span></h5><br/>
+            <div class="container">
+                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                    </ol>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <isslot id="Mostly-Buyed-products1"
+                                description="Main home page Mostly Buyed products redirection." context="global" />
+
+                        </div>
+                        <div class="carousel-item">
+                            <isslot id="Mostly-Buyed-products2"
+                                description="Main home page Mostly Buyed products redirection." context="global" />
+
+                        </div>
+                        <div class="carousel-item">
+                            <isslot id="Mostly-Buyed-products3"
+                                description="Main home page Mostly Buyed products redirection." context="global" />
+                        </div>
+                    </div>
+                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                        <span style="margin-right:5%" class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                        <span style="margin-left:5%" class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+            </div>
+            <br>
+            <br>
+        </div>
+    </div>
+<br>
+    <div class="container" id="newArrival">
+        <h5 style="font-size:xx-large;font-weight:bolder;justify-content:flex;text-align:center"><span
+                style="color:purple;;">&nbsp;&nbsp;NEW ARRIVALS PRODUCTS&nbsp;&nbsp;</span></h5>
+
+        <isslot id="newly-arrival-products" description="Main home page newly arrival products redirection."
+            context="global" />
+    </div>
+
+
+    <div class="homepage shop-the-style">
+        <isslot id="home-product-set-m" description="Link to a Product Set." context="global" />
+    </div>
+    <iscomment> <div class="home-email-signup">
+        <div class="container">
+            <form role="form">
+                <div class="row">
+                    <div class="col-sm-5">
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="hpEmailSignUp"
+                                placeholder="${Resource.msg('placeholdertext.form.emailsignup', 'homePage', null)}"
+                                aria-label="${Resource.msg('placeholdertext.form.emailsignup', 'homePage', null)}">
+                            <span class="input-group-append">
+                                <button type="submit" class="btn btn-primary subscribe-email"
+                                    data-href="${URLUtils.url('EmailSubscribe-Subscribe')}">${Resource.msg('button.form.emailsignup',
+                                    'homePage', null)} </button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-sm-7 email-description">${Resource.msg('description.form.emailsignup', 'homePage',
+                        null)}</div>
+                </div>
+            </form>
+        </div>
+    </div> </iscomment>
+
+
+</isdecorate>

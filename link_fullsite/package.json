@@ -1,6 +1,6 @@
 {
   "init": [],
-  "name": "Fullsite",
+  "name": "app_custom_fullsite",
   "version": "22.1.0",
   "description": "Full Site | Codesquare",
   "main": "index.js",
@@ -29,7 +29,7 @@
     "proxyquire": "1.7.4",
     "request-promise": "^4.2.2",
     "sass-loader": "^7.1.0",
-    "sgmf-scripts": "^2.4.1",
+    "sgmf-scripts": "^2.4.2",
     "stylelint": "9.5.0",
     "stylelint-config-standard": "^18.3.0",
     "stylelint-scss": "^3.9.2"
