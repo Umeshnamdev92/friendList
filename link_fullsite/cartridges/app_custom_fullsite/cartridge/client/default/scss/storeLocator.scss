@@ -3,9 +3,7 @@
 @import "bootstrap/scss/mixins/breakpoints";
 @import "~base/storeLocator/storeLocator";
 
-.card-body-color {
-    background-color: antiquewhite !important;
-}
+
 
 .store-locator-container .btn-storelocator-search {
   background-color: #f9f9f9;
@@ -79,11 +77,11 @@
     overflow-x: hidden;
     max-height: 21.875em;
   }
-}
-#card-body-color,
-.card-body-color {
-  background-color: slategrey !important;
-  border-radius: 25px;
+// }
+// #card-body-color,
+// .card-body-color {
+//   background-color: slategrey !important;
+//   border-radius: 25px;
 }
 .card-body-result-color {
   background-color: #fffaf0;
@@ -168,7 +166,7 @@
 }
 
 #card-body-color {
-  background-color: darkgrey;
+  margin-top: 1rem;
 }
 
 #find-locators {
