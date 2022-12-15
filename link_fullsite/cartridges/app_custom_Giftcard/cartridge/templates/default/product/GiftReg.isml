@@ -52,14 +52,14 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
+                    <iscomment> <div class="form-group">
                         <label for="exampleInputEmail1">Notes</label>
                         <input type="text" class="form-control" name="email4" id="email4"
                             data-missing-error="${Resource.msg('label.valid.email', 'forms', null)}" <isprint
                             value="${pdict.drx.email4.attributes}" encoding="off" />>
                         <div class="invalid-feedback-email4">
                         </div>
-                    </div>
+                    </div> </iscomment>
                  <iscomment> <button type="submit" name="submit" class="btn btn-success">Submit</button> </iscomment>
                  
                         <isinclude template="product/components/addToCartProduct" />

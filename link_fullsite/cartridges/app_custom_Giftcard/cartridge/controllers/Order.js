@@ -44,7 +44,7 @@ server.append(
                     giftPl.setRecipientName(element.recipientName);
                     giftPl.setSenderName(element.senderName);
                     giftPl.setMessage(element.message);
-                    giftPl.setDescription(element.custom.note);
+                    // giftPl.setDescription(element.custom.note);
 
                     var giftSendEmail = GiftCertificateMgr.getGiftCertificateByCode(giftPl.giftCertificateCode)
                     var templateData = {

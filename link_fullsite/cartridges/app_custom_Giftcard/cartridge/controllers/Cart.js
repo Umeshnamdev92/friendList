@@ -88,7 +88,7 @@ server.replace('AddProduct', function (req, res, next) {
                 a.setRecipientEmail(data.recipientEmail);
                 a.setMessage(data.message);
                 a.setSenderName(data.senderName);
-                a.custom.note = data.note;
+                // a.custom.note = data.note;
                 a.setRecipientName(data.recipientName);
                 
                 }
@@ -104,6 +104,7 @@ server.replace('AddProduct', function (req, res, next) {
                     childProducts,
                     options,
                     giftDetail
+                    // data
                 );
             } else {
                 // product set

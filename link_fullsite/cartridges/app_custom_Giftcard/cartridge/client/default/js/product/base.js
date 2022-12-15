@@ -837,14 +837,14 @@ module.exports = {
           else{
             $('.invalid-feedback-email3').html('');
           }
-          var rEmail4=$("#email4").val();
-          if (rEmail4=='') {
-            console.log("empty remail");
-            $('.invalid-feedback-email4').html('<p class="text-danger">please fill out this field<p>');
-            return false;
-          }else{
-            $('.invalid-feedback-email4').html('');
-          }
+          // var rEmail4=$("#email4").val();
+          // if (rEmail4=='') {
+          //   console.log("empty remail");
+          //   $('.invalid-feedback-email4').html('<p class="text-danger">please fill out this field<p>');
+          //   return false;
+          // }else{
+          //   $('.invalid-feedback-email4').html('');
+          // }
           // return false ;
           var x = $("#emailVerify").val();
           var giftData = []
@@ -853,7 +853,7 @@ module.exports = {
             recipientName: $("#email1").val(),
             senderName: $("#email2").val(),
             message: $("#email3").val(),
-            note: $("#email4").val()
+            // note: $("#email4").val()
           })
           console.log(x);
           var form = {
@@ -871,7 +871,7 @@ module.exports = {
             $("#email1").val('');
             $("#email2").val('');
             $("#email3").val('');
-            $("#email4").val('');
+            // $("#email4").val('');
         
         } else {
           var form = {
