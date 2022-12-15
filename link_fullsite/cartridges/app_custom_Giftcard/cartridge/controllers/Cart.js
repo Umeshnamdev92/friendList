@@ -54,7 +54,7 @@ server.append('AddProduct', function (req, res, next) {
     var ProductMgr = require('dw/catalog/ProductMgr');
     var Resource = require('dw/web/Resource');
     var URLUtils = require('dw/web/URLUtils');
-    var ProductMgr = require('dw/catalog/ProductMgr');
+    var URL = require('dw/web/URL');
     var Transaction = require('dw/system/Transaction');
     var CartModel = require('*/cartridge/models/cart');
     var ProductLineItemsModel = require('*/cartridge/models/productLineItems');
@@ -128,10 +128,9 @@ server.append('AddProduct', function (req, res, next) {
                giftLineItem.setMessage(data.message);
                giftLineItem.setSenderName(data.senderName);
                giftLineItem.setRecipientName(data.recipientName);
-               giftLineItem.custom.imgUrl = URLUtils.https(imgUrl) ;
-
+               giftLineItem.custom.imgUrl = URLUtils.home().toString().split(".com/")[0]+".com"+imgUrl;
                giftLineItem.custom.productLineItemUUID = result.uuid ;
-                
+               
                 }
             
             if (!result.error) {
