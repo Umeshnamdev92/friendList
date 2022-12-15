@@ -44,7 +44,9 @@
         </isloop>
     </div>
 <iselse/>
-
+                 <div class="home-main homepage">
+        <isslot id="home-main-m" description="Main home page slot." context="global" />
+    </div>
      <h1 class="empty-wishlisterror text-center">${Resource.msg('label.empty', 'wishlist', null)}</h1>
 </isif>
    

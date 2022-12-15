@@ -220,7 +220,7 @@ server.post("UpdateBonus", function (req, res, next) {
     var totalNetPrice = currentBasket.totalNetPrice.value;
     var toPercent = totalNetPrice * (bonusPercentOfTotal / 100);
 
-    if (currentCustomer.profile.custom.userWallet < bPoint) {
+    if (currentCustomer.profile.custom.userWallet < bPoint || currentCustomer.profile.custom.userWallet==0) {
         var data = {
             appliedPoint: bPoint,
             msg: "Applied bonus cannot be greater than wallet bonus",
