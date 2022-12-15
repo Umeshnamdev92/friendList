@@ -81,20 +81,8 @@ server.replace('AddProduct', function (req, res, next) {
 
     if (currentBasket) {
         Transaction.wrap(function(){
-            var text= productId.toString();
-            if (text.includes("Gift_Card")) {
-                
-                var a = currentBasket.createGiftCertificateLineItem(parseInt(options[0].selectedValueId), data.recipientEmail);
-                a.setRecipientEmail(data.recipientEmail);
-                a.setMessage(data.message);
-                a.setSenderName(data.senderName);
-                // a.custom.note = data.note;
-                a.setRecipientName(data.recipientName);
-                
-                }
-            })
-        
-        Transaction.wrap(function () {
+          
+          
             if (!req.form.pidsObj) {
                 quantity = parseInt(req.form.quantity, 10);
                 result = cartHelper.addProductToCart(
@@ -104,6 +92,7 @@ server.replace('AddProduct', function (req, res, next) {
                     childProducts,
                     options,
                     giftDetail
+                    // data
                 );
             } else {
                 // product set
@@ -130,6 +119,17 @@ server.replace('AddProduct', function (req, res, next) {
                 });
             }
             if (!result.error) {
+                var productId= productId.toString();
+                if (productId.includes("Gift_Card")) {
+                    
+                    var a = currentBasket.createGiftCertificateLineItem(parseInt(options[0].selectedValueId), data.recipientEmail);
+                    a.setRecipientEmail(data.recipientEmail);
+                    a.setMessage(data.message);
+                    a.setSenderName(data.senderName);
+                    a.setRecipientName(data.recipientName);
+                    a.custom.productLineItemUUID = result.uuid ;
+                    
+                    }
                 cartHelper.ensureAllShipmentsHaveMethods(currentBasket);
                 basketCalculationHelpers.calculateTotals(currentBasket);
             }
@@ -219,17 +219,7 @@ server.replace('RemoveProductLineItem', function (req, res, next) {
     Transaction.wrap(function () {
         if (req.querystring.pid && req.querystring.uuid) {
             
-            var text= req.querystring.pid.toString();
-            if (text.includes("Gift_Card")) {
-                // currentBasket.RemoveGiftCertificateLineItem()
-                var allGiftLineItems=currentBasket.getGiftCertificateLineItems()
-                
-                for (let i = 0; i < allGiftLineItems.length; i++) {
-                  
-                    currentBasket.removeGiftCertificateLineItem(allGiftLineItems[i])
-                    
-                }
-            }
+            
 
             var productLineItems = currentBasket.getAllProductLineItems(req.querystring.pid);
             var bonusProductLineItems = currentBasket.bonusLineItems;
@@ -247,7 +237,23 @@ server.replace('RemoveProductLineItem', function (req, res, next) {
                             }
                         }
                     }
+                    // ........................gift line item remove..........................
+                    var productID=item.productID.toString()
+                    if (productID.includes("Gift_Card")) {
+                       
+                        var allGiftLineItems=currentBasket.getGiftCertificateLineItems()
+                        
+                        for (let i = 0; i < allGiftLineItems.length; i++) {
+                            var giftLineItemId=allGiftLineItems[i].custom.productLineItemUUID;
+                            if(item.UUID==giftLineItemId){
+                            currentBasket.removeGiftCertificateLineItem(allGiftLineItems[i])
+                            }
+                        }
+                    }
+        
 
+
+                    //..........................gift line item remove...................
                     var shipmentToRemove = item.shipment;
                     currentBasket.removeProductLineItem(item);
                     if (shipmentToRemove.productLineItems.empty && !shipmentToRemove.default) {
