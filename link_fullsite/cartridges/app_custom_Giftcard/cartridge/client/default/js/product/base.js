@@ -854,7 +854,7 @@ module.exports = {
             recipientName: $("#email1").val(),
             senderName: $("#email2").val(),
             message: $("#email3").val(),
-            note: $("#email4").val()
+            // note: $("#email4").val()
           })
           console.log(x);
           var form = {
@@ -872,7 +872,7 @@ module.exports = {
             $("#email1").val('');
             $("#email2").val('');
             $("#email3").val('');
-            $("#email4").val('');
+            // $("#email4").val('');
         
         } else {
           var form = {

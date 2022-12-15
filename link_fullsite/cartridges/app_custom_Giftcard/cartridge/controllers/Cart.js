@@ -92,6 +92,7 @@ server.replace('AddProduct', function (req, res, next) {
                     childProducts,
                     options,
                     giftDetail
+                    // data
                 );
             } else {
                 // product set
