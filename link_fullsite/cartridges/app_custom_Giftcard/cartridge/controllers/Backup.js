@@ -61,8 +61,16 @@ server.replace('AddProduct', function (req, res, next) {
 
     var currentBasket = BasketMgr.getCurrentOrNewBasket();
     var previousBonusDiscountLineItems = currentBasket.getBonusDiscountLineItems();
+    //custom code of 
     var productId = req.form.pid;
+    var a = req.form.giftdetail;
+    if(req.form.giftdetail){
+    var giftdetailData =JSON.parse(req.form.giftdetail);
+    var data = giftdetailData[0]
     
+    var giftDetail= {};
+    // condition check for data come through ajax
+    }
     var childProducts = Object.hasOwnProperty.call(req.form, 'childProducts')
         ? JSON.parse(req.form.childProducts)
         : [];
@@ -72,7 +80,9 @@ server.replace('AddProduct', function (req, res, next) {
     var pidsObj;
 
     if (currentBasket) {
-        Transaction.wrap(function () {
+        Transaction.wrap(function(){
+          
+          
             if (!req.form.pidsObj) {
                 quantity = parseInt(req.form.quantity, 10);
                 result = cartHelper.addProductToCart(
@@ -107,6 +117,17 @@ server.replace('AddProduct', function (req, res, next) {
                 });
             }
             if (!result.error) {
+                var productId= productId.toString();
+                if (productId.includes("Gift_Card")) {
+                    
+                    var a = currentBasket.createGiftCertificateLineItem(parseInt(options[0].selectedValueId), data.recipientEmail);
+                    a.setRecipientEmail(data.recipientEmail);
+                    a.setMessage(data.message);
+                    a.setSenderName(data.senderName);
+                    a.setRecipientName(data.recipientName);
+                    a.custom.productLineItemUUID = result.uuid ;
+                    
+                    }
                 cartHelper.ensureAllShipmentsHaveMethods(currentBasket);
                 basketCalculationHelpers.calculateTotals(currentBasket);
             }
