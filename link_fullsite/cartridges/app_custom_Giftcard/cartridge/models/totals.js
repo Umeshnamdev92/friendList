@@ -11,14 +11,12 @@ var Template = require('dw/util/Template');
  * @returns {string} the formatted money value
  */
 function getTotals(total) {
-    
     return !total.available ? '-' : formatMoney(total);
 }
-function getGiftCardTotal(total) {
-    var Money = require('dw/value/Money');
-    total = Money(total,"USD");
-    
-    return formatMoney(total);
+function getGiftCardTotal(total,gifttotal) {
+    var b=gifttotal;
+    return !total.available ? '-' : formatMoney(total.add(gifttotal));
+
 }
 
 
@@ -137,9 +135,10 @@ function getDiscountsHtml(discounts) {
  */
 function totals(lineItemContainer) {
     if (lineItemContainer) {
-        this.unformatTotal = getGiftCardTotal(lineItemContainer.giftCertificateTotalPrice.value);
+        // this.unformatTotal = getGiftCardTotal(lineItemContainer.giftCertificateTotalPrice.value);
+        this.unformatTotal = getGiftCardTotal(lineItemContainer.getAdjustedMerchandizeTotalPrice(false), lineItemContainer.getGiftCertificateTotalGrossPrice());
         this.subTotal = getTotals(lineItemContainer.getAdjustedMerchandizeTotalPrice(false));
-        this.totalShippingCost = getTotals(lineItemContainer.shippingTotalPrice);
+        this.totalShippingCost =  getTotals(lineItemContainer.shippingTotalPrice);
         if (this.totalShippingCost === '-') {
             this.totalTax = '-';
             this.grandTotal = '-';

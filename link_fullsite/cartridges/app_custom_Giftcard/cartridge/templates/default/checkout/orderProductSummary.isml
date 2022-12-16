@@ -13,6 +13,8 @@
                     </isif>
                 </isloop>
                 <isif condition="${giftCard}">
+                        <span class="grand-total-price">${pdict.order.totals.unformatTotal}</span>
+
                 <iselse/>
                         <span class="grand-total-price">${pdict.order.totals.subTotal}</span>
                 </isif>
