@@ -153,7 +153,7 @@ server.append('AddProduct', function (req, res, next) {
         });
     }
 
-    var quantityTotal = Produ
+    var quantityTotal = Product
     ItemsModel.getTotalQuantity(currentBasket.productLineItems);
     var cartModel = new CartModel(currentBasket);
 
