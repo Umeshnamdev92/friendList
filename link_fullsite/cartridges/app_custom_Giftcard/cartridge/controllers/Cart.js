@@ -224,7 +224,7 @@ server.replace('RemoveProductLineItem', function (req, res, next) {
 
     Transaction.wrap(function () {
         if (req.querystring.pid && req.querystring.uuid) {
-
+            var productId=req.querystring.pid;
             var productLineItems = currentBasket.getAllProductLineItems(req.querystring.pid);
             var bonusProductLineItems = currentBasket.bonusLineItems;
             var mainProdItem;
