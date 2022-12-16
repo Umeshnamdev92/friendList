@@ -56,7 +56,7 @@ server.append(
                     var success = null;
 
                     var staticTemplate =`
-                    <p><img alt="Gift Template" src="`(element.custom.imgUrl)`" title="Gift" /></p>
+                    <p><img alt="Gift Template" src="`+element.custom.imgUrl+`" title="Gift" /></p>
 
                     <p>Dear <b>`+templateData.name+`</b>,</p>
 

@@ -797,8 +797,8 @@ module.exports = {
         if (text.includes("Gift_Card")) {
           document.getElementById("emailError").innerHTML="";
           document.getElementById("invalid-feedback-email1").innerHTML="";
-          document.getElementById("email2").innerHTML="";
-          document.getElementById("email3").innerHTML="";
+          document.getElementById("senderName").innerHTML="";
+          document.getElementById("message").innerHTML="";
           
 
           var rEmail=$("#emailVerify").val();
@@ -813,14 +813,14 @@ module.exports = {
             return false;
           }
            
-          var rEmail1=$("#email1").val();
+          var rEmail1=$("#recipientName").val();
 
           if (rEmail1=='') {
             console.log("empty remail");
             $('#invalid-feedback-email1').html('<p class="text-danger">please fill out this field<p>');
             return false;
           }
-          var rEmail2=$("#email2").val();
+          var rEmail2=$("#senderName").val();
           if (rEmail2=='') {
             console.log("empty remail");
             $('.invalid-feedback-email2').html('<p class="text-danger">please fill out this field<p>');
@@ -828,7 +828,7 @@ module.exports = {
           }else{
             $('.invalid-feedback-email2').html('');
           }
-          var rEmail3=$("#email3").val();
+          var rEmail3=$("#message").val();
           if (rEmail3=='') {
             console.log("empty remail");
             $('.invalid-feedback-email3').html('<p class="text-danger">please fill out this field<p>');
@@ -851,9 +851,9 @@ module.exports = {
           var giftData = []
           giftData.push({
             recipientEmail: $("#emailVerify").val(),
-            recipientName: $("#email1").val(),
-            senderName: $("#email2").val(),
-            message: $("#email3").val(),
+            recipientName: $("#recipientName").val(),
+            senderName: $("#senderName").val(),
+            message: $("#message").val(),
             // note: $("#email4").val()
           })
           console.log(x);
@@ -869,9 +869,9 @@ module.exports = {
           
           $('#exampleModalLong').modal('hide');
           $("#emailVerify").val('');
-            $("#email1").val('');
-            $("#email2").val('');
-            $("#email3").val('');
+            $("#recipientName").val('');
+            $("#senderName").val('');
+            $("#message").val('');
             // $("#email4").val('');
         
         } else {
