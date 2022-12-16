@@ -1,12 +1,22 @@
+
 <isscript>
         var assets = require('*/cartridge/scripts/assets');
         assets.addJs('/js/wishlist.js');
         assets.addJs('/css/wishlist.css');
 </isscript>
-        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+ 
+
+             
+           
+               
+    
 <div class="product-tile">
+    
     <!-- dwMarker="product" dwContentID="${product.uuid}" -->
+   
     <isinclude template="product/components/productTileImage" />
+  
     <div class="tile-body">
         <isif condition="${pdict.display.swatches !== false}">
             <isinclude template="product/components/productTileSwatch" />
@@ -17,8 +27,8 @@
         <isset name="price" value="${product.price}" scope="page" />
         <isif condition="${product.productType === 'set'}">
             <isinclude template="product/components/pricing/setPrice" />
-        <iselse>
-            <isinclude template="product/components/pricing/main" />
+            <iselse>
+                <isinclude template="product/components/pricing/main" />
         </isif>
 
         <isif condition="${pdict.display.ratings !== false}">
@@ -27,12 +37,15 @@
 
         <isif condition="${product.promotions}">
             <isloop items="${product.promotions}" var="promotion" status="loopstatus">
-                <iscomment> <p class="text-success" >${promotion.name}</p> </iscomment>
-                <p class="text-success" ><small>${promotion.calloutMsg}</small></p>
+                <iscomment>
+                    <p class="text-success">${promotion.name}</p>
+                </iscomment>
+                <p class="text-success"><small>${promotion.calloutMsg}</small></p>
             </isloop>
         </isif>
 
-        <button type="button" class="custombtn-wishlist btn btn-primary" data-url="${URLUtils.url('Wishlist-Addwishlist','pid',product.id)}">
+        <button type="button" class="custombtn-wishlist btn btn-primary"
+            data-url="${URLUtils.url('Wishlist-Addwishlist', 'pid', product.id)}">
             <i style="color:white;" class="fa fa-heart"></i>
             <label class="form-control-label" style="color:white">
                 ${Resource.msg('label.input.wishlist', 'wishlist', null)}

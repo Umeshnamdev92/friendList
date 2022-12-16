@@ -98,6 +98,11 @@ var scrollAnimate = require('base/components/scrollAnimate');
                     //
                     var customerFormSelector = customerHelpers.methods.isGuestFormActive() ? customerHelpers.vars.GUEST_FORM : customerHelpers.vars.REGISTERED_FORM;
                     var customerForm = $(customerFormSelector);
+                    var regex = "^[0-9]{3, 4}$";
+                    var cvv = $('.saved-payment-security-code').val();
+                    if(regex.test(cvv)){
+                        alert('success!');
+                    }
                     $.ajax({
                         url: customerForm.attr('action'),
                         type: 'post',
@@ -254,19 +259,8 @@ var scrollAnimate = require('base/components/scrollAnimate');
                             if (!($('.payment-information').data('is-new-payment'))) {
                                 var cvvCode = $('.saved-payment-instrument.' +
                                     'selected-payment .saved-payment-security-code').val();
-                                var regex = /^[0-9]{0,3}$/;
 
                                 if (cvvCode === '') {
-                                    var cvvElement = $('.saved-payment-instrument.' +
-                                        'selected-payment ' +
-                                        '.form-control');
-                                    cvvElement.addClass('is-invalid');
-                                    scrollAnimate(cvvElement);
-                                    defer.reject();
-                                    return defer;
-                                }
-
-                                if(cvvCode.match(regex) != cvvCode){
                                     var cvvElement = $('.saved-payment-instrument.' +
                                         'selected-payment ' +
                                         '.form-control');
