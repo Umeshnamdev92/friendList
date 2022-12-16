@@ -36,7 +36,7 @@
                 }
         },
         {
-          "@type-id": "custom.getAllProduct",
+          "@type-id": "custom.getAllProductStockClear",
           "@supports-parallel-execution": "true",
           "@supports-site-context": "true",
           "@supports-organization-context": "false",

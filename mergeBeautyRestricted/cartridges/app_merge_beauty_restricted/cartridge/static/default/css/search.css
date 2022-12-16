@@ -466,7 +466,8 @@
       border-bottom: 0 none;
       padding: 0.25rem 1rem; }
     .refinement .card-body {
-      padding: 0 1rem; } }
+      padding: 0 1rem;
+      background-color: white; } }
   .refinement a {
     text-decoration: none; }
   .refinement.refinement-category li {

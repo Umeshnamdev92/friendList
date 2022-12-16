@@ -18,7 +18,9 @@ var promotionCache = require('*/cartridge/scripts/util/promotionCache');
      base(product, apiProduct, productType)
  // to add all the variables related to restricted products to System objects
     var PromotionMgr = require('dw/campaign/PromotionMgr');
+    // var discountedPrice= ProductMgr.getProductPromotionsForDiscountedProduct(product);
     var promotions = PromotionMgr.activeCustomerPromotions.getProductPromotions(apiProduct);
+    
     decorators.promotions(product, promotions);
    // decorators.price(product, apiProduct, options.promotions, false, options.optionModel);
 

@@ -127,7 +127,7 @@ $( document ).ready(function() {
         });
     });
 
- 
+
 
     // handeling the message after product added to cart
     function handlePostCartAdd(response) {
