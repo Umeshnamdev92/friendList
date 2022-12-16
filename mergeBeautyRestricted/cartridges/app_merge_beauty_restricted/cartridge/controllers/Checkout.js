@@ -48,6 +48,15 @@ server.replace(
         var validationHelpers = require('*/cartridge/scripts/helpers/basketValidationHelpers');
         var currentBasket = BasketMgr.getCurrentBasket();
 
+        var data = res.getViewData();
+        var Site = require("dw/system/Site");
+        var selectedAddress = req.querystring.selectedAddress;
+        var mySitePrefValue =
+          Site.getCurrent().getCustomPreferenceValue("addressType");
+        var addresstypes = JSON.parse(mySitePrefValue);
+        data.addresstypes = addresstypes;
+        data.selectedAddress = selectedAddress
+        res.setViewData(data);
 
         if (!currentBasket) {
             res.redirect(URLUtils.url('Cart-Show'));
@@ -196,7 +205,23 @@ server.replace(
     }
 );
 
+server.get("selectSingleAddress", (req, res, next) => {
+  var AddressModel = require("*/cartridge/models/address");
+  var selectedAddress = req.querystring.selectedAddress;
+  var currentCustomer = req.currentCustomer;
+  var result = [];
+  if (currentCustomer.addressBook) {
+    for (var i = 0, ii = currentCustomer.addressBook.addresses.length; i < ii; i++) {
+      var tempAddress = new AddressModel(currentCustomer.addressBook.addresses[i]).address;
+      if (tempAddress.title == selectedAddress) {
+        result.push(tempAddress);
 
+      }
+    }
+  }
+  res.json(result);
+  next();
+});
 
 
 /**

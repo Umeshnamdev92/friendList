@@ -22,6 +22,19 @@
                     <label class="form-control-label" for="billingAddressSelector">
                         ${Resource.msg('heading.billing.address', 'checkout', null)}
                     </label>
+                    <input type="radio" checked value="Home" name="selectShippingAddress">
+                    <label>
+                        ${Resource.msg('select.option.home', 'addressdyanamic', "Home")}
+                    </label>
+                    <input type="radio" name="selectShippingAddress" value="Office">
+                    <label>
+                        ${Resource.msg('select.option.office', 'addressdyanamic', "Office")}
+                    </label>
+                    <input type="radio" name="selectShippingAddress" value="Other">
+                    <label>
+                        ${Resource.msg('select.option.other', 'addressdyanamic', "Other")}
+                    </label>
+
 
                     <isinclude template="checkout/billing/addressSelector" />
                     <div class="invalid-feedback"></div>

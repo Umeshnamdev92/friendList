@@ -3,6 +3,7 @@
     assets.addJs('/js/wishlist.js');
     assets.addCss('/css/wishlist.css');
 </isscript>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <isdecorate template="common/layout/page">
     <input id="countValue" type="hidden" name="count" value="${pdict.count}">
@@ -25,6 +26,11 @@
                             <a href="${URLUtils.url('Product-Show', 'pid', items.productID)}">
                                 <h5 class="card-title">${items.product.name}</h5>
                             </a>
+                            <isif condition="${items.product.availabilityModel.availability == 0}">
+                                 <div class="container" style="background-color:#ffcc00; margin-left:initial;width: 7rem">
+                                    Out of Stock
+                                </div>
+                            </isif>
                             <p class="card-text">${items.product.shortDescription}</p>
                             <button type="button" class="addToCart btn btn-light" style="background-color:#890076;"
                                 id="${items.product.ID}">
@@ -50,7 +56,7 @@
             </isloop>
         </div>
     <iselse/>
-    
+
         <h1 class="empty-wishlisterror text-center">${Resource.msg('label.empty', 'wishlist', null)}</h1>
     </isif>
 
