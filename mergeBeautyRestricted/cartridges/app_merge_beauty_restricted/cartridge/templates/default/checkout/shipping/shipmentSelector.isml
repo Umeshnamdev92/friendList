@@ -1,0 +1,40 @@
+<div class="form-group">
+    <label class="form-control-label" for="shipmentSelector-${lineItem ? lineItem.UUID : 'default'}">
+        ${Resource.msg('heading.ship.to.address', 'checkout', null)}
+    </label>
+
+ <isscript>
+        var assets = require('*/cartridge/scripts/assets.js');
+        assets.addJs('/js/changeAddress.js');
+    </isscript>
+<input type="hidden" id="selectAddressAjax" name="" value="${URLUtils.url('CheckoutShippingServices-UpdateShippingMethodsList')}">
+<input type="hidden" id="selectAddress" name="" value="${URLUtils.url('Checkout-Begin')}">
+
+<input type="radio" checked value="Home" name="selectShippingAddress" >
+        <label>
+         ${Resource.msg('select.option.home', 'addressdyanamic', "Home")}
+        </label>
+<input type="radio"  name="selectShippingAddress" value="Office">
+        <label>
+        ${Resource.msg('select.option.office', 'addressdyanamic', "Office")}
+        </label>
+<input type="radio" name="selectShippingAddress" value="Other">
+        <label>
+        ${Resource.msg('select.option.other', 'addressdyanamic', "Other")}
+        </label>
+
+
+    <select id="shipmentSelector-${lineItem ? lineItem.UUID : 'default'}"
+            name="shipmentSelector"
+            class="addressSelector form-control custom-select"
+            data-create-shipment-url="${URLUtils.https('CheckoutAddressServices-CreateNewAddress')}"
+    >
+        <isinclude template="checkout/shipping/shipmentSelectorOptions" />
+    </select>
+
+    <div class="invalid-feedback"></div>
+    <div class="row">
+        <button class="col-6 text-center btn-show-details btn" type="button">${Resource.msg('action.update.address', 'checkout', null)}</button>
+        <button class="col-6 text-center btn-add-new btn" type="button">${Resource.msg('action.add.new', 'checkout', null)}</button>
+    </div>
+</div>
