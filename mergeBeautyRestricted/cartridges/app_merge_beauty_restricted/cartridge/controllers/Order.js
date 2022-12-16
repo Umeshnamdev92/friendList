@@ -34,8 +34,8 @@ server.append(
             var Transaction = require('dw/system/Transaction');
             var GiftCertificateMgr = require('dw/order/GiftCertificateMgr');
             var GiftCertificateLineItem = require('dw/order/GiftCertificateLineItem');
-            var mail = new Mail();
             Transaction.wrap(() => {
+                var mail = new Mail();
                 var giftPl = null;
                 collections.forEach(order.allGiftCertificateLineItems, function (element) {
                     giftPl = GiftCertificateMgr.createGiftCertificate(element.price.value);
@@ -43,7 +43,7 @@ server.append(
                     giftPl.setRecipientName(element.recipientName);
                     giftPl.setSenderName(element.senderName);
                     giftPl.setMessage(element.message);
-                    giftPl.setDescription(element.custom.note);
+                    // giftPl.setDescription(element.custom.note);
 
                     var giftSendEmail = GiftCertificateMgr.getGiftCertificateByCode(giftPl.giftCertificateCode)
                     var templateData = {
@@ -53,14 +53,18 @@ server.append(
                         amount: giftSendEmail.amount.value
                     };
                     var success = null;
-                    var staticTemplate =`<p>Dear `+templateData.name+`,</p>
 
-                    <p>A Gift Certificate has been issued to you in the amount of `+templateData.amount+`</p>
+                    var staticTemplate =`
+                    <p><img alt="Gift Template" src="`+element.custom.imgUrl+`" title="Gift" /></p>
+
+                    <p>Dear <b>`+templateData.name+`</b>,</p>
+
+                    <p>A Gift Certificate has been issued to you in the amount of <b>`+templateData.amount+`</b></p>
                     
                     <p>Message:</p>
-                    <p>`+templateData.amount+`</p>
+                    <p><b>`+templateData.message+`</b></p>
                     <p>You can redeem your gift certificate at our online store.</p>
-                    <p>Your gift certificate code is `+templateData.code+`</p>
+                    <p>Your gift certificate code is <b>`+templateData.code+`</b></p>
                     <p>Sincerely,</p>
                     <p>CustomerSupport</p>
                     `;

@@ -1,11 +1,11 @@
 'use strict';
 
-var customerHelpers = require('base/checkout/customer');
-var addressHelpers = require('base/checkout/address');
-var shippingHelpers = require('base/checkout/shipping');
+var customerHelpers = require('./customer');
+var addressHelpers = require('./address');
+var shippingHelpers = require('./shipping');
 var billingHelpers = require('./billing');
-var summaryHelpers = require('base/checkout/summary');
-var formHelpers = require('base/checkout/formErrors');
+var summaryHelpers = require('./summary');
+var formHelpers = require('./formErrors');
 var scrollAnimate = require('base/components/scrollAnimate');
 
 
@@ -254,19 +254,8 @@ var scrollAnimate = require('base/components/scrollAnimate');
                             if (!($('.payment-information').data('is-new-payment'))) {
                                 var cvvCode = $('.saved-payment-instrument.' +
                                     'selected-payment .saved-payment-security-code').val();
-                                var regex = /^[0-9]{0,3}$/;
 
                                 if (cvvCode === '') {
-                                    var cvvElement = $('.saved-payment-instrument.' +
-                                        'selected-payment ' +
-                                        '.form-control');
-                                    cvvElement.addClass('is-invalid');
-                                    scrollAnimate(cvvElement);
-                                    defer.reject();
-                                    return defer;
-                                }
-
-                                if(cvvCode.match(regex) != cvvCode){
                                     var cvvElement = $('.saved-payment-instrument.' +
                                         'selected-payment ' +
                                         '.form-control');

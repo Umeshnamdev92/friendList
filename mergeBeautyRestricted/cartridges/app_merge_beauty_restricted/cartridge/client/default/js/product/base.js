@@ -694,75 +694,90 @@ module.exports = {
             }
 
             addToCartUrl = getAddToCartUrl();
-            var text= pid.toString();
-            if (text.includes("Gift_Card")) {
-                document.getElementById("emailError").innerHTML="";
-                document.getElementById("invalid-feedback-email1").innerHTML="";
-                document.getElementById("email2").innerHTML="";
-                document.getElementById("email3").innerHTML="";
-                document.getElementById("email4").innerHTML="";
-      
-                var rEmail=$("#emailVerify").val();
-                var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-                if(rEmail==""){
-                $('#emailError').html('<p class="text-danger">please fill out this field<p>');
-                }
-                else if (!rEmail.match(mailformat)) {
-                  console.log("not correct");
-                  $('#emailError').html('<p class="text-danger">Email is incorrect<p>');
-                }else{
-                  console.log(rEmail);
-                }
-                var rEmail1=$("#email1").val();
-                if (rEmail1=='') {
-                  console.log("empty remail");
-                  $('#invalid-feedback-email1').html('<p class="text-danger">please fill out this field<p>');
-                  return false;
-                }
-                var rEmail2=$("#email2").val();
-                if (rEmail2=='') {
-                  console.log("empty remail");
-                  $('.invalid-feedback-email2').html('<p class="text-danger">please fill out this field<p>');
-                  return false;
-                }
-                var rEmail3=$("#email3").val();
-                if (rEmail3=='') {
-                  console.log("empty remail");
-                  $('.invalid-feedback-email3').html('<p class="text-danger">please fill out this field<p>');
-                  return false;
-                }
-                var rEmail4=$("#email4").val();
-                if (rEmail4=='') {
-                  console.log("empty remail");
-                  $('.invalid-feedback-email4').html('<p class="text-danger">please fill out this field<p>');
-                  return false;
-                }
-                // return false ;
-                var x = $("#emailVerify").val();
-                var giftData = []
-                giftData.push({
-                  recipientEmail: $("#emailVerify").val(),
-                  recipientName: $("#email1").val(),
-                  senderName: $("#email2").val(),
-                  message: $("#email3").val(),
-                  note: $("#email4").val()
-                })
-                console.log(x);
-                var form = {
-                  pid: pid,
-                  pidsObj: pidsObj,
-                  childProducts: getChildProducts(),
-                  quantity: 1,
-                  giftdetail: JSON.stringify(giftData)
-                };
-                // $('#exampleModalLongGiftForm').hide() 
-            $('#exampleModalLong').modal('hide');
-            $("#emailVerify").val('');
-            $("#email1").val('');
-            $("#email2").val('');
-            $("#email3").val('');
-            $("#email4").val('');
-        }else{
+          //custom code for addtoCart button in modal
+        var text= pid.toString();
+        if (text.includes("Gift_Card")) {
+          document.getElementById("emailError").innerHTML="";
+          document.getElementById("invalid-feedback-email1").innerHTML="";
+          document.getElementById("senderName").innerHTML="";
+          document.getElementById("message").innerHTML="";
+          
+
+          var rEmail=$("#emailVerify").val();
+          var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+          if(rEmail==""){
+          $('#emailError').html('<p class="text-danger">please fill out this field<p>');
+          return false;
+          }
+          if (!rEmail.match(mailformat)) {
+            console.log("not correct");
+            $('#emailError').html('<p class="text-danger">Email is incorrect<p>');
+            return false;
+          }
+           
+          var rEmail1=$("#recipientName").val();
+
+          if (rEmail1=='') {
+            console.log("empty remail");
+            $('#invalid-feedback-email1').html('<p class="text-danger">please fill out this field<p>');
+            return false;
+          }
+          var rEmail2=$("#senderName").val();
+          if (rEmail2=='') {
+            console.log("empty remail");
+            $('.invalid-feedback-email2').html('<p class="text-danger">please fill out this field<p>');
+            return false;
+          }else{
+            $('.invalid-feedback-email2').html('');
+          }
+          var rEmail3=$("#message").val();
+          if (rEmail3=='') {
+            console.log("empty remail");
+            $('.invalid-feedback-email3').html('<p class="text-danger">please fill out this field<p>');
+            return false;
+          }
+          else{
+            $('.invalid-feedback-email3').html('');
+          }
+          // var rEmail4=$("#email4").val();
+          // if (rEmail4=='') {
+          //   console.log("empty remail");
+          //   $('.invalid-feedback-email4').html('<p class="text-danger">please fill out this field<p>');
+          //   return false;
+          // }else{
+          //   $('.invalid-feedback-email4').html('');
+          // }
+        
+          // return false ;
+          var x = $("#emailVerify").val();
+          var giftData = []
+          giftData.push({
+            recipientEmail: $("#emailVerify").val(),
+            recipientName: $("#recipientName").val(),
+            senderName: $("#senderName").val(),
+            message: $("#message").val(),
+            // note: $("#email4").val()
+          })
+          console.log(x);
+          var form = {
+            pid: pid,
+            pidsObj: pidsObj,
+            childProducts: getChildProducts(),
+            quantity: getQuantitySelected($(this)),
+            giftdetail: JSON.stringify(giftData)
+          };
+          // $('#exampleModalLongGiftForm').hide() 
+          //code for hiding modal 
+          
+          $('#exampleModalLong').modal('hide');
+          $("#emailVerify").val('');
+            $("#recipientName").val('');
+            $("#senderName").val('');
+            $("#message").val('');
+            // $("#email4").val('');
+        
+        } 
+        else{
             var form = {
                 pid: pid,
                 pidsObj: pidsObj,

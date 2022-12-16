@@ -25,6 +25,7 @@ var validAddToCart = require('*/cartridge/scripts/middleware/validAddToCart');
  */
 server.replace('AddProduct', validAddToCart.validateRestrictedProduct ,function (req, res, next) {
   var BasketMgr = require('dw/order/BasketMgr');
+  var ProductMgr = require('dw/catalog/ProductMgr');
   var Resource = require('dw/web/Resource');
   var URLUtils = require('dw/web/URLUtils');
   var Transaction = require('dw/system/Transaction');
@@ -91,15 +92,7 @@ server.replace('AddProduct', validAddToCart.validateRestrictedProduct ,function 
 
   if (currentBasket) {
       Transaction.wrap(function () {
-         text= productId.toString();
-            if (text.includes("Gift_Card")) {
-                var tocreategiftcertificatelineitem = currentBasket.createGiftCertificateLineItem(parseInt(options[0].selectedValueId), "aamir.bohra@codesquaretech.com");
-                tocreategiftcertificatelineitem.setRecipientEmail(data.recipientEmail);
-                tocreategiftcertificatelineitem.setMessage(data.message);
-                tocreategiftcertificatelineitem.setSenderName(data.senderName);
-                tocreategiftcertificatelineitem.custom.note = data.note;
-                tocreategiftcertificatelineitem.setRecipientName(data.recipientName);
-                }
+         
           if (!req.form.pidsObj) {
               quantity = parseInt(req.form.quantity, 10);
               result = cartHelper.addProductToCart(
@@ -134,6 +127,18 @@ server.replace('AddProduct', validAddToCart.validateRestrictedProduct ,function 
               });
           }
           if (!result.error) {
+            var tempProduct = ProductMgr.getProduct(productId);
+                if (tempProduct.custom.isGiftCard) {
+                var imgUrl = tempProduct.getImages('medium')[0].url
+                var giftLineItem = currentBasket.createGiftCertificateLineItem(parseFloat(options[0].selectedValueId), data.recipientEmail);
+               giftLineItem.setRecipientEmail(data.recipientEmail);
+               giftLineItem.setMessage(data.message);
+               giftLineItem.setSenderName(data.senderName);
+               giftLineItem.setRecipientName(data.recipientName);
+               giftLineItem.custom.imgUrl = URLUtils.home().toString().split(".com/")[0]+".com"+imgUrl;
+               giftLineItem.custom.productLineItemUUID = result.uuid ;
+               
+                }
               cartHelper.ensureAllShipmentsHaveMethods(currentBasket);
               basketCalculationHelpers.calculateTotals(currentBasket);
           }
@@ -185,5 +190,94 @@ server.replace('AddProduct', validAddToCart.validateRestrictedProduct ,function 
   }
 
   next();
+});
+
+
+server.replace('RemoveProductLineItem', function (req, res, next) {
+    var BasketMgr = require('dw/order/BasketMgr');
+    var Resource = require('dw/web/Resource');
+    var Transaction = require('dw/system/Transaction');
+    var URLUtils = require('dw/web/URLUtils');
+    var CartModel = require('*/cartridge/models/cart');
+    var ProductMgr = require('dw/catalog/ProductMgr');
+    var basketCalculationHelpers = require('*/cartridge/scripts/helpers/basketCalculationHelpers');
+
+    var currentBasket = BasketMgr.getCurrentBasket();
+
+    if (!currentBasket) {
+        res.setStatusCode(500);
+        res.json({
+            error: true,
+            redirectUrl: URLUtils.url('Cart-Show').toString()
+        });
+
+        return next();
+    }
+
+    var isProductLineItemFound = false;
+    var bonusProductsUUIDs = [];
+
+    Transaction.wrap(function () {
+        if (req.querystring.pid && req.querystring.uuid) {
+            var productId=req.querystring.pid;
+            var productLineItems = currentBasket.getAllProductLineItems(req.querystring.pid);
+            var bonusProductLineItems = currentBasket.bonusLineItems;
+            var mainProdItem;
+            for (var i = 0; i < productLineItems.length; i++) {
+                var item = productLineItems[i];
+                if ((item.UUID === req.querystring.uuid)) {
+                    if (bonusProductLineItems && bonusProductLineItems.length > 0) {
+                        for (var j = 0; j < bonusProductLineItems.length; j++) {
+                            var bonusItem = bonusProductLineItems[j];
+                            mainProdItem = bonusItem.getQualifyingProductLineItemForBonusProduct();
+                            if (mainProdItem !== null
+                                && (mainProdItem.productID === item.productID)) {
+                                bonusProductsUUIDs.push(bonusItem.UUID);
+                            }
+                        }
+                    }
+                    // ........................gift line item remove..........................
+                    var tempProduct = ProductMgr.getProduct(productId);
+                    if (tempProduct.custom.isGiftCard) {
+                       
+                        var allGiftLineItems=currentBasket.getGiftCertificateLineItems()
+                        
+                        for (let i = 0; i < allGiftLineItems.length; i++) {
+                            var giftLineItemId=allGiftLineItems[i].custom.productLineItemUUID;
+                            if(item.UUID==giftLineItemId){
+                            currentBasket.removeGiftCertificateLineItem(allGiftLineItems[i])
+                            }
+                        }
+                    }
+        
+
+
+                    //..........................gift line item remove...................
+                    var shipmentToRemove = item.shipment;
+                    currentBasket.removeProductLineItem(item);
+                    if (shipmentToRemove.productLineItems.empty && !shipmentToRemove.default) {
+                        currentBasket.removeShipment(shipmentToRemove);
+                    }
+                    isProductLineItemFound = true;
+                    break;
+                }
+            }
+        }
+        basketCalculationHelpers.calculateTotals(currentBasket);
+    });
+
+    if (isProductLineItemFound) {
+        var basketModel = new CartModel(currentBasket);
+        var basketModelPlus = {
+            basket: basketModel,
+            toBeDeletedUUIDs: bonusProductsUUIDs
+        };
+        res.json(basketModelPlus);
+    } else {
+        res.setStatusCode(500);
+        res.json({ errorMessage: Resource.msg('error.cannot.remove.product', 'cart', null) });
+    }
+
+    return next();
 });
 module.exports = server.exports();
