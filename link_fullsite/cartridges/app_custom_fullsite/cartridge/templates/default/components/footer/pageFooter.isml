@@ -36,9 +36,9 @@
                         <div class="email-description">${Resource.msg('description.form.emailsignup', 'homePage', null)}
                         </div>
                     </div>
-                    <span class="input-group-append col-sm-4">
+                    <span class="input-group-append col-sm-4 pb-4 mr-0">
 
-                        <button type="submit"  class="btn  subscribe-email"
+                        <button type="submit"  class="btn  subscribe-email ml-0"
                             data-href="${URLUtils.url('EmailSubscribe-Subscribe')}"><b id="SubscribeEmailButtonsub" style="z-index:100;">${Resource.msg('button.form.emailsignup', 'homePage', null)}</b> </button>
                     </span>
 
