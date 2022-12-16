@@ -6,7 +6,16 @@
                 <span class="order-receipt-label grand-total-label">${Resource.msgf('label.number.items.in.cart','cart', null, pdict.order.items.totalQuantity)}</span>
             </div>
             <div class="col-6 end-lines">
-                <span class="grand-total-price">${pdict.order.totals.subTotal}</span>
+                    <isset name="giftCard" value="${false}" scope="page" />
+                <isloop items="${pdict.order.items.items}" var="gift" status="loopstatus">
+                    <isif condition="${gift.productName=="GiftCard"}">
+                    <isset name="giftCard" value="${true}" scope="page" />
+                    </isif>
+                </isloop>
+                <isif condition="${giftCard}">
+                <iselse/>
+                        <span class="grand-total-price">${pdict.order.totals.subTotal}</span>
+                </isif>
             </div>
         </div>
         <div class="product-summary-block">

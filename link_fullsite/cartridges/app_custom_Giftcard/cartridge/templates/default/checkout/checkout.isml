@@ -28,8 +28,7 @@
             <div class="col-12 col-sm-5 offset-sm-7 col-md-5 offset-md-7">
                 <div class="text-center">
                     <span>${Resource.msg('info.need.help', 'cart', null)}</span>
-                    <span><a
-                            href="tel:${Resource.msg('info.phone.number', 'common', null)}">${Resource.msg('info.phone.number', 'common', null)}</a></span>
+                    <span><a href="tel:${Resource.msg('info.phone.number', 'common', null)}">${Resource.msg('info.phone.number', 'common', null)}</a></span>
                 </div>
             </div>
         </div>
@@ -52,7 +51,6 @@
                 </div>
 
                 <!-- Step 1: Customer -->
-                We only allow edits for non-registered customers
                 <isif condition="${!pdict.customer.registeredUser}">
                     <isinclude template="checkout/customer/customer" />
                 </isif>
@@ -69,7 +67,7 @@
                     </div>
                 </div>
 
-                <!-- Step 2: Shipping -->${onlyGiftcard}
+                <!-- Step 2: Shipping -->
 
                 <isinclude template="checkout/shipping/shipping" />
                 <div class="card shipping-summary">

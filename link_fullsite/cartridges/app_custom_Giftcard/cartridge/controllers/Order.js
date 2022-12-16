@@ -54,8 +54,9 @@ server.append(
                         amount: giftSendEmail.amount.value
                     };
                     var success = null;
+
                     var staticTemplate =`
-                    <p><img alt="Gift Template" src="https://bjxc-002.sandbox.us01.dx.commercecloud.salesforce.com/on/demandware.static/-/Sites-apparel-m-catalog/default/dwae026319/images/gift%20cards/birthday2.png" title="Gift" /></p>
+                    <p><img alt="Gift Template" src="`+element.custom.imgUrl+`" title="Gift" /></p>
 
                     <p>Dear <b>`+templateData.name+`</b>,</p>
 
