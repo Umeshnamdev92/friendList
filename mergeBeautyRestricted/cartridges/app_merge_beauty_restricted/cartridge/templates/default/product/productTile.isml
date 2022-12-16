@@ -1,22 +1,23 @@
 
+    
+
 <isscript>
         var assets = require('*/cartridge/scripts/assets');
         assets.addJs('/js/wishlist.js');
         assets.addJs('/css/wishlist.css');
 </isscript>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
- 
 
-             
-           
-               
-    
+
+
+
+
 <div class="product-tile">
-    
+
     <!-- dwMarker="product" dwContentID="${product.uuid}" -->
-   
+
     <isinclude template="product/components/productTileImage" />
-  
+
     <div class="tile-body">
         <isif condition="${pdict.display.swatches !== false}">
             <isinclude template="product/components/productTileSwatch" />

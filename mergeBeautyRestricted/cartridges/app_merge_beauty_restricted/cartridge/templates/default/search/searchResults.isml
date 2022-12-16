@@ -7,6 +7,8 @@
         assets.addJs('/js/wishlist.js');
         assets.addCss('/css/search.css');
     </isscript>
+  
 
     <isinclude template="search/searchResultsNoDecorator" />
+    
 </isdecorate>

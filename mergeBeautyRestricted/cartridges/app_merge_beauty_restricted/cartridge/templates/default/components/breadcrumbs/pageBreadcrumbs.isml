@@ -1,6 +1,9 @@
+
 <div class="row hidden-xs-down">
-    <div class="col" role="navigation" aria-label="Breadcrumb">
+        <isif condition="${JSON.stringify(pdict.breadcrumbs)}">
+            <div class="col" role="navigation" aria-label="Breadcrumb">
         <ol class="breadcrumb">
+
             <isloop items="${pdict.breadcrumbs}" var="breadcrumbValue" status="loopState">
                 <li class="breadcrumb-item">
                     <isif condition="${loopState.last}">
@@ -16,4 +19,6 @@
             </isloop>
         </ol>
     </div>
+        </isif>
+
 </div>

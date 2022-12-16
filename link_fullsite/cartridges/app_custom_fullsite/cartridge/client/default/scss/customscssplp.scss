@@ -186,9 +186,9 @@ h3{
     border: 1px solid #890076;
 }
 // for providing color to <a> tag
-a{
-   color: white 
-}
+ a{
+    color: #890076; 
+ }
 .h1.header.page-title{
     background-color: purple !important;
 }
@@ -377,4 +377,7 @@ a{
 }
 .content-header{
     margin-top: 1rem;
+}
+.breadcrumb{
+    margin-left: 4rem;;
 }

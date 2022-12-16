@@ -1,3 +1,4 @@
+
 'use strict';
 
 /**
@@ -121,6 +122,7 @@ server.get('ShowAjax', cache.applyShortPromotionSensitiveCache, consentTracking.
     res.render('search/searchResultsNoDecorator', {
         productSearch: result.productSearch,
         maxSlots: result.maxSlots,
+
         reportingURLs: result.reportingURLs,
         refineurl: result.refineurl
     });
@@ -147,6 +149,10 @@ server.get('Show', cache.applyShortPromotionSensitiveCache, consentTracking.cons
     var searchHelper = require('*/cartridge/scripts/helpers/searchHelpers');
     var Resource = require('dw/web/Resource');
     var URLUtils = require('dw/web/URLUtils');
+
+  
+
+
 
     if (req.querystring.cgid) {
         var pageLookupResult = searchHelper.getPageDesignerCategoryPage(req.querystring.cgid);
@@ -186,7 +192,17 @@ server.get('Show', cache.applyShortPromotionSensitiveCache, consentTracking.cons
         productSearch: result.productSearch,
         maxSlots: result.maxSlots,
         reportingURLs: result.reportingURLs,
-       
+        breadcrumbs: [
+            {
+                htmlValue: Resource.msg('global.home', 'common', null),
+                url: URLUtils.home().toString()
+            },
+            {
+                htmlValue: Resource.msg('page.title.myaccount', 'account', null),
+                url: URLUtils.url('Account-Show').toString()
+            }
+        ],     
+
         refineurl: result.refineurl,
         category: result.category ? result.category : null,
         canonicalUrl: result.canonicalUrl,
