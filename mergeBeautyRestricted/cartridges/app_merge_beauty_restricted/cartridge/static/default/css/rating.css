@@ -8,9 +8,7 @@
   color: green; }
 
 .ratingDiv {
-  -ms-flex-pack: end;
-      justify-content: end;
-  display: -ms-flexbox;
+  justify-content: end;
   display: flex; }
 
 .star {

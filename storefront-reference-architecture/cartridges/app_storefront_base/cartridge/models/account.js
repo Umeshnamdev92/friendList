@@ -124,15 +124,15 @@ function account(currentCustomer, addressModel, orderModel) {
     this.isExternallyAuthenticated = currentCustomer instanceof Customer ? currentCustomer.externallyAuthenticated : currentCustomer.raw.externallyAuthenticated;
 
     if (currentCustomer instanceof Customer) {
-        this.customerPaymentInstruments = currentCustomer.profile.wallet
-        && currentCustomer.profile.wallet.paymentInstruments
-        ? getCustomerPaymentInstruments(currentCustomer.profile.wallet.paymentInstruments.toArray())
-        : null;
+        this.customerPaymentInstruments = currentCustomer.profile.wallet &&
+            currentCustomer.profile.wallet.paymentInstruments ?
+            getCustomerPaymentInstruments(currentCustomer.profile.wallet.paymentInstruments.toArray()) :
+            null;
     } else {
-        this.customerPaymentInstruments = currentCustomer.wallet
-        && currentCustomer.wallet.paymentInstruments
-        ? getCustomerPaymentInstruments(currentCustomer.wallet.paymentInstruments)
-        : null;
+        this.customerPaymentInstruments = currentCustomer.wallet &&
+            currentCustomer.wallet.paymentInstruments ?
+            getCustomerPaymentInstruments(currentCustomer.wallet.paymentInstruments) :
+            null;
     }
 }
 
