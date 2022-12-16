@@ -119,9 +119,9 @@ server.replace('AddProduct', function (req, res, next) {
                     }
                 });
             }
-             
-            if (productId.includes("Gift_Card")) {
+          
                 var tempProduct = ProductMgr.getProduct(productId);
+                if (tempProduct.custom.isGiftCard) {
                 var imgUrl = tempProduct.getImages('medium')[0].url
                 var giftLineItem = currentBasket.createGiftCertificateLineItem(parseInt(options[0].selectedValueId), data.recipientEmail);
                giftLineItem.setRecipientEmail(data.recipientEmail);
