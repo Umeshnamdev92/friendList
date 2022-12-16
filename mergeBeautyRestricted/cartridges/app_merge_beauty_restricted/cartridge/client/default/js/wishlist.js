@@ -120,6 +120,11 @@ $( document ).ready(function() {
                 handlePostCartAdd(data);
                 $('body').trigger('product:afterAddToCart', data);
                 $.spinner().stop();
+                if(data.error === true){
+                    swal("This size is out of stock", {
+                        buttons: ["Go Back"],
+                      });
+                }
             },
             error: function () {
                 // no reporting urls hit on the server

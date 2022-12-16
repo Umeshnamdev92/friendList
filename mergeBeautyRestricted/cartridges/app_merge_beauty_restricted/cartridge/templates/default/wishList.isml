@@ -3,6 +3,7 @@
     assets.addJs('/js/wishlist.js');
     assets.addCss('/css/wishlist.css');
 </isscript>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <isdecorate template="common/layout/page">
     <input id="countValue" type="hidden" name="count" value="${pdict.count}">
