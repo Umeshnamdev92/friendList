@@ -204,6 +204,7 @@ server.replace('RemoveProductLineItem', function (req, res, next) {
     var Transaction = require('dw/system/Transaction');
     var URLUtils = require('dw/web/URLUtils');
     var CartModel = require('*/cartridge/models/cart');
+    var ProductMgr = require('dw/catalog/ProductMgr');
     var basketCalculationHelpers = require('*/cartridge/scripts/helpers/basketCalculationHelpers');
 
     var currentBasket = BasketMgr.getCurrentBasket();
@@ -241,8 +242,8 @@ server.replace('RemoveProductLineItem', function (req, res, next) {
                         }
                     }
                     // ........................gift line item remove..........................
-                    var productID=item.productID.toString()
-                    if (productID.includes("Gift_Card")) {
+                    var tempProduct = ProductMgr.getProduct(productId);
+                    if (tempProduct.custom.isGiftCard) {
                        
                         var allGiftLineItems=currentBasket.getGiftCertificateLineItems()
                         
