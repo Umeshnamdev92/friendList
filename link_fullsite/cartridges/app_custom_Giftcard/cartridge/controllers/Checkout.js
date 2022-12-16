@@ -150,4 +150,28 @@ server.get("Removegiftcard", function (req, res, next) {
 
   next();
 });
+
+
+/**
+ * Checkout-Begin : The Checkout-Begin endpoint will render the checkout shipping page for both guest shopper and returning shopper
+ * @name Base/Checkout-Begin
+ * @function
+ * @memberof Checkout
+ * @param {middleware} - server.middleware.https
+ * @param {middleware} - consentTracking.consent
+ * @param {middleware} - csrfProtection.generateToken
+ * @param {querystringparameter} - stage - a flag indicates the checkout stage
+ * @param {category} - sensitive
+ * @param {renders} - isml
+ * @param {serverfunction} - get
+ */
+server.append('Begin' , function(req, res, next){
+  var GiftCardHelper = require('*/cartridge/scripts/helpers/giftCardHelper');
+  var responseData = res.getViewData();
+  var isOnlyGiftCard = GiftCardHelper.isOnlyGiftCard(responseData.order.items.items);
+  responseData.isOnlyGiftCard = isOnlyGiftCard;
+  res.setViewData(responseData);
+  next();
+})
+
 module.exports = server.exports();
