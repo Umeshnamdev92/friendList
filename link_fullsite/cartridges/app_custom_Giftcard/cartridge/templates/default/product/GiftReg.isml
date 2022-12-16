@@ -6,7 +6,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Gift Card</h5>
+                   <b> <h5 class="modal-title" id="exampleModalLongTitle">Gift Card</h5></b>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -17,14 +17,14 @@
                     </iscomment>
 
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Recipient Email</label>
+                        <label for="emailVerify">Recipient Email</label>
                         <input type="email" id="emailVerify" class="form-control" name="email5">
                         <div id="emailError">
                         </div>
                     </div>
  <iscomment> <form action="${URLUtils.url('Order-newSubmit')}" method="POST">  </iscomment>
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Recipient Name</label>
+                        <label for="recipientName">Recipient Name</label>
                         <input type="text" class="form-control" name="email1" id="recipientName"
                             data-missing-error="${Resource.msg('label.valid.email', 'forms', null)}" <isprint
                             value="${pdict.drx.email1.attributes}" encoding="off" />>
@@ -34,7 +34,7 @@
 
 
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Sender Name</label>
+                        <label for="senderName">Sender Name</label>
                         <input type="text" class="form-control" name="email2" id="senderName"
                             data-missing-error="${Resource.msg('label.valid.email', 'forms', null)}" <isprint
                             value="${pdict.drx.email2.attributes}" encoding="off" />>
