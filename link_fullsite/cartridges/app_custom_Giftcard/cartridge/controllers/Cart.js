@@ -120,6 +120,9 @@ server.append('AddProduct', function (req, res, next) {
                 });
             }
           
+                
+            
+            if (!result.error) {
                 var tempProduct = ProductMgr.getProduct(productId);
                 if (tempProduct.custom.isGiftCard) {
                 var imgUrl = tempProduct.getImages('medium')[0].url
@@ -132,29 +135,13 @@ server.append('AddProduct', function (req, res, next) {
                giftLineItem.custom.productLineItemUUID = result.uuid ;
                
                 }
-            
-            if (!result.error) {
-                var productId= productId.toString();
-                if (productId.includes("Gift_Card")) {
-                    var tempProduct = ProductMgr.getProduct(productId);
-                    var imgUrl = tempProduct.getImages('medium')[0].url
-                    
-                    var a = currentBasket.createGiftCertificateLineItem(parseInt(options[0].selectedValueId), data.recipientEmail);
-                    a.setRecipientEmail(data.recipientEmail);
-                    a.setMessage(data.message);
-                    a.setSenderName(data.senderName);
-                    a.setRecipientName(data.recipientName);
-                    a.custom.imgUrl = imgUrl ;
-                    
-                    }
                 cartHelper.ensureAllShipmentsHaveMethods(currentBasket);
                 basketCalculationHelpers.calculateTotals(currentBasket);
             }
         });
     }
 
-    var quantityTotal = Product
-    ItemsModel.getTotalQuantity(currentBasket.productLineItems);
+    var quantityTotal = ProductLineItemsModel.getTotalQuantity(currentBasket.productLineItems);
     var cartModel = new CartModel(currentBasket);
 
     var urlObject = {
