@@ -8,6 +8,8 @@ module.exports = function fullProduct(product, apiProduct, options) {
     product.isPersonalizable = apiProduct.custom.isPersonalizable;
     product.isWineOrNot = apiProduct.custom.isWineOrNot;
     product.orderableRecommendations = apiProduct.orderableRecommendations;
+    product.isGiftCard = apiProduct.custom.isGiftCard;
+
     return product;
 };
 
