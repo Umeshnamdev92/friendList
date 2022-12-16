@@ -137,7 +137,7 @@ function getDiscountsHtml(discounts) {
  */
 function totals(lineItemContainer) {
     if (lineItemContainer) {
-        this.unformatTotal = lineItemContainer.getAdjustedMerchandizeTotalPrice(false) + lineItemContainer.giftCertificateTotalPrice.value;
+        this.unformatTotal = getGiftCardTotal(lineItemContainer.giftCertificateTotalPrice.value);
         this.subTotal = getTotals(lineItemContainer.getAdjustedMerchandizeTotalPrice(false));
         this.totalShippingCost = getTotals(lineItemContainer.shippingTotalPrice);
         if (this.totalShippingCost === '-') {

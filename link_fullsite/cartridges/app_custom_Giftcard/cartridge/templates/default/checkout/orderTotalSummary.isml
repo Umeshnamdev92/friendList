@@ -1,4 +1,4 @@
-${JSON.stringify(pdict.order)}
+<iscomment> ${JSON.stringify(pdict.order)} </iscomment>
 
 <!--- Subtotal --->
 <div class="row leading-lines subtotal-item">
