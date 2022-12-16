@@ -38,8 +38,8 @@
                     </div>
                     <span class="input-group-append col-sm-4">
 
-                        <button type="submit" class="btn btn-success subscribe-email"
-                            data-href="${URLUtils.url('EmailSubscribe-Subscribe')}"><b>${Resource.msg('button.form.emailsignup', 'homePage', null)}</b> </button>
+                        <button type="submit"  class="btn btn-success subscribe-email"
+                            data-href="${URLUtils.url('EmailSubscribe-Subscribe')}"><b id="subscribeEmailButton">${Resource.msg('button.form.emailsignup', 'homePage', null)}</b> </button>
                     </span>
 
                 </div>
