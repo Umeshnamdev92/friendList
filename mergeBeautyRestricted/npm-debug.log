@@ -1,0 +1,920 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'C:\\Program Files\\nodejs\\\\node.exe',
+1 verbose cli   'C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'i' ]
+2 info using npm@1.3.8
+3 info using node@v0.10.18
+4 verbose node symlink C:\Program Files\nodejs\\node.exe
+5 warn package.json app_merge_beauty_restricted@0.0.1 No repository field.
+6 warn package.json app_merge_beauty_restricted@0.0.1 No README data
+7 verbose readDependencies using package.json deps
+8 verbose install where, deps [ 'D:\\Mansi_Gupta\\Internal Projects\\FullSite\\mergeBeautyRestricted',
+8 verbose install   [ 'bootstrap',
+8 verbose install     'flag-icon',
+8 verbose install     'flag-icon-css',
+8 verbose install     'sass',
+8 verbose install     'chai',
+8 verbose install     'css-loader',
+8 verbose install     'eslint',
+8 verbose install     'eslint-config-airbnb-base',
+8 verbose install     'eslint-plugin-import',
+8 verbose install     'istanbul',
+8 verbose install     'mocha',
+8 verbose install     'node-sass',
+8 verbose install     'postcss-loader',
+8 verbose install     'proxyquire',
+8 verbose install     'sass-loader',
+8 verbose install     'sgmf-scripts',
+8 verbose install     'sinon',
+8 verbose install     'stylelint',
+8 verbose install     'stylelint-config-standard',
+8 verbose install     'stylelint-scss' ] ]
+9 info preinstall app_merge_beauty_restricted@0.0.1
+10 verbose readDependencies using package.json deps
+11 verbose cache add [ 'bootstrap@^5.2.2', null ]
+12 verbose cache add name=undefined spec="bootstrap@^5.2.2" args=["bootstrap@^5.2.2",null]
+13 verbose parsed url { protocol: null,
+13 verbose parsed url   slashes: null,
+13 verbose parsed url   auth: null,
+13 verbose parsed url   host: null,
+13 verbose parsed url   port: null,
+13 verbose parsed url   hostname: null,
+13 verbose parsed url   hash: null,
+13 verbose parsed url   search: null,
+13 verbose parsed url   query: null,
+13 verbose parsed url   pathname: 'bootstrap@^5.2.2',
+13 verbose parsed url   path: 'bootstrap@^5.2.2',
+13 verbose parsed url   href: 'bootstrap@^5.2.2' }
+14 verbose cache add name="bootstrap" spec="^5.2.2" args=["bootstrap","^5.2.2"]
+15 verbose parsed url { protocol: null,
+15 verbose parsed url   slashes: null,
+15 verbose parsed url   auth: null,
+15 verbose parsed url   host: null,
+15 verbose parsed url   port: null,
+15 verbose parsed url   hostname: null,
+15 verbose parsed url   hash: null,
+15 verbose parsed url   search: null,
+15 verbose parsed url   query: null,
+15 verbose parsed url   pathname: '^5.2.2',
+15 verbose parsed url   path: '^5.2.2',
+15 verbose parsed url   href: '^5.2.2' }
+16 verbose addNamed [ 'bootstrap', '^5.2.2' ]
+17 verbose addNamed [ null, '>=5.2.2-0 <6.0.0-0' ]
+18 verbose cache add [ 'flag-icon@^2.5.0', null ]
+19 verbose cache add name=undefined spec="flag-icon@^2.5.0" args=["flag-icon@^2.5.0",null]
+20 verbose parsed url { protocol: null,
+20 verbose parsed url   slashes: null,
+20 verbose parsed url   auth: null,
+20 verbose parsed url   host: null,
+20 verbose parsed url   port: null,
+20 verbose parsed url   hostname: null,
+20 verbose parsed url   hash: null,
+20 verbose parsed url   search: null,
+20 verbose parsed url   query: null,
+20 verbose parsed url   pathname: 'flag-icon@^2.5.0',
+20 verbose parsed url   path: 'flag-icon@^2.5.0',
+20 verbose parsed url   href: 'flag-icon@^2.5.0' }
+21 verbose cache add name="flag-icon" spec="^2.5.0" args=["flag-icon","^2.5.0"]
+22 verbose parsed url { protocol: null,
+22 verbose parsed url   slashes: null,
+22 verbose parsed url   auth: null,
+22 verbose parsed url   host: null,
+22 verbose parsed url   port: null,
+22 verbose parsed url   hostname: null,
+22 verbose parsed url   hash: null,
+22 verbose parsed url   search: null,
+22 verbose parsed url   query: null,
+22 verbose parsed url   pathname: '^2.5.0',
+22 verbose parsed url   path: '^2.5.0',
+22 verbose parsed url   href: '^2.5.0' }
+23 verbose addNamed [ 'flag-icon', '^2.5.0' ]
+24 verbose addNamed [ null, '>=2.5.0-0 <3.0.0-0' ]
+25 verbose cache add [ 'flag-icon-css@^4.1.7', null ]
+26 verbose cache add name=undefined spec="flag-icon-css@^4.1.7" args=["flag-icon-css@^4.1.7",null]
+27 verbose parsed url { protocol: null,
+27 verbose parsed url   slashes: null,
+27 verbose parsed url   auth: null,
+27 verbose parsed url   host: null,
+27 verbose parsed url   port: null,
+27 verbose parsed url   hostname: null,
+27 verbose parsed url   hash: null,
+27 verbose parsed url   search: null,
+27 verbose parsed url   query: null,
+27 verbose parsed url   pathname: 'flag-icon-css@^4.1.7',
+27 verbose parsed url   path: 'flag-icon-css@^4.1.7',
+27 verbose parsed url   href: 'flag-icon-css@^4.1.7' }
+28 verbose cache add name="flag-icon-css" spec="^4.1.7" args=["flag-icon-css","^4.1.7"]
+29 verbose parsed url { protocol: null,
+29 verbose parsed url   slashes: null,
+29 verbose parsed url   auth: null,
+29 verbose parsed url   host: null,
+29 verbose parsed url   port: null,
+29 verbose parsed url   hostname: null,
+29 verbose parsed url   hash: null,
+29 verbose parsed url   search: null,
+29 verbose parsed url   query: null,
+29 verbose parsed url   pathname: '^4.1.7',
+29 verbose parsed url   path: '^4.1.7',
+29 verbose parsed url   href: '^4.1.7' }
+30 verbose addNamed [ 'flag-icon-css', '^4.1.7' ]
+31 verbose addNamed [ null, '>=4.1.7-0 <5.0.0-0' ]
+32 verbose cache add [ 'sass@^1.55.0', null ]
+33 verbose cache add name=undefined spec="sass@^1.55.0" args=["sass@^1.55.0",null]
+34 verbose parsed url { protocol: null,
+34 verbose parsed url   slashes: null,
+34 verbose parsed url   auth: null,
+34 verbose parsed url   host: null,
+34 verbose parsed url   port: null,
+34 verbose parsed url   hostname: null,
+34 verbose parsed url   hash: null,
+34 verbose parsed url   search: null,
+34 verbose parsed url   query: null,
+34 verbose parsed url   pathname: 'sass@^1.55.0',
+34 verbose parsed url   path: 'sass@^1.55.0',
+34 verbose parsed url   href: 'sass@^1.55.0' }
+35 verbose cache add name="sass" spec="^1.55.0" args=["sass","^1.55.0"]
+36 verbose parsed url { protocol: null,
+36 verbose parsed url   slashes: null,
+36 verbose parsed url   auth: null,
+36 verbose parsed url   host: null,
+36 verbose parsed url   port: null,
+36 verbose parsed url   hostname: null,
+36 verbose parsed url   hash: null,
+36 verbose parsed url   search: null,
+36 verbose parsed url   query: null,
+36 verbose parsed url   pathname: '^1.55.0',
+36 verbose parsed url   path: '^1.55.0',
+36 verbose parsed url   href: '^1.55.0' }
+37 verbose addNamed [ 'sass', '^1.55.0' ]
+38 verbose addNamed [ null, '>=1.55.0-0 <2.0.0-0' ]
+39 verbose cache add [ 'chai@^3.5.0', null ]
+40 verbose cache add name=undefined spec="chai@^3.5.0" args=["chai@^3.5.0",null]
+41 verbose parsed url { protocol: null,
+41 verbose parsed url   slashes: null,
+41 verbose parsed url   auth: null,
+41 verbose parsed url   host: null,
+41 verbose parsed url   port: null,
+41 verbose parsed url   hostname: null,
+41 verbose parsed url   hash: null,
+41 verbose parsed url   search: null,
+41 verbose parsed url   query: null,
+41 verbose parsed url   pathname: 'chai@^3.5.0',
+41 verbose parsed url   path: 'chai@^3.5.0',
+41 verbose parsed url   href: 'chai@^3.5.0' }
+42 verbose cache add name="chai" spec="^3.5.0" args=["chai","^3.5.0"]
+43 verbose parsed url { protocol: null,
+43 verbose parsed url   slashes: null,
+43 verbose parsed url   auth: null,
+43 verbose parsed url   host: null,
+43 verbose parsed url   port: null,
+43 verbose parsed url   hostname: null,
+43 verbose parsed url   hash: null,
+43 verbose parsed url   search: null,
+43 verbose parsed url   query: null,
+43 verbose parsed url   pathname: '^3.5.0',
+43 verbose parsed url   path: '^3.5.0',
+43 verbose parsed url   href: '^3.5.0' }
+44 verbose addNamed [ 'chai', '^3.5.0' ]
+45 verbose addNamed [ null, '>=3.5.0-0 <4.0.0-0' ]
+46 verbose cache add [ 'css-loader@^0.28.11', null ]
+47 verbose cache add name=undefined spec="css-loader@^0.28.11" args=["css-loader@^0.28.11",null]
+48 verbose parsed url { protocol: null,
+48 verbose parsed url   slashes: null,
+48 verbose parsed url   auth: null,
+48 verbose parsed url   host: null,
+48 verbose parsed url   port: null,
+48 verbose parsed url   hostname: null,
+48 verbose parsed url   hash: null,
+48 verbose parsed url   search: null,
+48 verbose parsed url   query: null,
+48 verbose parsed url   pathname: 'css-loader@^0.28.11',
+48 verbose parsed url   path: 'css-loader@^0.28.11',
+48 verbose parsed url   href: 'css-loader@^0.28.11' }
+49 verbose cache add name="css-loader" spec="^0.28.11" args=["css-loader","^0.28.11"]
+50 verbose parsed url { protocol: null,
+50 verbose parsed url   slashes: null,
+50 verbose parsed url   auth: null,
+50 verbose parsed url   host: null,
+50 verbose parsed url   port: null,
+50 verbose parsed url   hostname: null,
+50 verbose parsed url   hash: null,
+50 verbose parsed url   search: null,
+50 verbose parsed url   query: null,
+50 verbose parsed url   pathname: '^0.28.11',
+50 verbose parsed url   path: '^0.28.11',
+50 verbose parsed url   href: '^0.28.11' }
+51 verbose addNamed [ 'css-loader', '^0.28.11' ]
+52 verbose addNamed [ null, '>=0.28.11-0 <0.29.0-0' ]
+53 verbose cache add [ 'eslint@^3.2.2', null ]
+54 verbose cache add name=undefined spec="eslint@^3.2.2" args=["eslint@^3.2.2",null]
+55 verbose parsed url { protocol: null,
+55 verbose parsed url   slashes: null,
+55 verbose parsed url   auth: null,
+55 verbose parsed url   host: null,
+55 verbose parsed url   port: null,
+55 verbose parsed url   hostname: null,
+55 verbose parsed url   hash: null,
+55 verbose parsed url   search: null,
+55 verbose parsed url   query: null,
+55 verbose parsed url   pathname: 'eslint@^3.2.2',
+55 verbose parsed url   path: 'eslint@^3.2.2',
+55 verbose parsed url   href: 'eslint@^3.2.2' }
+56 verbose cache add name="eslint" spec="^3.2.2" args=["eslint","^3.2.2"]
+57 verbose parsed url { protocol: null,
+57 verbose parsed url   slashes: null,
+57 verbose parsed url   auth: null,
+57 verbose parsed url   host: null,
+57 verbose parsed url   port: null,
+57 verbose parsed url   hostname: null,
+57 verbose parsed url   hash: null,
+57 verbose parsed url   search: null,
+57 verbose parsed url   query: null,
+57 verbose parsed url   pathname: '^3.2.2',
+57 verbose parsed url   path: '^3.2.2',
+57 verbose parsed url   href: '^3.2.2' }
+58 verbose addNamed [ 'eslint', '^3.2.2' ]
+59 verbose addNamed [ null, '>=3.2.2-0 <4.0.0-0' ]
+60 verbose cache add [ 'eslint-config-airbnb-base@^5.0.1', null ]
+61 verbose cache add name=undefined spec="eslint-config-airbnb-base@^5.0.1" args=["eslint-config-airbnb-base@^5.0.1",null]
+62 verbose parsed url { protocol: null,
+62 verbose parsed url   slashes: null,
+62 verbose parsed url   auth: null,
+62 verbose parsed url   host: null,
+62 verbose parsed url   port: null,
+62 verbose parsed url   hostname: null,
+62 verbose parsed url   hash: null,
+62 verbose parsed url   search: null,
+62 verbose parsed url   query: null,
+62 verbose parsed url   pathname: 'eslint-config-airbnb-base@^5.0.1',
+62 verbose parsed url   path: 'eslint-config-airbnb-base@^5.0.1',
+62 verbose parsed url   href: 'eslint-config-airbnb-base@^5.0.1' }
+63 verbose cache add name="eslint-config-airbnb-base" spec="^5.0.1" args=["eslint-config-airbnb-base","^5.0.1"]
+64 verbose parsed url { protocol: null,
+64 verbose parsed url   slashes: null,
+64 verbose parsed url   auth: null,
+64 verbose parsed url   host: null,
+64 verbose parsed url   port: null,
+64 verbose parsed url   hostname: null,
+64 verbose parsed url   hash: null,
+64 verbose parsed url   search: null,
+64 verbose parsed url   query: null,
+64 verbose parsed url   pathname: '^5.0.1',
+64 verbose parsed url   path: '^5.0.1',
+64 verbose parsed url   href: '^5.0.1' }
+65 verbose addNamed [ 'eslint-config-airbnb-base', '^5.0.1' ]
+66 verbose addNamed [ null, '>=5.0.1-0 <6.0.0-0' ]
+67 verbose cache add [ 'eslint-plugin-import@^1.12.0', null ]
+68 verbose cache add name=undefined spec="eslint-plugin-import@^1.12.0" args=["eslint-plugin-import@^1.12.0",null]
+69 verbose parsed url { protocol: null,
+69 verbose parsed url   slashes: null,
+69 verbose parsed url   auth: null,
+69 verbose parsed url   host: null,
+69 verbose parsed url   port: null,
+69 verbose parsed url   hostname: null,
+69 verbose parsed url   hash: null,
+69 verbose parsed url   search: null,
+69 verbose parsed url   query: null,
+69 verbose parsed url   pathname: 'eslint-plugin-import@^1.12.0',
+69 verbose parsed url   path: 'eslint-plugin-import@^1.12.0',
+69 verbose parsed url   href: 'eslint-plugin-import@^1.12.0' }
+70 verbose cache add name="eslint-plugin-import" spec="^1.12.0" args=["eslint-plugin-import","^1.12.0"]
+71 verbose parsed url { protocol: null,
+71 verbose parsed url   slashes: null,
+71 verbose parsed url   auth: null,
+71 verbose parsed url   host: null,
+71 verbose parsed url   port: null,
+71 verbose parsed url   hostname: null,
+71 verbose parsed url   hash: null,
+71 verbose parsed url   search: null,
+71 verbose parsed url   query: null,
+71 verbose parsed url   pathname: '^1.12.0',
+71 verbose parsed url   path: '^1.12.0',
+71 verbose parsed url   href: '^1.12.0' }
+72 verbose addNamed [ 'eslint-plugin-import', '^1.12.0' ]
+73 verbose addNamed [ null, '>=1.12.0-0 <2.0.0-0' ]
+74 verbose cache add [ 'istanbul@^0.4.4', null ]
+75 verbose cache add name=undefined spec="istanbul@^0.4.4" args=["istanbul@^0.4.4",null]
+76 verbose parsed url { protocol: null,
+76 verbose parsed url   slashes: null,
+76 verbose parsed url   auth: null,
+76 verbose parsed url   host: null,
+76 verbose parsed url   port: null,
+76 verbose parsed url   hostname: null,
+76 verbose parsed url   hash: null,
+76 verbose parsed url   search: null,
+76 verbose parsed url   query: null,
+76 verbose parsed url   pathname: 'istanbul@^0.4.4',
+76 verbose parsed url   path: 'istanbul@^0.4.4',
+76 verbose parsed url   href: 'istanbul@^0.4.4' }
+77 verbose cache add name="istanbul" spec="^0.4.4" args=["istanbul","^0.4.4"]
+78 verbose parsed url { protocol: null,
+78 verbose parsed url   slashes: null,
+78 verbose parsed url   auth: null,
+78 verbose parsed url   host: null,
+78 verbose parsed url   port: null,
+78 verbose parsed url   hostname: null,
+78 verbose parsed url   hash: null,
+78 verbose parsed url   search: null,
+78 verbose parsed url   query: null,
+78 verbose parsed url   pathname: '^0.4.4',
+78 verbose parsed url   path: '^0.4.4',
+78 verbose parsed url   href: '^0.4.4' }
+79 verbose addNamed [ 'istanbul', '^0.4.4' ]
+80 verbose addNamed [ null, '>=0.4.4-0 <0.5.0-0' ]
+81 verbose cache add [ 'mocha@^5.2.0', null ]
+82 verbose cache add name=undefined spec="mocha@^5.2.0" args=["mocha@^5.2.0",null]
+83 verbose parsed url { protocol: null,
+83 verbose parsed url   slashes: null,
+83 verbose parsed url   auth: null,
+83 verbose parsed url   host: null,
+83 verbose parsed url   port: null,
+83 verbose parsed url   hostname: null,
+83 verbose parsed url   hash: null,
+83 verbose parsed url   search: null,
+83 verbose parsed url   query: null,
+83 verbose parsed url   pathname: 'mocha@^5.2.0',
+83 verbose parsed url   path: 'mocha@^5.2.0',
+83 verbose parsed url   href: 'mocha@^5.2.0' }
+84 verbose cache add name="mocha" spec="^5.2.0" args=["mocha","^5.2.0"]
+85 verbose parsed url { protocol: null,
+85 verbose parsed url   slashes: null,
+85 verbose parsed url   auth: null,
+85 verbose parsed url   host: null,
+85 verbose parsed url   port: null,
+85 verbose parsed url   hostname: null,
+85 verbose parsed url   hash: null,
+85 verbose parsed url   search: null,
+85 verbose parsed url   query: null,
+85 verbose parsed url   pathname: '^5.2.0',
+85 verbose parsed url   path: '^5.2.0',
+85 verbose parsed url   href: '^5.2.0' }
+86 verbose addNamed [ 'mocha', '^5.2.0' ]
+87 verbose addNamed [ null, '>=5.2.0-0 <6.0.0-0' ]
+88 verbose cache add [ 'node-sass@^4.9.0', null ]
+89 verbose cache add name=undefined spec="node-sass@^4.9.0" args=["node-sass@^4.9.0",null]
+90 verbose parsed url { protocol: null,
+90 verbose parsed url   slashes: null,
+90 verbose parsed url   auth: null,
+90 verbose parsed url   host: null,
+90 verbose parsed url   port: null,
+90 verbose parsed url   hostname: null,
+90 verbose parsed url   hash: null,
+90 verbose parsed url   search: null,
+90 verbose parsed url   query: null,
+90 verbose parsed url   pathname: 'node-sass@^4.9.0',
+90 verbose parsed url   path: 'node-sass@^4.9.0',
+90 verbose parsed url   href: 'node-sass@^4.9.0' }
+91 verbose cache add name="node-sass" spec="^4.9.0" args=["node-sass","^4.9.0"]
+92 verbose parsed url { protocol: null,
+92 verbose parsed url   slashes: null,
+92 verbose parsed url   auth: null,
+92 verbose parsed url   host: null,
+92 verbose parsed url   port: null,
+92 verbose parsed url   hostname: null,
+92 verbose parsed url   hash: null,
+92 verbose parsed url   search: null,
+92 verbose parsed url   query: null,
+92 verbose parsed url   pathname: '^4.9.0',
+92 verbose parsed url   path: '^4.9.0',
+92 verbose parsed url   href: '^4.9.0' }
+93 verbose addNamed [ 'node-sass', '^4.9.0' ]
+94 verbose addNamed [ null, '>=4.9.0-0 <5.0.0-0' ]
+95 verbose cache add [ 'postcss-loader@^2.1.5', null ]
+96 verbose cache add name=undefined spec="postcss-loader@^2.1.5" args=["postcss-loader@^2.1.5",null]
+97 verbose parsed url { protocol: null,
+97 verbose parsed url   slashes: null,
+97 verbose parsed url   auth: null,
+97 verbose parsed url   host: null,
+97 verbose parsed url   port: null,
+97 verbose parsed url   hostname: null,
+97 verbose parsed url   hash: null,
+97 verbose parsed url   search: null,
+97 verbose parsed url   query: null,
+97 verbose parsed url   pathname: 'postcss-loader@^2.1.5',
+97 verbose parsed url   path: 'postcss-loader@^2.1.5',
+97 verbose parsed url   href: 'postcss-loader@^2.1.5' }
+98 verbose cache add name="postcss-loader" spec="^2.1.5" args=["postcss-loader","^2.1.5"]
+99 verbose parsed url { protocol: null,
+99 verbose parsed url   slashes: null,
+99 verbose parsed url   auth: null,
+99 verbose parsed url   host: null,
+99 verbose parsed url   port: null,
+99 verbose parsed url   hostname: null,
+99 verbose parsed url   hash: null,
+99 verbose parsed url   search: null,
+99 verbose parsed url   query: null,
+99 verbose parsed url   pathname: '^2.1.5',
+99 verbose parsed url   path: '^2.1.5',
+99 verbose parsed url   href: '^2.1.5' }
+100 verbose addNamed [ 'postcss-loader', '^2.1.5' ]
+101 verbose addNamed [ null, '>=2.1.5-0 <3.0.0-0' ]
+102 verbose cache add [ 'proxyquire@1.7.4', null ]
+103 verbose cache add name=undefined spec="proxyquire@1.7.4" args=["proxyquire@1.7.4",null]
+104 verbose parsed url { protocol: null,
+104 verbose parsed url   slashes: null,
+104 verbose parsed url   auth: null,
+104 verbose parsed url   host: null,
+104 verbose parsed url   port: null,
+104 verbose parsed url   hostname: null,
+104 verbose parsed url   hash: null,
+104 verbose parsed url   search: null,
+104 verbose parsed url   query: null,
+104 verbose parsed url   pathname: 'proxyquire@1.7.4',
+104 verbose parsed url   path: 'proxyquire@1.7.4',
+104 verbose parsed url   href: 'proxyquire@1.7.4' }
+105 verbose cache add name="proxyquire" spec="1.7.4" args=["proxyquire","1.7.4"]
+106 verbose parsed url { protocol: null,
+106 verbose parsed url   slashes: null,
+106 verbose parsed url   auth: null,
+106 verbose parsed url   host: null,
+106 verbose parsed url   port: null,
+106 verbose parsed url   hostname: null,
+106 verbose parsed url   hash: null,
+106 verbose parsed url   search: null,
+106 verbose parsed url   query: null,
+106 verbose parsed url   pathname: '1.7.4',
+106 verbose parsed url   path: '1.7.4',
+106 verbose parsed url   href: '1.7.4' }
+107 verbose addNamed [ 'proxyquire', '1.7.4' ]
+108 verbose addNamed [ '1.7.4', '1.7.4' ]
+109 verbose cache add [ 'sass-loader@^7.0.3', null ]
+110 verbose cache add name=undefined spec="sass-loader@^7.0.3" args=["sass-loader@^7.0.3",null]
+111 verbose parsed url { protocol: null,
+111 verbose parsed url   slashes: null,
+111 verbose parsed url   auth: null,
+111 verbose parsed url   host: null,
+111 verbose parsed url   port: null,
+111 verbose parsed url   hostname: null,
+111 verbose parsed url   hash: null,
+111 verbose parsed url   search: null,
+111 verbose parsed url   query: null,
+111 verbose parsed url   pathname: 'sass-loader@^7.0.3',
+111 verbose parsed url   path: 'sass-loader@^7.0.3',
+111 verbose parsed url   href: 'sass-loader@^7.0.3' }
+112 verbose cache add name="sass-loader" spec="^7.0.3" args=["sass-loader","^7.0.3"]
+113 verbose parsed url { protocol: null,
+113 verbose parsed url   slashes: null,
+113 verbose parsed url   auth: null,
+113 verbose parsed url   host: null,
+113 verbose parsed url   port: null,
+113 verbose parsed url   hostname: null,
+113 verbose parsed url   hash: null,
+113 verbose parsed url   search: null,
+113 verbose parsed url   query: null,
+113 verbose parsed url   pathname: '^7.0.3',
+113 verbose parsed url   path: '^7.0.3',
+113 verbose parsed url   href: '^7.0.3' }
+114 verbose addNamed [ 'sass-loader', '^7.0.3' ]
+115 verbose addNamed [ null, '>=7.0.3-0 <8.0.0-0' ]
+116 verbose cache add [ 'sgmf-scripts@^2.4.2', null ]
+117 verbose cache add name=undefined spec="sgmf-scripts@^2.4.2" args=["sgmf-scripts@^2.4.2",null]
+118 verbose parsed url { protocol: null,
+118 verbose parsed url   slashes: null,
+118 verbose parsed url   auth: null,
+118 verbose parsed url   host: null,
+118 verbose parsed url   port: null,
+118 verbose parsed url   hostname: null,
+118 verbose parsed url   hash: null,
+118 verbose parsed url   search: null,
+118 verbose parsed url   query: null,
+118 verbose parsed url   pathname: 'sgmf-scripts@^2.4.2',
+118 verbose parsed url   path: 'sgmf-scripts@^2.4.2',
+118 verbose parsed url   href: 'sgmf-scripts@^2.4.2' }
+119 verbose cache add name="sgmf-scripts" spec="^2.4.2" args=["sgmf-scripts","^2.4.2"]
+120 verbose parsed url { protocol: null,
+120 verbose parsed url   slashes: null,
+120 verbose parsed url   auth: null,
+120 verbose parsed url   host: null,
+120 verbose parsed url   port: null,
+120 verbose parsed url   hostname: null,
+120 verbose parsed url   hash: null,
+120 verbose parsed url   search: null,
+120 verbose parsed url   query: null,
+120 verbose parsed url   pathname: '^2.4.2',
+120 verbose parsed url   path: '^2.4.2',
+120 verbose parsed url   href: '^2.4.2' }
+121 verbose addNamed [ 'sgmf-scripts', '^2.4.2' ]
+122 verbose addNamed [ null, '>=2.4.2-0 <3.0.0-0' ]
+123 verbose cache add [ 'sinon@^1.17.4', null ]
+124 verbose cache add name=undefined spec="sinon@^1.17.4" args=["sinon@^1.17.4",null]
+125 verbose parsed url { protocol: null,
+125 verbose parsed url   slashes: null,
+125 verbose parsed url   auth: null,
+125 verbose parsed url   host: null,
+125 verbose parsed url   port: null,
+125 verbose parsed url   hostname: null,
+125 verbose parsed url   hash: null,
+125 verbose parsed url   search: null,
+125 verbose parsed url   query: null,
+125 verbose parsed url   pathname: 'sinon@^1.17.4',
+125 verbose parsed url   path: 'sinon@^1.17.4',
+125 verbose parsed url   href: 'sinon@^1.17.4' }
+126 verbose cache add name="sinon" spec="^1.17.4" args=["sinon","^1.17.4"]
+127 verbose parsed url { protocol: null,
+127 verbose parsed url   slashes: null,
+127 verbose parsed url   auth: null,
+127 verbose parsed url   host: null,
+127 verbose parsed url   port: null,
+127 verbose parsed url   hostname: null,
+127 verbose parsed url   hash: null,
+127 verbose parsed url   search: null,
+127 verbose parsed url   query: null,
+127 verbose parsed url   pathname: '^1.17.4',
+127 verbose parsed url   path: '^1.17.4',
+127 verbose parsed url   href: '^1.17.4' }
+128 verbose addNamed [ 'sinon', '^1.17.4' ]
+129 verbose addNamed [ null, '>=1.17.4-0 <2.0.0-0' ]
+130 verbose cache add [ 'stylelint@9.5.0', null ]
+131 verbose cache add name=undefined spec="stylelint@9.5.0" args=["stylelint@9.5.0",null]
+132 verbose parsed url { protocol: null,
+132 verbose parsed url   slashes: null,
+132 verbose parsed url   auth: null,
+132 verbose parsed url   host: null,
+132 verbose parsed url   port: null,
+132 verbose parsed url   hostname: null,
+132 verbose parsed url   hash: null,
+132 verbose parsed url   search: null,
+132 verbose parsed url   query: null,
+132 verbose parsed url   pathname: 'stylelint@9.5.0',
+132 verbose parsed url   path: 'stylelint@9.5.0',
+132 verbose parsed url   href: 'stylelint@9.5.0' }
+133 verbose cache add name="stylelint" spec="9.5.0" args=["stylelint","9.5.0"]
+134 verbose parsed url { protocol: null,
+134 verbose parsed url   slashes: null,
+134 verbose parsed url   auth: null,
+134 verbose parsed url   host: null,
+134 verbose parsed url   port: null,
+134 verbose parsed url   hostname: null,
+134 verbose parsed url   hash: null,
+134 verbose parsed url   search: null,
+134 verbose parsed url   query: null,
+134 verbose parsed url   pathname: '9.5.0',
+134 verbose parsed url   path: '9.5.0',
+134 verbose parsed url   href: '9.5.0' }
+135 verbose addNamed [ 'stylelint', '9.5.0' ]
+136 verbose addNamed [ '9.5.0', '9.5.0' ]
+137 verbose cache add [ 'stylelint-config-standard@^18.3.0', null ]
+138 verbose cache add name=undefined spec="stylelint-config-standard@^18.3.0" args=["stylelint-config-standard@^18.3.0",null]
+139 verbose parsed url { protocol: null,
+139 verbose parsed url   slashes: null,
+139 verbose parsed url   auth: null,
+139 verbose parsed url   host: null,
+139 verbose parsed url   port: null,
+139 verbose parsed url   hostname: null,
+139 verbose parsed url   hash: null,
+139 verbose parsed url   search: null,
+139 verbose parsed url   query: null,
+139 verbose parsed url   pathname: 'stylelint-config-standard@^18.3.0',
+139 verbose parsed url   path: 'stylelint-config-standard@^18.3.0',
+139 verbose parsed url   href: 'stylelint-config-standard@^18.3.0' }
+140 verbose cache add name="stylelint-config-standard" spec="^18.3.0" args=["stylelint-config-standard","^18.3.0"]
+141 verbose parsed url { protocol: null,
+141 verbose parsed url   slashes: null,
+141 verbose parsed url   auth: null,
+141 verbose parsed url   host: null,
+141 verbose parsed url   port: null,
+141 verbose parsed url   hostname: null,
+141 verbose parsed url   hash: null,
+141 verbose parsed url   search: null,
+141 verbose parsed url   query: null,
+141 verbose parsed url   pathname: '^18.3.0',
+141 verbose parsed url   path: '^18.3.0',
+141 verbose parsed url   href: '^18.3.0' }
+142 verbose addNamed [ 'stylelint-config-standard', '^18.3.0' ]
+143 verbose addNamed [ null, '>=18.3.0-0 <19.0.0-0' ]
+144 verbose cache add [ 'stylelint-scss@^3.9.2', null ]
+145 verbose cache add name=undefined spec="stylelint-scss@^3.9.2" args=["stylelint-scss@^3.9.2",null]
+146 verbose parsed url { protocol: null,
+146 verbose parsed url   slashes: null,
+146 verbose parsed url   auth: null,
+146 verbose parsed url   host: null,
+146 verbose parsed url   port: null,
+146 verbose parsed url   hostname: null,
+146 verbose parsed url   hash: null,
+146 verbose parsed url   search: null,
+146 verbose parsed url   query: null,
+146 verbose parsed url   pathname: 'stylelint-scss@^3.9.2',
+146 verbose parsed url   path: 'stylelint-scss@^3.9.2',
+146 verbose parsed url   href: 'stylelint-scss@^3.9.2' }
+147 verbose cache add name="stylelint-scss" spec="^3.9.2" args=["stylelint-scss","^3.9.2"]
+148 verbose parsed url { protocol: null,
+148 verbose parsed url   slashes: null,
+148 verbose parsed url   auth: null,
+148 verbose parsed url   host: null,
+148 verbose parsed url   port: null,
+148 verbose parsed url   hostname: null,
+148 verbose parsed url   hash: null,
+148 verbose parsed url   search: null,
+148 verbose parsed url   query: null,
+148 verbose parsed url   pathname: '^3.9.2',
+148 verbose parsed url   path: '^3.9.2',
+148 verbose parsed url   href: '^3.9.2' }
+149 verbose addNamed [ 'stylelint-scss', '^3.9.2' ]
+150 verbose addNamed [ null, '>=3.9.2-0 <4.0.0-0' ]
+151 silly lockFile fb749197-bootstrap-5-2-2 bootstrap@^5.2.2
+152 verbose lock bootstrap@^5.2.2 C:\Users\admin\AppData\Roaming\npm-cache\fb749197-bootstrap-5-2-2.lock
+153 silly lockFile 2d93c548-flag-icon-2-5-0 flag-icon@^2.5.0
+154 verbose lock flag-icon@^2.5.0 C:\Users\admin\AppData\Roaming\npm-cache\2d93c548-flag-icon-2-5-0.lock
+155 silly lockFile 86baac6b-flag-icon-css-4-1-7 flag-icon-css@^4.1.7
+156 verbose lock flag-icon-css@^4.1.7 C:\Users\admin\AppData\Roaming\npm-cache\86baac6b-flag-icon-css-4-1-7.lock
+157 silly lockFile d69ef143-sass-1-55-0 sass@^1.55.0
+158 verbose lock sass@^1.55.0 C:\Users\admin\AppData\Roaming\npm-cache\d69ef143-sass-1-55-0.lock
+159 silly lockFile e6a99ac0-chai-3-5-0 chai@^3.5.0
+160 verbose lock chai@^3.5.0 C:\Users\admin\AppData\Roaming\npm-cache\e6a99ac0-chai-3-5-0.lock
+161 silly lockFile 3415bcf1-css-loader-0-28-11 css-loader@^0.28.11
+162 verbose lock css-loader@^0.28.11 C:\Users\admin\AppData\Roaming\npm-cache\3415bcf1-css-loader-0-28-11.lock
+163 silly lockFile be7561ab-eslint-3-2-2 eslint@^3.2.2
+164 verbose lock eslint@^3.2.2 C:\Users\admin\AppData\Roaming\npm-cache\be7561ab-eslint-3-2-2.lock
+165 silly lockFile ccd7b073-eslint-config-airbnb-base-5-0-1 eslint-config-airbnb-base@^5.0.1
+166 verbose lock eslint-config-airbnb-base@^5.0.1 C:\Users\admin\AppData\Roaming\npm-cache\ccd7b073-eslint-config-airbnb-base-5-0-1.lock
+167 silly lockFile 132f5a32-eslint-plugin-import-1-12-0 eslint-plugin-import@^1.12.0
+168 verbose lock eslint-plugin-import@^1.12.0 C:\Users\admin\AppData\Roaming\npm-cache\132f5a32-eslint-plugin-import-1-12-0.lock
+169 silly lockFile 84ae3240-istanbul-0-4-4 istanbul@^0.4.4
+170 verbose lock istanbul@^0.4.4 C:\Users\admin\AppData\Roaming\npm-cache\84ae3240-istanbul-0-4-4.lock
+171 silly lockFile 994b90a2-mocha-5-2-0 mocha@^5.2.0
+172 verbose lock mocha@^5.2.0 C:\Users\admin\AppData\Roaming\npm-cache\994b90a2-mocha-5-2-0.lock
+173 silly lockFile a71ba3f4-node-sass-4-9-0 node-sass@^4.9.0
+174 verbose lock node-sass@^4.9.0 C:\Users\admin\AppData\Roaming\npm-cache\a71ba3f4-node-sass-4-9-0.lock
+175 silly lockFile ee8cf117-postcss-loader-2-1-5 postcss-loader@^2.1.5
+176 verbose lock postcss-loader@^2.1.5 C:\Users\admin\AppData\Roaming\npm-cache\ee8cf117-postcss-loader-2-1-5.lock
+177 silly lockFile 4d71027b-proxyquire-1-7-4 proxyquire@1.7.4
+178 verbose lock proxyquire@1.7.4 C:\Users\admin\AppData\Roaming\npm-cache\4d71027b-proxyquire-1-7-4.lock
+179 silly lockFile e364380a-sass-loader-7-0-3 sass-loader@^7.0.3
+180 verbose lock sass-loader@^7.0.3 C:\Users\admin\AppData\Roaming\npm-cache\e364380a-sass-loader-7-0-3.lock
+181 silly lockFile 8c7c816f-sgmf-scripts-2-4-2 sgmf-scripts@^2.4.2
+182 verbose lock sgmf-scripts@^2.4.2 C:\Users\admin\AppData\Roaming\npm-cache\8c7c816f-sgmf-scripts-2-4-2.lock
+183 silly lockFile d714bf86-sinon-1-17-4 sinon@^1.17.4
+184 verbose lock sinon@^1.17.4 C:\Users\admin\AppData\Roaming\npm-cache\d714bf86-sinon-1-17-4.lock
+185 silly lockFile aa8d2385-stylelint-9-5-0 stylelint@9.5.0
+186 verbose lock stylelint@9.5.0 C:\Users\admin\AppData\Roaming\npm-cache\aa8d2385-stylelint-9-5-0.lock
+187 silly lockFile 9e3c5427-stylelint-config-standard-18-3-0 stylelint-config-standard@^18.3.0
+188 verbose lock stylelint-config-standard@^18.3.0 C:\Users\admin\AppData\Roaming\npm-cache\9e3c5427-stylelint-config-standard-18-3-0.lock
+189 silly lockFile 5fa705f2-stylelint-scss-3-9-2 stylelint-scss@^3.9.2
+190 verbose lock stylelint-scss@^3.9.2 C:\Users\admin\AppData\Roaming\npm-cache\5fa705f2-stylelint-scss-3-9-2.lock
+191 silly addNameRange { name: 'bootstrap',
+191 silly addNameRange   range: '>=5.2.2-0 <6.0.0-0',
+191 silly addNameRange   hasData: false }
+192 verbose url raw bootstrap
+193 verbose url resolving [ 'https://registry.npmjs.org/', './bootstrap' ]
+194 verbose url resolved https://registry.npmjs.org/bootstrap
+195 info trying registry request attempt 1 at 18:42:20
+196 http GET https://registry.npmjs.org/bootstrap
+197 silly addNameRange { name: 'flag-icon',
+197 silly addNameRange   range: '>=2.5.0-0 <3.0.0-0',
+197 silly addNameRange   hasData: false }
+198 silly addNameRange { name: 'sass', range: '>=1.55.0-0 <2.0.0-0', hasData: false }
+199 silly addNameRange { name: 'flag-icon-css',
+199 silly addNameRange   range: '>=4.1.7-0 <5.0.0-0',
+199 silly addNameRange   hasData: false }
+200 silly addNameRange { name: 'chai', range: '>=3.5.0-0 <4.0.0-0', hasData: false }
+201 silly addNameRange { name: 'css-loader',
+201 silly addNameRange   range: '>=0.28.11-0 <0.29.0-0',
+201 silly addNameRange   hasData: false }
+202 silly addNameRange { name: 'eslint-config-airbnb-base',
+202 silly addNameRange   range: '>=5.0.1-0 <6.0.0-0',
+202 silly addNameRange   hasData: false }
+203 silly addNameRange { name: 'eslint', range: '>=3.2.2-0 <4.0.0-0', hasData: false }
+204 silly addNameRange { name: 'mocha', range: '>=5.2.0-0 <6.0.0-0', hasData: false }
+205 silly addNameRange { name: 'postcss-loader',
+205 silly addNameRange   range: '>=2.1.5-0 <3.0.0-0',
+205 silly addNameRange   hasData: false }
+206 silly addNameRange { name: 'node-sass',
+206 silly addNameRange   range: '>=4.9.0-0 <5.0.0-0',
+206 silly addNameRange   hasData: false }
+207 silly addNameRange { name: 'istanbul', range: '>=0.4.4-0 <0.5.0-0', hasData: false }
+208 silly addNameRange { name: 'eslint-plugin-import',
+208 silly addNameRange   range: '>=1.12.0-0 <2.0.0-0',
+208 silly addNameRange   hasData: false }
+209 silly addNameRange { name: 'sgmf-scripts',
+209 silly addNameRange   range: '>=2.4.2-0 <3.0.0-0',
+209 silly addNameRange   hasData: false }
+210 silly addNameRange { name: 'sinon', range: '>=1.17.4-0 <2.0.0-0', hasData: false }
+211 silly addNameRange { name: 'sass-loader',
+211 silly addNameRange   range: '>=7.0.3-0 <8.0.0-0',
+211 silly addNameRange   hasData: false }
+212 silly addNameRange { name: 'stylelint-config-standard',
+212 silly addNameRange   range: '>=18.3.0-0 <19.0.0-0',
+212 silly addNameRange   hasData: false }
+213 silly addNameRange { name: 'stylelint-scss',
+213 silly addNameRange   range: '>=3.9.2-0 <4.0.0-0',
+213 silly addNameRange   hasData: false }
+214 verbose url raw flag-icon
+215 verbose url resolving [ 'https://registry.npmjs.org/', './flag-icon' ]
+216 verbose url resolved https://registry.npmjs.org/flag-icon
+217 info trying registry request attempt 1 at 18:42:20
+218 http GET https://registry.npmjs.org/flag-icon
+219 verbose url raw sass
+220 verbose url resolving [ 'https://registry.npmjs.org/', './sass' ]
+221 verbose url resolved https://registry.npmjs.org/sass
+222 info trying registry request attempt 1 at 18:42:20
+223 http GET https://registry.npmjs.org/sass
+224 verbose url raw flag-icon-css
+225 verbose url resolving [ 'https://registry.npmjs.org/', './flag-icon-css' ]
+226 verbose url resolved https://registry.npmjs.org/flag-icon-css
+227 info trying registry request attempt 1 at 18:42:21
+228 http GET https://registry.npmjs.org/flag-icon-css
+229 verbose url raw chai
+230 verbose url resolving [ 'https://registry.npmjs.org/', './chai' ]
+231 verbose url resolved https://registry.npmjs.org/chai
+232 info trying registry request attempt 1 at 18:42:21
+233 http GET https://registry.npmjs.org/chai
+234 verbose url raw css-loader
+235 verbose url resolving [ 'https://registry.npmjs.org/', './css-loader' ]
+236 verbose url resolved https://registry.npmjs.org/css-loader
+237 info trying registry request attempt 1 at 18:42:21
+238 http GET https://registry.npmjs.org/css-loader
+239 verbose url raw eslint-config-airbnb-base
+240 verbose url resolving [ 'https://registry.npmjs.org/', './eslint-config-airbnb-base' ]
+241 verbose url resolved https://registry.npmjs.org/eslint-config-airbnb-base
+242 info trying registry request attempt 1 at 18:42:21
+243 http GET https://registry.npmjs.org/eslint-config-airbnb-base
+244 verbose url raw eslint
+245 verbose url resolving [ 'https://registry.npmjs.org/', './eslint' ]
+246 verbose url resolved https://registry.npmjs.org/eslint
+247 info trying registry request attempt 1 at 18:42:21
+248 http GET https://registry.npmjs.org/eslint
+249 verbose url raw mocha
+250 verbose url resolving [ 'https://registry.npmjs.org/', './mocha' ]
+251 verbose url resolved https://registry.npmjs.org/mocha
+252 info trying registry request attempt 1 at 18:42:21
+253 http GET https://registry.npmjs.org/mocha
+254 verbose url raw postcss-loader
+255 verbose url resolving [ 'https://registry.npmjs.org/', './postcss-loader' ]
+256 verbose url resolved https://registry.npmjs.org/postcss-loader
+257 info trying registry request attempt 1 at 18:42:21
+258 http GET https://registry.npmjs.org/postcss-loader
+259 verbose url raw node-sass
+260 verbose url resolving [ 'https://registry.npmjs.org/', './node-sass' ]
+261 verbose url resolved https://registry.npmjs.org/node-sass
+262 info trying registry request attempt 1 at 18:42:21
+263 http GET https://registry.npmjs.org/node-sass
+264 verbose url raw istanbul
+265 verbose url resolving [ 'https://registry.npmjs.org/', './istanbul' ]
+266 verbose url resolved https://registry.npmjs.org/istanbul
+267 info trying registry request attempt 1 at 18:42:21
+268 http GET https://registry.npmjs.org/istanbul
+269 verbose url raw eslint-plugin-import
+270 verbose url resolving [ 'https://registry.npmjs.org/', './eslint-plugin-import' ]
+271 verbose url resolved https://registry.npmjs.org/eslint-plugin-import
+272 info trying registry request attempt 1 at 18:42:21
+273 http GET https://registry.npmjs.org/eslint-plugin-import
+274 verbose url raw proxyquire/1.7.4
+275 verbose url resolving [ 'https://registry.npmjs.org/', './proxyquire/1.7.4' ]
+276 verbose url resolved https://registry.npmjs.org/proxyquire/1.7.4
+277 info trying registry request attempt 1 at 18:42:21
+278 http GET https://registry.npmjs.org/proxyquire/1.7.4
+279 verbose url raw sgmf-scripts
+280 verbose url resolving [ 'https://registry.npmjs.org/', './sgmf-scripts' ]
+281 verbose url resolved https://registry.npmjs.org/sgmf-scripts
+282 info trying registry request attempt 1 at 18:42:21
+283 http GET https://registry.npmjs.org/sgmf-scripts
+284 verbose url raw sinon
+285 verbose url resolving [ 'https://registry.npmjs.org/', './sinon' ]
+286 verbose url resolved https://registry.npmjs.org/sinon
+287 info trying registry request attempt 1 at 18:42:21
+288 http GET https://registry.npmjs.org/sinon
+289 verbose url raw sass-loader
+290 verbose url resolving [ 'https://registry.npmjs.org/', './sass-loader' ]
+291 verbose url resolved https://registry.npmjs.org/sass-loader
+292 info trying registry request attempt 1 at 18:42:21
+293 http GET https://registry.npmjs.org/sass-loader
+294 verbose url raw stylelint/9.5.0
+295 verbose url resolving [ 'https://registry.npmjs.org/', './stylelint/9.5.0' ]
+296 verbose url resolved https://registry.npmjs.org/stylelint/9.5.0
+297 info trying registry request attempt 1 at 18:42:21
+298 http GET https://registry.npmjs.org/stylelint/9.5.0
+299 verbose url raw stylelint-config-standard
+300 verbose url resolving [ 'https://registry.npmjs.org/', './stylelint-config-standard' ]
+301 verbose url resolved https://registry.npmjs.org/stylelint-config-standard
+302 info trying registry request attempt 1 at 18:42:21
+303 http GET https://registry.npmjs.org/stylelint-config-standard
+304 verbose url raw stylelint-scss
+305 verbose url resolving [ 'https://registry.npmjs.org/', './stylelint-scss' ]
+306 verbose url resolved https://registry.npmjs.org/stylelint-scss
+307 info trying registry request attempt 1 at 18:42:21
+308 http GET https://registry.npmjs.org/stylelint-scss
+309 info retry will retry, error on last attempt: Error: CERT_UNTRUSTED
+310 info retry will retry, error on last attempt: Error: CERT_UNTRUSTED
+311 info retry will retry, error on last attempt: Error: CERT_UNTRUSTED
+312 info retry will retry, error on last attempt: Error: CERT_UNTRUSTED
+313 info retry will retry, error on last attempt: Error: CERT_UNTRUSTED
+314 info retry will retry, error on last attempt: Error: CERT_UNTRUSTED
+315 info retry will retry, error on last attempt: Error: CERT_UNTRUSTED
+316 info retry will retry, error on last attempt: Error: CERT_UNTRUSTED
+317 info retry will retry, error on last attempt: Error: CERT_UNTRUSTED
+318 info retry will retry, error on last attempt: Error: CERT_UNTRUSTED
+319 info retry will retry, error on last attempt: Error: CERT_UNTRUSTED
+320 info retry will retry, error on last attempt: Error: CERT_UNTRUSTED
+321 info retry will retry, error on last attempt: Error: CERT_UNTRUSTED
+322 info retry will retry, error on last attempt: Error: CERT_UNTRUSTED
+323 info retry will retry, error on last attempt: Error: CERT_UNTRUSTED
+324 info retry will retry, error on last attempt: Error: CERT_UNTRUSTED
+325 info retry will retry, error on last attempt: Error: CERT_UNTRUSTED
+326 info retry will retry, error on last attempt: Error: CERT_UNTRUSTED
+327 info retry will retry, error on last attempt: Error: CERT_UNTRUSTED
+328 info retry will retry, error on last attempt: Error: CERT_UNTRUSTED
+329 info trying registry request attempt 2 at 18:42:31
+330 http GET https://registry.npmjs.org/flag-icon-css
+331 info trying registry request attempt 2 at 18:42:31
+332 http GET https://registry.npmjs.org/flag-icon
+333 info trying registry request attempt 2 at 18:42:31
+334 http GET https://registry.npmjs.org/bootstrap
+335 info trying registry request attempt 2 at 18:42:31
+336 http GET https://registry.npmjs.org/sass
+337 info trying registry request attempt 2 at 18:42:31
+338 http GET https://registry.npmjs.org/chai
+339 info trying registry request attempt 2 at 18:42:31
+340 http GET https://registry.npmjs.org/eslint-config-airbnb-base
+341 info trying registry request attempt 2 at 18:42:31
+342 http GET https://registry.npmjs.org/eslint
+343 info trying registry request attempt 2 at 18:42:31
+344 http GET https://registry.npmjs.org/css-loader
+345 info trying registry request attempt 2 at 18:42:31
+346 http GET https://registry.npmjs.org/mocha
+347 info retry will retry, error on last attempt: Error: CERT_UNTRUSTED
+348 info retry will retry, error on last attempt: Error: CERT_UNTRUSTED
+349 info retry will retry, error on last attempt: Error: CERT_UNTRUSTED
+350 info retry will retry, error on last attempt: Error: CERT_UNTRUSTED
+351 info trying registry request attempt 2 at 18:42:31
+352 http GET https://registry.npmjs.org/postcss-loader
+353 info trying registry request attempt 2 at 18:42:31
+354 http GET https://registry.npmjs.org/istanbul
+355 info retry will retry, error on last attempt: Error: CERT_UNTRUSTED
+356 info trying registry request attempt 2 at 18:42:31
+357 http GET https://registry.npmjs.org/node-sass
+358 info trying registry request attempt 2 at 18:42:31
+359 http GET https://registry.npmjs.org/eslint-plugin-import
+360 info trying registry request attempt 2 at 18:42:31
+361 http GET https://registry.npmjs.org/proxyquire/1.7.4
+362 info retry will retry, error on last attempt: Error: CERT_UNTRUSTED
+363 info trying registry request attempt 2 at 18:42:31
+364 http GET https://registry.npmjs.org/sgmf-scripts
+365 info retry will retry, error on last attempt: Error: CERT_UNTRUSTED
+366 info retry will retry, error on last attempt: Error: CERT_UNTRUSTED
+367 info retry will retry, error on last attempt: Error: CERT_UNTRUSTED
+368 info trying registry request attempt 2 at 18:42:31
+369 http GET https://registry.npmjs.org/stylelint/9.5.0
+370 info trying registry request attempt 2 at 18:42:31
+371 http GET https://registry.npmjs.org/sinon
+372 info trying registry request attempt 2 at 18:42:31
+373 http GET https://registry.npmjs.org/sass-loader
+374 info trying registry request attempt 2 at 18:42:31
+375 http GET https://registry.npmjs.org/stylelint-config-standard
+376 info retry will retry, error on last attempt: Error: CERT_UNTRUSTED
+377 info trying registry request attempt 2 at 18:42:31
+378 http GET https://registry.npmjs.org/stylelint-scss
+379 info retry will retry, error on last attempt: Error: CERT_UNTRUSTED
+380 info retry will retry, error on last attempt: Error: CERT_UNTRUSTED
+381 info retry will retry, error on last attempt: Error: CERT_UNTRUSTED
+382 info retry will retry, error on last attempt: Error: CERT_UNTRUSTED
+383 info retry will retry, error on last attempt: Error: CERT_UNTRUSTED
+384 info retry will retry, error on last attempt: Error: CERT_UNTRUSTED
+385 info retry will retry, error on last attempt: Error: CERT_UNTRUSTED
+386 info retry will retry, error on last attempt: Error: CERT_UNTRUSTED
+387 info retry will retry, error on last attempt: Error: CERT_UNTRUSTED
+388 info retry will retry, error on last attempt: Error: CERT_UNTRUSTED
+389 info trying registry request attempt 3 at 18:43:31
+390 http GET https://registry.npmjs.org/flag-icon
+391 info trying registry request attempt 3 at 18:43:31
+392 http GET https://registry.npmjs.org/flag-icon-css
+393 info trying registry request attempt 3 at 18:43:31
+394 http GET https://registry.npmjs.org/bootstrap
+395 info trying registry request attempt 3 at 18:43:31
+396 http GET https://registry.npmjs.org/sass
+397 info trying registry request attempt 3 at 18:43:31
+398 http GET https://registry.npmjs.org/chai
+399 info trying registry request attempt 3 at 18:43:31
+400 http GET https://registry.npmjs.org/eslint-config-airbnb-base
+401 info trying registry request attempt 3 at 18:43:31
+402 http GET https://registry.npmjs.org/eslint
+403 info trying registry request attempt 3 at 18:43:31
+404 http GET https://registry.npmjs.org/mocha
+405 info trying registry request attempt 3 at 18:43:31
+406 http GET https://registry.npmjs.org/css-loader
+407 info trying registry request attempt 3 at 18:43:31
+408 http GET https://registry.npmjs.org/postcss-loader
+409 silly lockFile 2d93c548-flag-icon-2-5-0 flag-icon@^2.5.0
+410 silly lockFile 2d93c548-flag-icon-2-5-0 flag-icon@^2.5.0
+411 error Error: CERT_UNTRUSTED
+411 error     at SecurePair.<anonymous> (tls.js:1357:32)
+411 error     at SecurePair.EventEmitter.emit (events.js:92:17)
+411 error     at SecurePair.maybeInitFinished (tls.js:970:10)
+411 error     at CleartextStream.read [as _read] (tls.js:463:15)
+411 error     at CleartextStream.Readable.read (_stream_readable.js:320:10)
+411 error     at EncryptedStream.write [as _write] (tls.js:366:25)
+411 error     at doWrite (_stream_writable.js:221:10)
+411 error     at writeOrBuffer (_stream_writable.js:211:5)
+411 error     at EncryptedStream.Writable.write (_stream_writable.js:180:11)
+411 error     at write (_stream_readable.js:583:24)
+411 error     at flow (_stream_readable.js:592:7)
+411 error     at Socket.pipeOnReadable (_stream_readable.js:624:5)
+412 error If you need help, you may report this log at:
+412 error     <http://github.com/isaacs/npm/issues>
+412 error or email it to:
+412 error     <npm-@googlegroups.com>
+413 error System Windows_NT 6.2.9200
+414 error command "C:\\Program Files\\nodejs\\\\node.exe" "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "i"
+415 error cwd D:\Mansi_Gupta\Internal Projects\FullSite\mergeBeautyRestricted
+416 error node -v v0.10.18
+417 error npm -v 1.3.8
+418 verbose exit [ 1, true ]

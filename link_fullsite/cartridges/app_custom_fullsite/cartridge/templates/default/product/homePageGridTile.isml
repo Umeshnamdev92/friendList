@@ -1,0 +1,56 @@
+<isscript>
+        var assets = require('*/cartridge/scripts/assets');
+        assets.addJs('/js/wishlist.js');
+        assets.addJs('/css/wishlist.css');
+</isscript>
+
+<isset name="showQuickView" value="${true}" scope="page" />
+<isset name="product" value="${pdict.product}" scope="page" />
+<div class="product" data-pid="${product.id}">
+
+    <iscomment> HomePageGridTile </iscomment>
+    
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <div class="product-tile"> <br> 
+        <!-- dwMarker="product" dwContentID="${product.uuid}" -->
+        <isinclude template="product/components/productTileImage" />
+        <div class="tile-body">
+            <isif condition="${pdict.display.swatches !== false}">
+                <isinclude template="product/components/productTileSwatch" />
+            </isif>
+
+            <isinclude template="product/components/productTileName" />
+
+            <isset name="price" value="${product.price}" scope="page" />
+            <isif condition="${product.productType === 'set'}">
+                <isinclude template="product/components/pricing/setPrice" />
+                <iselse>
+                    <isinclude template="product/components/pricing/main" />
+            </isif>
+
+            <iscomment> <isif condition="${pdict.display.ratings !== false}">
+                <isinclude template="product/productTileFooter" />
+            </isif> </iscomment>
+
+            <isif condition="${product.promotions}">
+                <isloop items="${product.promotions}" var="promotion" status="loopstatus">
+                    
+                        <p class="text-success m-0">${promotion.name}</p>
+                   
+                    <h5 class="text-success"><small>${promotion.calloutMsg}</small></h5>
+                </isloop>
+            </isif>
+
+            <iscomment> <button type="button" class="custombtn-wishlist btn btn-primary"
+                data-url="${URLUtils.url('Wishlist-Addwishlist', 'pid', product.id)}">
+                <i style="color:white;" class="fa fa-heart"></i>
+                <label class="form-control-label" style="color:white">
+                    ${Resource.msg('label.input.wishlist', 'wishlist', null)}
+                </label>
+            </button> </iscomment>
+        </div>
+        <!-- END_dwmarker -->
+    </div>
+
+    <iscomment> HomePageGridTile End </iscomment>
+</div>

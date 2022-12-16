@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<catalog xmlns="http://www.demandware.com/xml/impex/catalog/2006-10-31" catalog-id="storefront-catalog-m-en-mansi">
+    <header>
+        <image-settings>
+            <internal-location base-path="/"/>
+            <view-types>
+                <view-type>large</view-type>
+                <view-type>medium</view-type>
+                <view-type>small</view-type>
+                <view-type>swatch</view-type>
+            </view-types>
+            <alt-pattern>${productname}</alt-pattern>
+            <title-pattern>${productname}</title-pattern>
+        </image-settings>
+    </header>
+
+    <category category-id="root">
+        <display-name xml:lang="x-default">Storefront Catalog - EN</display-name>
+        <display-name xml:lang="fr-FR">Catalogue de boutique en ligne - FR</display-name>
+        <display-name xml:lang="it-IT">Catalogo dello storefront - IT</display-name>
+        <display-name xml:lang="ja-JP">ストアフロントカタログ - EN</display-name>
+        <display-name xml:lang="zh-CN">网店目录 - EN</display-name>
+        <online-flag>true</online-flag>
+        <template/>
+        <page-attributes/>
+        <attribute-groups>
+            <attribute-group group-id="storefrontAttributes">
+                <display-name xml:lang="x-default">Storefront Attributes</display-name>
+                <display-name xml:lang="fr-FR">Attributs de la boutique en ligne</display-name>
+                <display-name xml:lang="it-IT">Caratteristiche dello storefront</display-name>
+                <display-name xml:lang="ja-JP">ストアフロント属性</display-name>
+                <display-name xml:lang="zh-CN">网店属性</display-name>
+            </attribute-group>
+        </attribute-groups>
+        <refinement-definitions>            
+            <refinement-definition type="attribute" bucket-type="none" attribute-id="isWineOrNot" system="false">
+                <display-name xml:lang="x-default">isWineOrNot</display-name>
+                <value-set>search-result</value-set>
+                <sort-mode>value-name</sort-mode>
+                <sort-direction>ascending</sort-direction>
+                <cutoff-threshold>5</cutoff-threshold>
+            </refinement-definition>
+        </refinement-definitions>
+    </category>
+</catalog>

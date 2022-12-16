@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jobs xmlns="http://www.demandware.com/xml/impex/jobs/2015-07-01">
+    <job job-id="distributeBonusPointJob" priority="0">
+        <description>distributeBonusPointJob</description>
+        <parameters/>
+        <flow>
+            <context site-id="RefArch-gajendra"/>
+            <step step-id="distributeBonusPointJobStep" type="custom.DistributeBonusPoint" enforce-restart="true">
+                <description>distributeBonusPointJobStep</description>
+                <parameters/>
+            </step>
+        </flow>
+        <rules/>
+        <triggers>
+            <run-once enabled="false">
+                <date>2022-11-18Z</date>
+                <time>09:59:07.000Z</time>
+            </run-once>
+        </triggers>
+    </job>
+</jobs>

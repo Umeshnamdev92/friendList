@@ -1,0 +1,394 @@
+.product-tile{
+    border: none !important;
+    padding: 1rem !important;
+    border-radius: 5% !important;
+    height: 32rem !important;
+    background-color: white !important;
+    margin-bottom: 15px !important;
+    box-shadow: 5px 7px 10px darkgray !important ;
+}
+.tile-image{
+    border-radius: 5% !important;
+}
+.product-name a{
+    color: purple !important;
+}
+.product-edit a{
+    font-size: 1rem !important;
+}
+.card-header{
+    background-color: purple !important;
+    color:#FFFFFF !important;
+}
+h1.header.page-title,h1.header.page-title::before{
+    background-color:   purple !important;
+}
+.plpbg{
+    background-color: whitesmoke;
+    text-decoration: none;
+}
+.pageMarginAfterNav{
+    margin-top: 5rem;
+}
+header~#maincontent .container a:not(.btn-primary):not(.btn-outline-primary){
+    // color: white !important;
+    // font-weight: bold;
+}
+.header-sticky{
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+    background-color: white;
+    margin-top: -1%;
+}
+.btn-success{
+    // background-color: purple;
+    color: white;
+    background-color: #1a89de !important;
+    border-radius: 80px !important;
+    height: 39px;
+    padding-top: 4px;
+    margin-top: 1px;
+    margin-left: -27px;
+}
+.btn-secondary{
+    color: white;
+    border-radius: 80px !important;
+}
+
+.footercustom{
+    color: white;
+}
+
+.minicart-icon{
+    color: black;
+}
+
+.card-footer{
+    color: white !important;
+    background-color: purple !important;
+}
+.navbar-expand-md .navbar-nav{
+     margin-left: -43px;
+    text-transform: uppercase;
+    font-family: 'FontAwesome';
+    margin-left: 10rem;
+    
+}
+#navHeaderColor{
+    background-color: white;
+    margin-top: 1rem;
+} 
+
+.btn:not(:disabled):not(.disabled){
+    text-transform: uppercase;
+    // display: none;
+.brand img{
+    width:50%;
+    height:80%;
+}
+}
+.site-search{
+    margin-left:-30%;
+}
+
+.minicart .cart {
+    padding-top:0% !important;
+    padding-bottom:0% !important;
+}
+
+
+
+.hero h1.page-title{
+    background-color: #890076;
+}
+
+.header.container {
+    // background-color: whitesmoke;
+    background-color: white !important;
+}
+// div.header.container {
+//     background-color: whitesmoke;
+// }
+
+.card-header.clearfix{
+    background-color:#890076
+}
+.col-lg-9{
+    font-size: larger;
+}
+#maincontent{
+    box-shadow : 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    
+}
+.offset-sm-2{
+    box-shadow : 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+footer{
+    background-color: whitesmoke;
+}
+
+.container, .container-fluid, .container-lg, .container-md, .container-xl {
+    margin-top: -1% !important ;
+}
+
+article, aside, figcaption, figure, header, hgroup, main, nav, section{
+    padding-top:5px !important;
+   
+}
+
+.main-menu {
+    padding-top: 8px !important;
+margin-top: -1%;
+    box-shadow : 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.header-banner{
+    padding-top: 1%;
+    
+}
+
+.row-color-change{
+    background-color: white !important;
+}
+
+.card-header-custom {
+
+text-align: center;
+}
+
+label{
+    color: black;
+}
+// for giving the title color
+h3{
+    color: white;
+}
+
+#maincontent{
+    background-color: white;
+}
+// for input fields of the round type
+.rounded-select{
+    border-radius: 25px;
+    border: 1px solid #890076;
+}
+
+
+
+#maincontent{
+    background-color: white;
+}
+
+.rounded-select{
+    border-radius: 25px;
+    border: 1px solid #890076;
+}
+// for providing color to <a> tag
+ a{
+    color: #890076; 
+ }
+.h1.header.page-title{
+    background-color: purple !important;
+}
+.btn {
+    // color: black;
+}
+.col-sm-3 {
+    color: purple
+}
+// for providing the styling of the product name in the <a> tag
+.footer-anchor:hover{
+    color: #FFFFFF !important;
+}
+.product-name a {
+    color: purple !important;
+}
+// for changing the social icons to the centre
+.social-icon-list{
+    padding-left: 37% !important
+  
+}
+// for footer subscribe button background color
+#SubscribeEmailButtonsub{
+    background-color:#890076; 
+    color:#fff; 
+    border-radius:50rem; 
+    border:none; 
+    width:10rem;
+    padding: 0.8rem;
+    margin-top: -5px;
+    margin-left: -5px;
+}
+// for footer content
+.footer-input{
+    border-radius: 20px;
+}
+// for shifting the social icons in the centre
+.social-one{
+    margin-left: 61px;
+}
+.add-cart-btn{
+    height: 54px;
+    padding: 10px;
+}
+.link{
+    color: #890076;
+}
+// product detail page link color change
+.pdp-link{
+    color: #890076;
+}
+.nav-link {
+    color: #890076 !important;
+}
+.user-message{
+    color: black;
+}
+.popover popover-bottom {
+    background-color: black !important;
+}
+.product-name{
+    color: black !important;
+}
+
+.anchor-color{
+    color: black !important;
+}
+.search-anchor{
+    color: #890076 !important;
+}
+// name color change on hovering
+.name:hover{
+    color: #890076!important;
+    text-decoration: none;
+}
+// on search bar content styling change on hover
+.custom-searchbar-content-color:hover{
+    color: #890076 !important;
+    text-decoration: none;
+}
+// button color
+// .btn-outline-primary {
+//     color: #890076 !important;
+// }
+
+.normal:hover{
+    color: #890076 !important;
+}
+.number-of-items{
+    color: #890076 !important;
+}
+.form-control search-field-custom{
+    height: max-content !important;
+}
+.site-search input{
+    // padding-right: 1rem;
+    height: 40% !important;
+    border-radius: 26px;
+    margin-left: -1rem;
+    margin-top: -1.3rem
+}
+
+.fa-search{
+    margin-top: -1.5rem;
+    padding-right: 1rem;
+}
+
+.help-phone-number-custom{
+    color: #890076 !important;
+}
+.continue-shopping-link-custom{
+    color: #890076 !important;
+}
+.edit-custom{
+    color: #890076 !important;
+}
+.number-feild{
+    color: #890076 !important;
+}
+.shipping-method-block h3{
+    color: #890076 !important;
+}
+.btn-secondary{
+    color: #FFFFFF !important;
+    background-color: #890076 !important;
+}
+
+#wishListCount{
+    display: inline-block;
+    line-height: normal;
+    height: 1.20em;
+    background-color: #890076;
+    border-radius: 50%;
+    width: 1.20em;
+    text-align: center;
+    font-size: 0.8125em;
+    position: relative;
+    left: -0.9375em;
+    color: #fff;
+    top: -6px;
+    margin-left: 0.3rem;
+    position: relative;
+}
+
+#wishlistIcon{
+    color:black;
+    border-radius: 4rem;
+    padding-top: 0.3rem;
+    padding-left: -0.6rem;
+    height: 2rem;
+    width: 2rem;
+    margin-top: 1.4rem;
+    margin-right: -1rem;
+    margin-left: 0rem;
+    top : -6px;
+}
+
+#wishlistIcon:hover{
+    color: red;
+}
+
+.custombtn-wishlist{
+    margin-top:1rem !important; 
+    height:1.6rem !important; 
+    position:absolute !important; 
+    bottom:2rem !important;
+}
+
+
+.custom-breadcrumb{
+    color:purple !important;
+}
+
+.btn-style-css{
+    color: #FFFFFF !important;
+    background-color: #890076 !important;
+    border:1px solid #890076;
+}
+.btn-style-css:hover{
+    color: #890076 !important;
+    background-color: white !important;
+    // border:1px solid #890076;
+}
+.btn-style-css:focus{
+    color: #FFFFFF !important;
+    background-color: #890076 !important;
+    border:1px solid #890076;
+    box-shadow: none;
+}
+
+.custom-promoNew{
+  color: rgb(6, 185, 6)!important;
+}
+
+.card-header {
+    text-align: center !important;
+}
+.content-header{
+    margin-top: 1rem;
+}
+.breadcrumb{
+    margin-left: 4rem;;
+}

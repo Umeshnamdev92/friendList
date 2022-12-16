@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jobs xmlns="http://www.demandware.com/xml/impex/jobs/2015-07-01">
+
+    <job job-id="getAllProduct" priority="0">
+        <description>stock clearance Product</description>
+        <parameters/>
+        <flow>
+            <context site-id="RefArch-allCS"/>
+            <step step-id="stockClearProduct" type="custom.getAllProduct" enforce-restart="false">
+                <description>stockClearProduct</description>
+                <parameters/>
+            </step>
+        </flow>
+        <rules/>
+        <triggers>
+            <run-once enabled="false">
+                <date>2022-11-30Z</date>
+                <time>04:19:45.000Z</time>
+            </run-once>
+        </triggers>
+    </job>
+
+</jobs>

@@ -1,0 +1,68 @@
+{
+    "step-types":
+    {
+      "script-module-step":
+      [
+        {
+          "@type-id":"custom.editWineAttribute",
+          "@supports-parallel-execution":"true",
+          "@supports-site-context":"true",
+          "@supports-organization-context":"true",
+          "description":"Help to send the information about the Customer",
+          "module":"app_merge_beauty_restricted/cartridge/scripts/jobs/BatchProcess",
+          "function":"editWineAttribute",
+          "transactional":"true",
+          "timeout-in-seconds":"900",
+          "parameters":
+          {
+          },
+          "status-codes":
+          {
+                    "status":
+            [
+                        {
+                            "@code": "ERROR",
+                            "description": "Used when the step failed with an error."
+                        },
+                        {
+                            "@code": "FINISHED",
+                "description": "Used when the step finished successfully."
+                        },
+                        {
+                            "@code": "FINISHED_WITH_WARNINGS",
+                "description": "Used when the step finished with warnings."
+                        }
+                    ]
+                }
+        },
+        {
+          "@type-id": "custom.getAllProductStockClear",
+          "@supports-parallel-execution": "true",
+          "@supports-site-context": "true",
+          "@supports-organization-context": "false",
+          "description": "Help to send the information about the Customer",
+          "module": "app_merge_beauty_restricted/cartridge/scripts/jobs/product.js",
+          "function": "stockClearProduct",
+          "transactional": "true",
+          "timeout-in-seconds": "900",
+          "parameters": {},
+          "status-codes": {
+            "status": [
+              {
+                "@code": "ERROR",
+                "description": "Used when the step failed with an error."
+              },
+              {
+                "@code": "FINISHED",
+                "description": "Used when the step finished successfully."
+              },
+              {
+                "@code": "FINISHED_WITH_WARNINGS",
+                "description": "Used when the step finished with warnings."
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }

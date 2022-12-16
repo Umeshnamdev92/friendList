@@ -1,0 +1,24 @@
+
+<div class="row hidden-xs-down">
+        <isif condition="${JSON.stringify(pdict.breadcrumbs)}">
+            <div class="col" role="navigation" aria-label="Breadcrumb">
+        <ol class="breadcrumb">
+
+            <isloop items="${pdict.breadcrumbs}" var="breadcrumbValue" status="loopState">
+                <li class="breadcrumb-item">
+                    <isif condition="${loopState.last}">
+                        <a href="${breadcrumbValue.url}" aria-current="page">
+                            ${breadcrumbValue.htmlValue}
+                        </a>
+                    <iselse>
+                        <a href="${breadcrumbValue.url}">
+                            ${breadcrumbValue.htmlValue}
+                        </a>
+                    </isif>
+                </li>
+            </isloop>
+        </ol>
+    </div>
+        </isif>
+
+</div>

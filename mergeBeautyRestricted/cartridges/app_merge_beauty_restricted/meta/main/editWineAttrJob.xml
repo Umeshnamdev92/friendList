@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jobs xmlns="http://www.demandware.com/xml/impex/jobs/2015-07-01">
+
+    <job job-id="EditWineAttribute" priority="0">
+        <description/>
+        <parameters/>
+        <flow>
+            <context site-id="RefArch-allCS"/>
+            <step step-id="editWineAttribute" type="custom.editWineAttribute" enforce-restart="false">
+                <description/>
+                <parameters/>
+            </step>
+        </flow>
+        <rules/>
+        <triggers>
+            <run-once enabled="false">
+                <date>2022-11-26Z</date>
+                <time>04:26:28.000Z</time>
+            </run-once>
+        </triggers>
+    </job>
+
+</jobs>

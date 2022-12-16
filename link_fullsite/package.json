@@ -1,7 +1,8 @@
 {
-  "name": "app_custom_Giftcard",
-  "version": "0.0.1",
-  "description": "New overlay cartridge",
+  "init": [],
+  "name": "app_custom_fullsite",
+  "version": "22.1.0",
+  "description": "Full Site | Codesquare",
   "main": "index.js",
   "scripts": {
     "lint": "sgmf-scripts --lint js && sgmf-scripts --lint css",
@@ -23,9 +24,9 @@
     "node-sass": "^4.9.0",
     "postcss-loader": "^2.1.5",
     "proxyquire": "1.7.4",
-    "sass-loader": "^7.0.3",
+    "request-promise": "^4.2.2",
+    "sass-loader": "^7.1.0",
     "sgmf-scripts": "^2.4.2",
-    "sinon": "^1.17.4",
     "stylelint": "9.5.0",
     "stylelint-config-standard": "^18.3.0",
     "stylelint-scss": "^3.9.2"
@@ -38,9 +39,18 @@
     "base": "../storefront-reference-architecture/cartridges/app_storefront_base"
   },
   "dependencies": {
-    "bootstrap": "^5.2.2",
-    "flag-icon": "^2.5.0",
-    "flag-icon-css": "^4.1.7",
-    "sass": "^1.55.0"
-  }
+    "@babel/core": "^7.12.10",
+    "@babel/preset-env": "^7.12.11",
+    "app-module-path": "^2.2.0",
+    "autoprefixer": "^9.4.4",
+    "babel-loader": "^8.2.2",
+    "bootstrap": "4.3.1",
+    "cheerio": "^1.0.0-rc.10",
+    "cleave.js": "^1.5.3",
+    "jquery": "^3.5.1",
+    "sinon": "^13.0.1"
+  },
+  
+  "license": "ISC",
+  "packageName": "app_custom_fullsite"
 }

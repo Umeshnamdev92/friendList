@@ -1,0 +1,113 @@
+'use strict';
+
+var base = module.superModule;
+
+var URLUtils = require('dw/web/URLUtils');
+var preferences = require('*/cartridge/config/preferences');
+var ACTION_ENDPOINT = preferences.suggestionsActionEnpoint ? preferences.suggestionsActionEnpoint : 'Product-Show';
+var IMAGE_SIZE = preferences.imageSize ? preferences.imageSize : 'medium';
+
+
+/**
+ * Get Image URL
+ *
+ * @param {dw.catalog.Product} product - Suggested product
+ * @return {string} - Image URL
+ */
+ function getImageUrl(product) {
+    var imageProduct = product;
+    if (product.master) {
+        imageProduct = product.variationModel.defaultVariant;
+    }
+    return imageProduct.getImage(IMAGE_SIZE).URL.toString();
+}
+
+/**
+ * @typedef SuggestedPhrase
+ * @type Object
+ * @property {boolean} exactMatch - Whether suggested phrase is an exact match
+ * @property {string} value - Suggested search phrase
+ */
+
+/**
+ * Compile a list of relevant suggested phrases
+ *
+ * @param {dw.util.Iterator.<dw.suggest.SuggestedPhrase>} suggestedPhrases - Iterator to retrieve
+ *                                                                           SuggestedPhrases
+ * @param {number} maxItems - Maximum number of phrases to retrieve
+ * @return {SuggestedPhrase[]} - Array of suggested phrases
+ */
+function getPhrases(suggestedPhrases, maxItems) {
+    var phrase = null;
+    var phrases = [];
+
+    for (var i = 0; i < maxItems; i++) {
+        if (suggestedPhrases.hasNext()) {
+            phrase = suggestedPhrases.next();
+            phrases.push({
+                exactMatch: phrase.exactMatch,
+                value: phrase.phrase
+            });
+        }
+    }
+
+    return phrases;
+}
+
+/**
+ * Compile a list of relevant suggested products
+ *
+ * @param {dw.util.Iterator.<dw.suggest.SuggestedProduct>} suggestedProducts - Iterator to retrieve
+ *                                                                             SuggestedProducts
+ *  @param {number} maxItems - Maximum number of products to retrieve
+ * @return {Object[]} - Array of suggested products
+ */
+ function getProducts(suggestedProducts, maxItems) {
+    var product = null;
+    var products = [];
+
+    for (var i = 0; i < maxItems; i++) {
+        if (suggestedProducts.hasNext()) {
+            product = suggestedProducts.next().productSearchHit.product;
+            // To restrict wine product from search for the minors/unloggedIN users
+            if ((product.custom.isWineOrNot == true && !customer.isAuthenticated()) || (customer.isAuthenticated() && customer.isMemberOfCustomerGroup('age-less-18') && product.custom.isWineOrNot == true)) {
+                continue;
+            }
+            else
+            {
+                products.push({
+                    name: product.name,
+                    imageUrl: getImageUrl(product),
+                    url: URLUtils.url(ACTION_ENDPOINT, 'pid', product.ID)
+                });
+            }
+        }
+    }
+
+    return products;
+}
+
+/**
+ * @constructor
+ * @classdesc ProductSuggestions class
+ *
+ * @param {dw.suggest.SuggestModel} suggestions - Suggest Model
+ * @param {number} maxItems - Maximum number of items to retrieve
+ */
+ module.exports = function ProductSuggestions(suggestions, maxItems) {
+    base(suggestions, maxItems)
+    var productSuggestions = suggestions.productSuggestions;
+
+    if (!productSuggestions) {
+        this.available = false;
+        this.phrases = [];
+        this.products = [];
+        return;
+    }
+
+    var searchPhrasesSuggestions = productSuggestions.searchPhraseSuggestions;
+
+    this.available = productSuggestions.hasSuggestions();
+    this.phrases = getPhrases(searchPhrasesSuggestions.suggestedPhrases, maxItems);
+    this.products = getProducts(productSuggestions.suggestedProducts, maxItems);
+}

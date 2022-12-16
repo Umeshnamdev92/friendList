@@ -145,6 +145,8 @@ server.get('ShowAjax', cache.applyShortPromotionSensitiveCache, consentTracking.
  */
 server.get('Show', cache.applyShortPromotionSensitiveCache, consentTracking.consent, function (req, res, next) {
     var searchHelper = require('*/cartridge/scripts/helpers/searchHelpers');
+    var Resource = require('dw/web/Resource');
+    var URLUtils = require('dw/web/URLUtils');
 
     if (req.querystring.cgid) {
         var pageLookupResult = searchHelper.getPageDesignerCategoryPage(req.querystring.cgid);
@@ -165,6 +167,7 @@ server.get('Show', cache.applyShortPromotionSensitiveCache, consentTracking.cons
 
     var result = searchHelper.search(req, res);
 
+
     if (result.searchRedirect) {
         res.redirect(result.searchRedirect);
         return next();
@@ -183,9 +186,11 @@ server.get('Show', cache.applyShortPromotionSensitiveCache, consentTracking.cons
         productSearch: result.productSearch,
         maxSlots: result.maxSlots,
         reportingURLs: result.reportingURLs,
+       
         refineurl: result.refineurl,
         category: result.category ? result.category : null,
         canonicalUrl: result.canonicalUrl,
+       
         schemaData: result.schemaData,
         apiProductSearch: result.apiProductSearch
     });

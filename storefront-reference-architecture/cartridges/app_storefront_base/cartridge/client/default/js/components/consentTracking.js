@@ -31,10 +31,10 @@ function showConsentModal() {
         + '<div class="modal-body"></div>'
         + '<div class="modal-footer">'
         + '<div class="button-wrapper">'
-        + '<button class="affirm btn btn-primary" data-url="' + urlAccept + '" autofocus data-dismiss="modal">'
+        + '<button class="affirm btn btn-primary consent-traking-focus" data-url="' + urlAccept + '" autofocus data-dismiss="modal">'
         + textYes
         + '</button>'
-        + '<button class="decline btn btn-primary" data-url="' + urlReject + '" data-dismiss="modal" >'
+        + '<button class="decline btn btn-primary consent-traking-focus" data-url="' + urlReject + '" data-dismiss="modal" >'
         + textNo
         + '</button>'
         + '</div>'

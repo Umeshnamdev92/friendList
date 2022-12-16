@@ -1,0 +1,113 @@
+@import "~base/variables";
+
+.hero {
+    height: 25vw;
+    background-size: cover;
+    background-position: 50%;
+    position: relative;
+    background-color: slategray;
+
+    h1.page-title {
+        top: 50%;
+        margin: -1em 0 0;
+        background: purple;
+        font-family: "FontAwesome";
+     padding-right:5%;
+    margin-top: 5%;
+    }
+}
+
+.slant-down {
+
+    @include media-breakpoint-up(sm) {
+        &::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 0;
+            height: 0;
+            border: 0 solid transparent;
+            border-right-width: 0;
+            border-left-width: 90vw;
+            border-bottom: 4vw solid $body-bg;
+        }
+    }
+}
+
+.slant-up {
+
+    @include media-breakpoint-up(sm) {
+        &::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border: 0 solid transparent;
+            border-left-width: 0;
+            border-right-width: 90vw;
+            border-top: 4vw solid $body-bg;
+        }
+    }
+}
+
+h1.page-title {
+    position: initial;
+    color: white;
+    padding-right:5%;
+    padding-left:5%;
+    padding: 0.3125em 0.625em 0.3125em calc($grid-gutter-width / 2);
+    background-color: purple;
+    display: inline-block;
+    margin: 0.9375em 0;
+    font-size: 1.5rem;
+    margin-left: 38%;
+    margin-top: 6%;
+
+    @include media-breakpoint-up(sm) { font-size: 2rem; }
+
+    @include media-breakpoint-up(md) { font-size: 3rem; }
+
+    &::before {
+        content: "";
+        background-color: purple;
+        height: 100%;
+        width: 0;
+        position: absolute;
+        left: 0;
+        top: 0;
+
+        @include media-breakpoint-only(xl) {
+            // width: calc((100vw - #{map-get($container-max-widths, xl)}) / 2);
+            left: calc((100vw - #{map-get($container-max-widths, xl)}) / 2 * -1);
+        }
+
+        @include media-breakpoint-only(lg) {
+            // width: calc((100vw - #{map-get($container-max-widths, lg)}) / 2);
+            left: calc((100vw - #{map-get($container-max-widths, lg)}) / 2 * -1);
+        }
+
+        @include media-breakpoint-only(md) {
+            // width: calc((100vw - #{map-get($container-max-widths, md)}) / 2);
+            left: calc((100vw - #{map-get($container-max-widths, md)}) / 2 * -1);
+        }
+    }
+
+    @include media-breakpoint-only(xl) {
+        left: calc((100% - #{map-get($container-max-widths, xl)}) / 2);
+    }
+
+    @include media-breakpoint-only(lg) {
+        left: calc((100% - #{map-get($container-max-widths, lg)}) / 2);
+    }
+
+    @include media-breakpoint-only(md) {
+        left: calc((100% - #{map-get($container-max-widths, md)}) / 2);
+    }
+
+    @include media-breakpoint-down(sm) {
+        left: 0;
+    }
+}
