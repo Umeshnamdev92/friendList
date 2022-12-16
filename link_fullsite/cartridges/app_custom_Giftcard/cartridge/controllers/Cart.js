@@ -123,7 +123,7 @@ server.replace('AddProduct', function (req, res, next) {
             if (productId.includes("Gift_Card")) {
                 var tempProduct = ProductMgr.getProduct(productId);
                 var imgUrl = tempProduct.getImages('medium')[0].url
-                var giftLineItem = currentBasket.createGiftCertificateLineItem(parseInt(options[0].selectedValueId), data.recipientEmail);
+                var giftLineItem = currentBasket.createGiftCertificateLineItem(parseFloat(options[0].selectedValueId), data.recipientEmail);
                giftLineItem.setRecipientEmail(data.recipientEmail);
                giftLineItem.setMessage(data.message);
                giftLineItem.setSenderName(data.senderName);
