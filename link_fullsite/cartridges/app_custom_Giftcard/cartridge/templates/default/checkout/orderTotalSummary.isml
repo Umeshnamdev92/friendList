@@ -1,4 +1,3 @@
-<iscomment> ${JSON.stringify(pdict.order)} </iscomment>
 
 <!--- Subtotal --->
 <div class="row leading-lines subtotal-item">
@@ -8,12 +7,12 @@
     <div class="col-6 end-lines">
     <isset name="giftCard" value="${false}" scope="page" />
                 <isloop items="${pdict.order.items.items}" var="gift" status="loopstatus">
-                    <isif condition="${gift.productName=="GiftCard"}">
+                    <isif condition="${gift.isGiftCard==true}">
                     <isset name="giftCard1" value="${true}" scope="page" />
                     </isif>
                     </isloop>
                     <isif condition="${giftCard1}">
-                     <p class="text-right"><span class="sub-total">${pdict.order.totals.unformatTotal}</span></p>
+                     <p class="text-right"><span class="sub-total1">${pdict.order.totals.unformatTotal}</span></p>
                     <iselse/>
                      <p class="text-right"><span class="sub-total">${pdict.order.totals.subTotal}</span></p>
                     </isif>

@@ -1,4 +1,5 @@
-<isif condition="${product.productName=='GiftCard'}">
+<isif condition="${product.isGiftCard!= true}">
+${product.isGiftCard}
 <div class="d-none">
 <label for="quantity-${loopState && loopState.count ? loopState.count : '1' }">${Resource.msg('label.quantity', 'common', null)}</label>
 <select class="quantity-select custom-select form-control" id="quantity-${loopState && loopState.count ? loopState.count : '1' }">

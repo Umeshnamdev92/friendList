@@ -29,7 +29,7 @@
                         <div class="line-item-option">${option.displayName}</div>
                     </isloop>
                 </div>
-               <isif condition="${lineItem.productName!='GiftCard'}">
+               <isif condition="${lineItem.isGiftCard!= true}">
                 <isif condition="${(pdict.order && !pdict.order.orderStatus) || miniCart}">
                     <isinclude template="cart/productCard/cartProductCardAvailability" />
                 </isif>
@@ -37,7 +37,7 @@
             </div>
         </div>
     </isif>
-<isif condition="${lineItem.productName!='GiftCard'}">
+<isif condition="${lineItem.isGiftCard!= true}">
     <div><hr class="line-item-divider"></div>
     <isif condition="${lineItem.productType === 'bundle' && ((pdict.order && !pdict.order.orderStatus) || miniCart)}">
         <isinclude template="cart/productCard/cartProductCardAvailability" />

@@ -1,4 +1,5 @@
-<isif condition="${product.productName!='GiftCard'}">
+<isif condition="${product.isGiftCard!= true}">
+${lineItem.isGiftCard!= true}
 <isif condition="${price.type === 'tiered'}">
     <div class="price">
         <isinclude template="/product/components/pricing/tiered" />

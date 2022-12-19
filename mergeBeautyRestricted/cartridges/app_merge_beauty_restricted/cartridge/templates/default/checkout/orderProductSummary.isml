@@ -8,7 +8,7 @@
             <div class="col-6 end-lines">
                     <isset name="giftCard" value="${false}" scope="page" />
                 <isloop items="${pdict.order.items.items}" var="gift" status="loopstatus">
-                    <isif condition="${gift.productName=="GiftCard"}">
+                    <isif condition="${gift.isGiftCard==true}">
                     <isset name="giftCard" value="${true}" scope="page" />
                     </isif>
                 </isloop>

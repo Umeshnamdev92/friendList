@@ -1,4 +1,4 @@
-<isif condition="${lineItem.productName!='GiftCard'}">
+<isif condition="${lineItem.isGiftCard!= true}">
 <div class="quantity-form">
     <label class="line-item-pricing-info quantity-label" for="quantity-${lineItem.UUID}">${Resource.msg('field.selectquantity','cart',null)}</label>
     <select class="form-control quantity custom-select"
