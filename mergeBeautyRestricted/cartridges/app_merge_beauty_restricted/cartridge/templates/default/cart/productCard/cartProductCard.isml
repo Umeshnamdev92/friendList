@@ -36,6 +36,7 @@
                         <iselse/>
 
                         </isif>
+                        
                       <isif condition="${lineItem.productName!='GiftCard'}">
 
                         <isinclude template="cart/productCard/cartProductCardAvailability" />
@@ -49,6 +50,7 @@
         <div class="col-12 d-lg-none">
             <hr class="line-item-divider">
         </div>
+        
        <isif condition="${lineItem.productName!='GiftCard'}">
         <isinclude template="cart/productCard/cartProductCardProductPrice" />
        </isif>
