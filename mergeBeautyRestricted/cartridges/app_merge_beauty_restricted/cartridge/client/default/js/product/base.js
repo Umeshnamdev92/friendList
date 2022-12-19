@@ -516,26 +516,9 @@ function getOptions($productContainer) {
             var isPersonalizable = $('#engraving-or-not').attr('value');
 
             // Sending engraving msg if the product in personalizable
-            if(isPersonalizable == 'true')
+            if($('body').find('#engraving-div').length > 0)
             {
-                if($('#add-engraving-btn').disabled == true)
-                {
-                    var buttons = $('.engrave-toggle-button');
-                    for(var i = 0; i < buttons.length; i++) {
-                        if (buttons[i].disabled == true) {
-                            var selectedValueId = buttons[i].attributes['engraving-option-id'].nodeValue;
-                        }
-                    }
-                }
-                else
-                {
-                    var buttons = $('.engrave-toggle-button');
-                    for(var i = 0; i < buttons.length; i++) {
-                        if (buttons[i].disabled == true) {
-                            var selectedValueId = buttons[i].attributes['engraving-option-id'].nodeValue;
-                        }
-                    }
-                }
+                var selectedValueId = $('button.engrave-toggle-button[disabled]').attr('engraving-option-id');
             }
             else if ($productContainer.find('.gift-amount-div').length > 0) {
                 selectedValueId = $('button.gift-amount[disabled]').attr('gift-option');
@@ -543,7 +526,7 @@ function getOptions($productContainer) {
                   optionId: $(this).data("option-id"),
                   selectedValueId: selectedValueId,
                 };
-            }
+              }
             else
             {
                 var selectedValueId = $elOption.find('option[value="' + urlValue + '"]')
@@ -555,7 +538,7 @@ function getOptions($productContainer) {
                 selectedValueId: selectedValueId
             };
         }).toArray();
-        if($('#engraving-or-not').attr('value') == 'true'){
+        if($('body').find('#engraving-div').length > 0 && $('button.engrave-toggle-button[disabled]').attr('engraving-option-id') == 'engravingCost'){
             options.push({engravingMessage: $('#engraving-message').val()  ? ($('#engraving-message').val()).trim() : ""}) // adding engraving message in Options
         }
 
