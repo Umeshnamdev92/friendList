@@ -6,7 +6,7 @@
 
 var server = require('server');
 var page = module.superModule;        //inherits functionality from next Product.js found to the right on the cartridge path
-server.extend(page);  
+server.extend(page);
 
 var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
 var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
@@ -65,12 +65,12 @@ server.replace('AddProduct', function (req, res, next) {
     var previousBonusDiscountLineItems = currentBasket.getBonusDiscountLineItems();
     var productId = req.form.pid;
 
-     if(req.form.giftdetail){
-    var giftdetailData =JSON.parse(req.form.giftdetail);
-    var data = giftdetailData[0]
-    
-    var giftDetail= {};
-    // condition check for data come through ajax
+    if (req.form.giftdetail) {
+        var giftdetailData = JSON.parse(req.form.giftdetail);
+        var data = giftdetailData[0]
+
+        var giftDetail = {};
+        // condition check for data come through ajax
     }
 
     var childProducts = Object.hasOwnProperty.call(req.form, 'childProducts')
@@ -80,11 +80,11 @@ server.replace('AddProduct', function (req, res, next) {
     var quantity;
     var result;
     var pidsObj;
-   
+
     if (currentBasket) {
         Transaction.wrap(function () {
-            
-            
+
+
 
             if (!req.form.pidsObj) {
                 quantity = parseInt(req.form.quantity, 10);
@@ -119,21 +119,21 @@ server.replace('AddProduct', function (req, res, next) {
                     }
                 });
             }
-          
-                
-            
+
+
+
             if (!result.error) {
                 var tempProduct = ProductMgr.getProduct(productId);
                 if (tempProduct.custom.isGiftCard) {
-                var imgUrl = tempProduct.getImages('medium')[0].url
-                var giftLineItem = currentBasket.createGiftCertificateLineItem(parseFloat(options[0].selectedValueId), data.recipientEmail);
-               giftLineItem.setRecipientEmail(data.recipientEmail);
-               giftLineItem.setMessage(data.message);
-               giftLineItem.setSenderName(data.senderName);
-               giftLineItem.setRecipientName(data.recipientName);
-               giftLineItem.custom.imgUrl = URLUtils.home().toString().split(".com/")[0]+".com"+imgUrl;
-               giftLineItem.custom.productLineItemUUID = result.uuid ;
-               
+                    var imgUrl = tempProduct.getImages('medium')[0].url
+                    var giftLineItem = currentBasket.createGiftCertificateLineItem(parseFloat(options[0].selectedValueId), data.recipientEmail);
+                    giftLineItem.setRecipientEmail(data.recipientEmail);
+                    giftLineItem.setMessage(data.message);
+                    giftLineItem.setSenderName(data.senderName);
+                    giftLineItem.setRecipientName(data.recipientName);
+                    giftLineItem.custom.imgUrl = URLUtils.home().toString().split(".com/")[0] + ".com" + imgUrl;
+                    giftLineItem.custom.productLineItemUUID = result.uuid;
+
                 }
                 cartHelper.ensureAllShipmentsHaveMethods(currentBasket);
                 basketCalculationHelpers.calculateTotals(currentBasket);
@@ -224,7 +224,7 @@ server.replace('RemoveProductLineItem', function (req, res, next) {
 
     Transaction.wrap(function () {
         if (req.querystring.pid && req.querystring.uuid) {
-            var productId=req.querystring.pid;
+            var productId = req.querystring.pid;
             var productLineItems = currentBasket.getAllProductLineItems(req.querystring.pid);
             var bonusProductLineItems = currentBasket.bonusLineItems;
             var mainProdItem;
@@ -244,17 +244,17 @@ server.replace('RemoveProductLineItem', function (req, res, next) {
                     // ........................gift line item remove..........................
                     var tempProduct = ProductMgr.getProduct(productId);
                     if (tempProduct.custom.isGiftCard) {
-                       
-                        var allGiftLineItems=currentBasket.getGiftCertificateLineItems()
-                        
+
+                        var allGiftLineItems = currentBasket.getGiftCertificateLineItems()
+
                         for (let i = 0; i < allGiftLineItems.length; i++) {
-                            var giftLineItemId=allGiftLineItems[i].custom.productLineItemUUID;
-                            if(item.UUID==giftLineItemId){
-                            currentBasket.removeGiftCertificateLineItem(allGiftLineItems[i])
+                            var giftLineItemId = allGiftLineItems[i].custom.productLineItemUUID;
+                            if (item.UUID == giftLineItemId) {
+                                currentBasket.removeGiftCertificateLineItem(allGiftLineItems[i])
                             }
                         }
                     }
-        
+
 
 
                     //..........................gift line item remove...................
@@ -286,4 +286,26 @@ server.replace('RemoveProductLineItem', function (req, res, next) {
     return next();
 });
 
+
+/**
+ * Cart-Show : The Cart-Show endpoint renders the cart page with the current basket
+ * @name Base/Cart-Show
+ * @function
+ * @memberof Cart
+ * @param {middleware} - server.middleware.https
+ * @param {middleware} - consentTracking.consent
+ * @param {middleware} - csrfProtection.generateToken
+ * @param {category} - sensitive
+ * @param {renders} - isml
+ * @param {serverfunction} - get
+ */
+server.append('Show', server.middleware.https, consentTracking.consent, csrfProtection.generateToken, function (req, res, next) {
+    var GiftCardHelper = require('*/cartridge/scripts/helpers/giftCardHelper');
+    var responseData = res.getViewData();
+    var isOnlyGiftCard = GiftCardHelper.isOnlyGiftCard(responseData.items)
+    responseData.isOnlyGiftCard = isOnlyGiftCard;
+    res.setViewData(responseData);
+    next();
+}
+);
 module.exports = server.exports();
