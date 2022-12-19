@@ -69,7 +69,7 @@
           "@supports-site-context":"true",
           "@supports-organization-context":"false",
           "description":"My custom script step type to distribute BonusPoint to all user whose order is shipped",
-          "module":"app_custom_userbonuspoint/cartridge/scripts/jobsteps/distributeBonusPoint.js",
+          "module":"app_merge_beauty_restricted/cartridge/scripts/jobsteps/distributeBonusPoint.js",
           "function":"distributeBonusPoint",
           "transactional":"true",
           "timeout-in-seconds":"900"

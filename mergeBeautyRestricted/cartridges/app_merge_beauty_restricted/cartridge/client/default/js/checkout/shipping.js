@@ -149,8 +149,6 @@ function updateShippingAddressFormValues(shipping) {
  * @param {Object} shipping - the shipping (shipment model) model
  */
 function updateShippingMethods(shipping , order) {
-    console.log(shipping.productLineItems.items[0].isGiftCard)
-    console.log(order)
     var uuidEl = $('input[value=' + shipping.UUID + ']');
     if (uuidEl && uuidEl.length > 0) {
         $.each(uuidEl, function (shipmentIndex, el) {

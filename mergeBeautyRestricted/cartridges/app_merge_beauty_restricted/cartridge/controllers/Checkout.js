@@ -41,11 +41,11 @@ server.replace(
         var Transaction = require('dw/system/Transaction');
         var AccountModel = require('*/cartridge/models/account');
         var OrderModel = require('*/cartridge/models/order');
-
         var reportingUrlsHelper = require('*/cartridge/scripts/reportingUrls');
         var Locale = require('dw/util/Locale');
         var collections = require('*/cartridge/scripts/util/collections');
         var validationHelpers = require('*/cartridge/scripts/helpers/basketValidationHelpers');
+        var GiftCardHelper = require('*/cartridge/scripts/helpers/giftCardHelper');
         var currentBasket = BasketMgr.getCurrentBasket();
 
         var data = res.getViewData();
@@ -182,6 +182,7 @@ server.replace(
                 currentStage = 'shipping';
             }
         }
+        var isOnlyGiftCard = GiftCardHelper.isOnlyGiftCard(orderModel.items.items);
 
         res.render('checkout/checkout', {
             order: orderModel,
@@ -198,7 +199,8 @@ server.replace(
             oAuthReentryEndpoint: 2,
             showLine: showLine,
             currentWallet: currentWallet,
-            appliedBonusPoint: appliedBonusPoint
+            appliedBonusPoint: appliedBonusPoint,
+            isOnlyGiftCard: isOnlyGiftCard
         });
 
         return next();

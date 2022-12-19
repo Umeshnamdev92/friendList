@@ -38,13 +38,19 @@
                     </isif>
                 </div>
 
+                <!-- Review & rating container -->
+                <isif condition="${pdict.order.shippingStatus == 2}">
+                    <isinclude template="account/order/review" sf-toolkit="on" />
+                </isif>
+                <!-- End -->
+
                 <isif condition="${(pdict.order && !pdict.order.orderStatus) || miniCart}">
                     <isinclude template="cart/productCard/cartProductCardAvailability" />
                 </isif>
             </div>
         </div>
     </isif>
-
+<isif condition="${lineItem.isGiftCard!= true}">
     <div>
         <hr class="line-item-divider">
     </div>
@@ -90,5 +96,6 @@
         <div class="line-item-promo item-${lineItem.UUID}">
             <isinclude template="checkout/productCard/productCardProductPromotions" />
         </div>
+    </isif>
     </isif>
 </div>

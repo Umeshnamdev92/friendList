@@ -1,0 +1,3 @@
+<div class="line-item-name">
+     <span class="reviewProductName">${lineItem.productName}</span>
+</div>

@@ -135,8 +135,8 @@ server.replace('AddProduct', validAddToCart.validateRestrictedProduct ,function 
                giftLineItem.setMessage(data.message);
                giftLineItem.setSenderName(data.senderName);
                giftLineItem.setRecipientName(data.recipientName);
-               giftLineItem.custom.imgUrl = URLUtils.home().toString().split(".com/")[0]+".com"+imgUrl;
                giftLineItem.custom.productLineItemUUID = result.uuid ;
+               giftLineItem.custom.imgUrl = URLUtils.home().toString().split(".com/")[0]+".com"+imgUrl;
                
                 }
               cartHelper.ensureAllShipmentsHaveMethods(currentBasket);
