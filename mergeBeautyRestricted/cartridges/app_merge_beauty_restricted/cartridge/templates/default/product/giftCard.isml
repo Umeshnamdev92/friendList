@@ -1,3 +1,5 @@
+
+<!-- Template for PDP of Gift Card -->
 <isdecorate template="common/layout/page">
 
     <isscript>
@@ -11,6 +13,7 @@
     <isset name="isQuickView" value="${false}" scope="page" />
     <isset name="isProductSet" value="${pdict.product.productType === 'set'}" scope="page" />
     <isobject object="${product.raw}" view="detail" />
+    <input type="hidden" id="isGiftCard" name="" value="${product.isGiftCard}">
     <div class="container product-detail product-wrapper" data-pid="${product.id}">
     
         <div class="row">

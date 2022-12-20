@@ -678,8 +678,7 @@ module.exports = {
             addToCartUrl = getAddToCartUrl();
 
             // Validation for giftcard Form - CUSTOM
-            var text = pid.toString();
-            if (text.includes("Gift_Card")) {
+            if ($('#isGiftCard').val() == "true") {
                 document.getElementById("emailError").innerHTML = "";
                 document.getElementById("invalid-feedback-email1").innerHTML = "";
                 document.getElementById("senderName").innerHTML = "";

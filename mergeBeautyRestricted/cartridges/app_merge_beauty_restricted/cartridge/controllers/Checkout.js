@@ -356,6 +356,7 @@ server.get("Applygiftcard", function (req, res, next) {
     var appliedAmount = req.querystring.redeemamount;
     var currentCustomer = req.currentCustomer.raw;
     var GiftCertificate = require("dw/order/GiftCertificate");
+    var Resource = require('dw/web/Resource');
     var collections = require("*/cartridge/scripts/util/collections");
     var GiftCertificateMgr = require("dw/order/GiftCertificateMgr");
     var GiftCertificateLineItem = require("dw/order/GiftCertificateLineItem");
@@ -371,7 +372,7 @@ server.get("Applygiftcard", function (req, res, next) {
   
     if (Basket.totalGrossPrice.value < appliedAmount) {
       var data = {
-        msg:"Applied Amount Can not greater than " + Basket.totalGrossPrice.value +"!",
+        msg:Resource.msgf('error.InvalidAppliedAmount', 'giftCard', null, Basket.totalGrossPrice.value),
         success: false,
       };
       res.json(data);
@@ -386,7 +387,7 @@ server.get("Applygiftcard", function (req, res, next) {
   
       if (currentCustomer.profile.email != giftcertificatedetail.recipientEmail) {
         var data = {
-          msg: "You are not authorized owner of this gift code!!",
+          msg: Resource.msg('error.InvalidRecipient', 'giftCard', null),
           success: false,
         };
         res.json(data);
@@ -410,15 +411,14 @@ server.get("Applygiftcard", function (req, res, next) {
               GiftCertificateMgr.getGiftCertificateByCode(giftCertificateCode);
   
             var data = {
-              msg:"Giftcard code redeemed successfully! Now Available balance is $ " + giftcertificatedetail.balance.value,
+              msg:Resource.msgf('success.giftRedeemSuccess', 'giftCard', null, giftcertificatedetail.balance.value) ,
               success: true,
-              a: Basket.paymentInstruments.length,
             };
             res.json(data);
           }
         } else {
           var data = {
-            msg:"insufficient balence! your available balence is $" +giftcertificatedetail.balance.value,
+            msg:Resource.msgf('error.giftInsufficientbalance', 'giftCard', null, giftcertificatedetail.balance.value),
             success: false,
           };
           res.json(data);
@@ -428,7 +428,7 @@ server.get("Applygiftcard", function (req, res, next) {
     } catch (error) {
       var data = {
         error: error,
-        msg: " Sorry, Something went wrong Try again!",
+        msg: Resource.msg('error.technicalCatch', 'giftCard', null),
         success: false,
       };
       res.json(data);

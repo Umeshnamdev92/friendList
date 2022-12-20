@@ -1,4 +1,6 @@
-<isif condition="${lineItem.productName!='GiftCard'}">
+
+<!-- Check for gift card hiding quantity -->
+<isif condition="${lineItem.isGiftCard != true}">
 <p class="line-item-pricing-info">
     <span class="line-item-total-text qty-card-quantity-label">
     ${Resource.msg('field.selectquantity','cart',null)}

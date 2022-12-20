@@ -1,4 +1,4 @@
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">Gift Card</button>
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">${Resource.msg('label.gift.card' , 'giftCard' , null)}</button>
 <iscomment> ${pdict.drx.email.value} </iscomment>
 <div class="row" id="exampleModalLongGiftForm">
     <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
@@ -6,25 +6,22 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                   <b> <h5 class="modal-title" id="exampleModalLongTitle">Gift Card</h5></b>
+                    <b>
+                        <h5 class="modal-title" id="exampleModalLongTitle">${Resource.msg('label.gift.card' , 'giftCard' , null)}</h5>
+                    </b>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <iscomment>
-                        <form id='myform' method="POST">
-                    </iscomment>
-
                     <div class="form-group">
-                        <label for="emailVerify">Recipient Email</label>
+                        <label for="emailVerify">${Resource.msg('labal.recipient.email' , 'giftCard' , null)}</label>
                         <input type="email" id="emailVerify" class="form-control" name="email5">
                         <div id="emailError">
                         </div>
                     </div>
- <iscomment> <form action="${URLUtils.url('Order-newSubmit')}" method="POST">  </iscomment>
                     <div class="form-group">
-                        <label for="recipientName">Recipient Name</label>
+                        <label for="recipientName">${Resource.msg('labal.recipient.name' , 'giftCard' , null)}</label>
                         <input type="text" class="form-control" name="email1" id="recipientName"
                             data-missing-error="${Resource.msg('label.valid.email', 'forms', null)}" <isprint
                             value="${pdict.drx.email1.attributes}" encoding="off" />>
@@ -34,7 +31,7 @@
 
 
                     <div class="form-group">
-                        <label for="senderName">Sender Name</label>
+                        <label for="senderName">${Resource.msg('labal.sender.name' , 'giftCard' , null)}</label>
                         <input type="text" class="form-control" name="email2" id="senderName"
                             data-missing-error="${Resource.msg('label.valid.email', 'forms', null)}" <isprint
                             value="${pdict.drx.email2.attributes}" encoding="off" />>
@@ -44,7 +41,7 @@
 
 
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Message</label>
+                        <label for="exampleInputEmail1">${Resource.msg('labal.message' , 'giftCard' , null)}</label>
                         <input type="text" class="form-control" name="email3" id="message"
                             data-missing-error="${Resource.msg('label.valid.email', 'forms', null)}" <isprint
                             value="${pdict.drx.email3.attributes}" encoding="off" />>
@@ -52,22 +49,10 @@
                         </div>
                     </div>
 
-                    <iscomment> <div class="form-group">
-                        <label for="exampleInputEmail1">Notes</label>
-                        <input type="text" class="form-control" name="email4" id="email4"
-                            data-missing-error="${Resource.msg('label.valid.email', 'forms', null)}" <isprint
-                            value="${pdict.drx.email4.attributes}" encoding="off" />>
-                        <div class="invalid-feedback-email4">
-                        </div>
-                    </div> </iscomment>
-                 <iscomment> <button type="submit" name="submit" class="btn btn-success">Submit</button> </iscomment>
-                        
-                        <isinclude template="product/components/addToCartProduct" />
-  <iscomment> </form>  </iscomment>
+
+                    <isinclude template="product/components/addToCartProduct" />
                 </div>
                 <div class="modal-footer">
-                    <iscomment> <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save</button> </iscomment>
                 </div>
             </div>
         </div>

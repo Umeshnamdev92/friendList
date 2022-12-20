@@ -13,7 +13,6 @@
         </label>
         <select id="title" class="form-control" <isprint value="${addressFields.title.attributes}"
             encoding="off" />>
-        <iscomment> <option value="">${Resource.msg('options.default.message', 'forms', null)}</option> </iscomment>
         <isloop items="${pdict.addresstypes}" var="options">
             <isif condition="${options == addressFields.title.htmlValue}">
                 <option selected value="${options}">${options}</option>

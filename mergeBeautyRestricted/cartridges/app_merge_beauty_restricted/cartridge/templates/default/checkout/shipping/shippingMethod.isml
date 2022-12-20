@@ -1,9 +1,8 @@
 <isset name="shippingAddress" value="${pdict.forms.shippingForm.shippingAddress}" scope="page"/>
 <div class="row leading-lines shipping-method-list" data-select-shipping-method-url="${URLUtils.https('CheckoutShippingServices-SelectShippingMethod')}" data-action-url="${URLUtils.https('CheckoutShippingServices-UpdateShippingMethodsList')}">
- <iscomment> hiiii ${JSON.stringify(lineItem)} </iscomment>
     <input name="shipmentUUID" type="hidden" value="${shippingModel.UUID}" />
     <isif condition="${pdict.order.usingMultiShipping}">
-            <isif condition="${lineItem.isGiftCard == true}">
+            <isif condition="${lineItem.isGiftCard == true}"> <!-- use in multishipping , chnging the shipping method in every product in basket - CUSTOM  -->
         <isloop items="${shippingModel.applicableShippingMethods}" var="shippingMethod">
 
         <isif condition="${shippingMethod.ID=='giftShipping'}">
@@ -44,7 +43,7 @@
     </isloop>
     </isif>
     <iselse/>
-           <isif condition="${pdict.isOnlyGiftCard}">
+           <isif condition="${pdict.isOnlyGiftCard}"> <!-- Checking if there is only gift card product in Cart -->
         <isloop items="${shippingModel.applicableShippingMethods}" var="shippingMethod">
 
         <isif condition="${shippingMethod.ID=='giftShipping'}">

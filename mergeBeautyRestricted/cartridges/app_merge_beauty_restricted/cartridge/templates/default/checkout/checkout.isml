@@ -9,7 +9,7 @@
         assets.addCss('/css/checkout/checkout.css');
     </isscript>
 
-
+    <!-- Setting variable for using in Client JS for Only giftcard condition - Custom -->
     <input type="hidden" id="onlyGiftcard" value="${pdict.isOnlyGiftCard}">
 
     <isif condition="${pdict.reportingURLs && pdict.reportingURLs.length}">

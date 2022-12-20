@@ -216,63 +216,38 @@ var userLoggedIn = require('*/cartridge/scripts/middleware/userLoggedIn');
  * @param {renders} - isml
  * @param {serverfunction} - get
  */
- server.append('EditProfile', server.middleware.https, csrfProtection.generateToken, userLoggedIn.validateLoggedIn, consentTracking.consent, function (req, res, next) {
-        var data = res.getViewData();
-        var ArrayList = require('dw/util/ArrayList');
-        var Site = require('dw/system/Site');
-        var Site = require('dw/system/Site');
-        // taking value of beauty attributes from site preference
-        var isBeautyFieldsEditable = Site.current.preferences.getCustom()["isBeautyFeildsEnable"];
-
-        // Arraylist for updating options in XML Form
-        var skintoneAttributes = new ArrayList();
-        var skintypeAttributes = new ArrayList();
-        var haircolorAttributes = new ArrayList();
-        var eyecolorAttributes = new ArrayList();
-
-        // Dyanamic Beauty attributes by Site preference
-        var beautyAttributes = Site.current.preferences.getCustom()["BeautyAttributeOptions"];
-        var beautyAttributesObj = JSON.parse(beautyAttributes);
-
-        // Prepare array List for dynamic options
-        beautyAttributesObj.skintone.forEach(element => {
-            skintoneAttributes.add({ key: element, value: element });
-        });
-        beautyAttributesObj.skintype.forEach(element => {
-            skintypeAttributes.add({ key: element, value: element });
-        });
-        beautyAttributesObj.haircolor.forEach(element => {
-            haircolorAttributes.add({ key: element, value: element });
-        });
-        beautyAttributesObj.eyecolor.forEach(element => {
-            eyecolorAttributes.add({ key: element, value: element });
-        });
-
-        // Setting optons dynamically in form
-        session.forms.profile.customer.skintone.setOptions(skintoneAttributes.iterator());
-        session.forms.profile.customer.eyecolor.setOptions(eyecolorAttributes.iterator());
-        session.forms.profile.customer.haircolor.setOptions(haircolorAttributes.iterator());
-        session.forms.profile.customer.skintype.setOptions(skintypeAttributes.iterator());
-
-        var profile = req.currentCustomer.raw.profile;
-        var profileForm = server.forms.getForm('profile');
-        profileForm.clear();
-
-        // Setting form values for prepopulate
-        profileForm.customer.firstname.value = profile.firstName;
-        profileForm.customer.lastname.value = profile.lastName;
-        profileForm.customer.phone.value = profile.phoneHome;
-        profileForm.customer.email.value = profile.email;
-        profileForm.customer.skintype.value = profile.custom.customerSkinType;
-        profileForm.customer.skintone.value = profile.custom.customerSkinTone;
-        profileForm.customer.eyecolor.value = profile.custom.customerEyeColor;
-        profileForm.customer.haircolor.value = profile.custom.customerHairColor;
-        data.profileForm = profileForm;
-        data.isBeautyFieldsEditable = isBeautyFieldsEditable;
-        res.setViewData(data);
-        next();
+server.append(
+    "EditProfile",
+    server.middleware.https,
+    csrfProtection.generateToken,
+    userLoggedIn.validateLoggedIn,
+    consentTracking.consent,
+    function (req, res, next) {
+      var data = res.getViewData();
+      var Site = require("dw/system/Site");
+      var beautyHelper = require('*/cartridge/scripts/helpers/beautyPreferenceHelper');
+      beautyHelper.getPreferences();
+      // taking value of beauty attributes from site preference
+      var isBeautyFieldsEditable = Site.current.preferences.getCustom()["isBeautyFeildsEnable"];
+      var profile = req.currentCustomer.raw.profile;
+      var profileForm = server.forms.getForm("profile");
+      profileForm.clear();
+  
+      // Setting form values for prepopulate
+      profileForm.customer.firstname.value = profile.firstName;
+      profileForm.customer.lastname.value = profile.lastName;
+      profileForm.customer.phone.value = profile.phoneHome;
+      profileForm.customer.email.value = profile.email;
+      profileForm.customer.skintype.value = profile.custom.customerSkinType;
+      profileForm.customer.skintone.value = profile.custom.customerSkinTone;
+      profileForm.customer.eyecolor.value = profile.custom.customerEyeColor;
+      profileForm.customer.haircolor.value = profile.custom.customerHairColor;
+      data.profileForm = profileForm;
+      data.isBeautyFieldsEditable = isBeautyFieldsEditable;
+      res.setViewData(data);
+      next();
     }
-);
+  );
 
 /**
  * Account-SaveProfile : The Account-SaveProfile endpoint is the endpoint that gets hit when a shopper has edited their profile
@@ -292,134 +267,49 @@ var userLoggedIn = require('*/cartridge/scripts/middleware/userLoggedIn');
  * @param {returns} - json
  * @param {serverfunction} - post
  */
- server.replace(
-    'SaveProfile',
-    server.middleware.https,
-    csrfProtection.validateAjaxRequest,
-    function (req, res, next) {
-        var Transaction = require('dw/system/Transaction');
-        var CustomerMgr = require('dw/customer/CustomerMgr');
-        var Resource = require('dw/web/Resource');
-        var URLUtils = require('dw/web/URLUtils');
-        var accountHelpers = require('*/cartridge/scripts/helpers/accountHelpers');
-        var formErrors = require('*/cartridge/scripts/formErrors');
-        var profileForm = server.forms.getForm('profile');
-        var Site = require('dw/system/Site');
+server.append("SaveProfile", function (req, res, next) {
+    var Transaction = require("dw/system/Transaction");
+    var CustomerMgr = require("dw/customer/CustomerMgr");
+    var Resource = require("dw/web/Resource");
+    var URLUtils = require("dw/web/URLUtils");
+    var accountHelpers = require("*/cartridge/scripts/helpers/accountHelpers");
+    var formErrors = require("*/cartridge/scripts/formErrors");
+    var profileForm = server.forms.getForm("profile");
+    var Site = require("dw/system/Site");
 
-        // Booleant site preference value for checking beauty fields are editable or not
-        var isBeautyFieldsEditable = Site.current.preferences.getCustom()["isBeautyFeildsEnable"];
-        // form validation
-        if (profileForm.customer.email.value.toLowerCase()
-            !== profileForm.customer.emailconfirm.value.toLowerCase()) {
-            profileForm.valid = false;
-            profileForm.customer.email.valid = false;
-            profileForm.customer.emailconfirm.valid = false;
-            profileForm.customer.emailconfirm.error =
-                Resource.msg('error.message.mismatch.email', 'forms', null);
-        }
+    var responseData = res.getViewData();
+    if (responseData.success != false) {
+      // Booleant site preference value for checking beauty fields are editable or not
+      var isBeautyFieldsEditable = Site.current.preferences.getCustom()["isBeautyFeildsEnable"];
 
-        var result = {
-            firstName: profileForm.customer.firstname.value,
-            lastName: profileForm.customer.lastname.value,
-            phone: profileForm.customer.phone.value,
-            email: profileForm.customer.email.value,
-            confirmEmail: profileForm.customer.emailconfirm.value,
-            password: profileForm.login.password.value,
-            profileForm: profileForm
-        };
-
-        // Beauty Profile attributes
-        if (isBeautyFieldsEditable) {
-            result.skintone = profileForm.customer.skintone.value,
-            result.skintype = profileForm.customer.skintype.value,
-            result.eyecolor = profileForm.customer.eyecolor.value,
-            result.haircolor = profileForm.customer.haircolor.value
-        };
-
-        if (profileForm.valid) {
-            res.setViewData(result);
-            this.on('route:BeforeComplete', function (req, res) { // eslint-disable-line no-shadow
-                var formInfo = res.getViewData();
-                var customer = CustomerMgr.getCustomerByCustomerNumber(
-                    req.currentCustomer.profile.customerNo
-                );
-                var profile = customer.getProfile();
-                var customerLogin;
-                var status;
-
-                Transaction.wrap(function () {
-                    status = profile.credentials.setPassword(
-                        formInfo.password,
-                        formInfo.password,
-                        true
-                    );
-
-                    if (status.error) {
-                        formInfo.profileForm.login.password.valid = false;
-                        formInfo.profileForm.login.password.error =
-                            Resource.msg('error.message.currentpasswordnomatch', 'forms', null);
-                    } else {
-                        customerLogin = profile.credentials.setLogin(
-                            formInfo.email,
-                            formInfo.password
-                        );
-                    }
-                });
-
-                delete formInfo.password;
-                delete formInfo.confirmEmail;
-
-                if (customerLogin) {
-                    Transaction.wrap(function () {
-                        profile.setFirstName(formInfo.firstName);
-                        profile.setLastName(formInfo.lastName);
-                        profile.setEmail(formInfo.email);
-                        profile.setPhoneHome(formInfo.phone);
-
-                        // Setting beauty attributes
-                        if (isBeautyFieldsEditable) {
-                            profile.custom.customerSkinTone = formInfo.skintone;
-                            profile.custom.customerEyeColor = formInfo.eyecolor;
-                            profile.custom.customerSkinType = formInfo.skintype;
-                            profile.custom.customerHairColor = formInfo.haircolor;
-                        }
-                    });
-
-                    // Send account edited email
-                    accountHelpers.sendAccountEditedEmail(customer.profile);
-
-                    delete formInfo.profileForm;
-                    delete formInfo.email;
-
-                    res.json({
-                        success: true,
-                        redirectUrl: URLUtils.url('Account-Show').toString()
-                    });
-                } else {
-                    if (!status.error) {
-                        formInfo.profileForm.customer.email.valid = false;
-                        formInfo.profileForm.customer.email.error =
-                            Resource.msg('error.message.username.invalid', 'forms', null);
-                    }
-
-                    delete formInfo.profileForm;
-                    delete formInfo.email;
-
-                    res.json({
-                        success: false,
-                        fields: formErrors.getFormErrors(profileForm)
-                    });
-                }
-            });
-        } else {
-            res.json({
-                success: false,
-                fields: formErrors.getFormErrors(profileForm)
-            });
-        }
-        return next();
+      // Beauty Profile attributes
+      if (isBeautyFieldsEditable) {
+        var profileUpdate = responseData.profileForm.customer;
+        Transaction.wrap(function () {
+          var profile = customer.getProfile();
+          if (profileUpdate.eyecolor) {
+            profile.custom.customerEyeColor = profileUpdate.eyecolor.htmlValue;
+          }
+          if (profileUpdate.haircolor) {
+            profile.custom.customerHairColor = profileUpdate.haircolor.htmlValue;
+          }
+          if (profileUpdate.skintype) {
+            profile.custom.customerSkinType = profileUpdate.skintype.htmlValue;
+          }
+          if (profileUpdate.skintone) {
+            profile.custom.customerSkinTone = profileUpdate.skintone.htmlValue;
+          }
+        });
+        res.setViewData(responseData);
+      }
+    } else {
+      res.setViewData(responseData);
+  
     }
-);
+  
+    return next();
+  });
+  
 
 
 

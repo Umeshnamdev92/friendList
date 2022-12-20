@@ -25,79 +25,30 @@ var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
  * @param {renders} - isml
  * @param {serverfunction} - get
  */
- server.replace('Show', consentTracking.consent, server.middleware.https, csrfProtection.generateToken, function (req, res, next) {
-        var URLUtils = require('dw/web/URLUtils');
-        var Resource = require('dw/web/Resource');
-        var Site = require('dw/system/Site');
-        var ArrayList = require('dw/util/ArrayList');
-        var target = req.querystring.rurl || 1;
+server.append('Show', consentTracking.consent, server.middleware.https, csrfProtection.generateToken, function (req, res, next) {
+    var URLUtils = require('dw/web/URLUtils');
+    var Resource = require('dw/web/Resource');
+    var Site = require('dw/system/Site');
+    var beautyHelper = require('*/cartridge/scripts/helpers/beautyPreferenceHelper');
+    var responseData = res.getViewData();
 
-        var siteKey = Site.getCurrent().getPreferences().getCustom()["recaptchaSiteKey"]; // Site key for recaptcha
-        var secretKey = Site.getCurrent().getPreferences().getCustom()["recaptchaSecreteKey"]; // Secret Key for recaptcha
+    var target = req.querystring.rurl || 1;
 
-        // Prepare ArrayList for dynamic options
-        var skintoneAttributes = new ArrayList();
-        var skintypeAttributes = new ArrayList();
-        var haircolorAttributes = new ArrayList();
-        var eyecolorAttributes = new ArrayList();
-        var rememberMe = false;
-        var userName = '';
-        var actionUrl = URLUtils.url('Account-Login', 'rurl', target);
-        var createAccountUrl = URLUtils.url('Account-SubmitRegistration', 'rurl', target).relative().toString();
-        var navTabValue = req.querystring.action;
+    var siteKey = Site.getCurrent().getPreferences().getCustom()["recaptchaSiteKey"]; // Site key for recaptcha
+    var secretKey = Site.getCurrent().getPreferences().getCustom()["recaptchaSecreteKey"]; // Secret Key for recaptcha
 
-        if (req.currentCustomer.credentials) {
-            rememberMe = true;
-            userName = req.currentCustomer.credentials.username;
-        }
-        var breadcrumbs = [
-            {
-                htmlValue: Resource.msg('global.home', 'common', null),
-                url: URLUtils.home().toString()
-            }
-        ];
+    beautyHelper.getPreferences(); 
+    var profileForm = server.forms.getForm('profile');
+    profileForm.clear();
+    responseData.siteKey = siteKey;
+    responseData.secretKey = secretKey;
+    responseData.profileForm = profileForm;
 
-        // taking value of beauty attributes from site preference
-        var beautyAttributes = Site.current.preferences.getCustom()["BeautyAttributeOptions"];
-        var beautyAttributesObj = JSON.parse(beautyAttributes);
+    res.setViewData(responseData);
 
-        // Adding options in array list
-        beautyAttributesObj.skintone.forEach(element => {
-            skintoneAttributes.add({ key: element, value: element });
-        });
-        beautyAttributesObj.skintype.forEach(element => {
-            skintypeAttributes.add({ key: element, value: element });
-        });
-        beautyAttributesObj.haircolor.forEach(element => {
-            haircolorAttributes.add({ key: element, value: element });
-        });
-        beautyAttributesObj.eyecolor.forEach(element => {
-            eyecolorAttributes.add({ key: element, value: element });
-        });
-
-        // Setting options dynamically in XML Form
-        session.forms.profile.customer.skintone.setOptions(skintoneAttributes.iterator());
-        session.forms.profile.customer.eyecolor.setOptions(eyecolorAttributes.iterator());
-        session.forms.profile.customer.haircolor.setOptions(haircolorAttributes.iterator());
-        session.forms.profile.customer.skintype.setOptions(skintypeAttributes.iterator());
-        var profileForm = server.forms.getForm('profile');
-        profileForm.clear();
-
-        res.render('/account/login', {
-            navTabValue: navTabValue || 'login',
-            rememberMe: rememberMe,
-            userName: userName,
-            actionUrl: actionUrl,
-            profileForm: profileForm,
-            breadcrumbs: breadcrumbs,
-            oAuthReentryEndpoint: 1,
-            createAccountUrl: createAccountUrl,
-            siteKey: siteKey,
-            secretKey: secretKey
-        });
-
-        next();
-    }
+    next();
+}
 );
+
 
 module.exports = server.exports();
