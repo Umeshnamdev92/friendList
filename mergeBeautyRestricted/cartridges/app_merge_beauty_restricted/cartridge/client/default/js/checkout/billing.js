@@ -1,6 +1,6 @@
 'use strict';
 
-var addressHelpers = require('./address');
+var addressHelpers = require('base/checkout/address');
 var cleave = require('base/components/cleave');
 
 /**
@@ -176,6 +176,7 @@ function updateBillingInformation(order, customer) {
 }
 
 /**
+ * Update paymnet information based on selected payment instruments gift certificate and Credit Card
  * Updates the payment information in checkout, based on the supplied order model
  * @param {Object} order - checkout model to use as basis of new truth
  */
@@ -196,8 +197,8 @@ function updatePaymentInformation(order) {
             + order.billing.payment.selectedPaymentInstruments[0].expirationMonth
             + '/' + order.billing.payment.selectedPaymentInstruments[0].expirationYear
             + '</span></div>';
-            
     }
+    // update if there is two payments instruments Gift Card 
     if (order.billing.payment && order.billing.payment.selectedPaymentInstruments
         && order.billing.payment.selectedPaymentInstruments.length == 2)  {
         htmlToAppend += '<span>' + order.resources.cardType + ' '

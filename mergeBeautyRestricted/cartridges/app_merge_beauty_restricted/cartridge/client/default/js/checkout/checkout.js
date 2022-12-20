@@ -1,11 +1,11 @@
 'use strict';
 
-var customerHelpers = require('./customer');
-var addressHelpers = require('./address');
+var customerHelpers = require('base/checkout/customer');
+var addressHelpers = require('base/checkout/address');
 var shippingHelpers = require('./shipping');
 var billingHelpers = require('./billing');
-var summaryHelpers = require('./summary');
-var formHelpers = require('./formErrors');
+var summaryHelpers = require('base/checkout/summary');
+var formHelpers = require('base/checkout/formErrors');
 var scrollAnimate = require('base/components/scrollAnimate');
 
 

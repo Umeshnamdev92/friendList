@@ -59,17 +59,17 @@
                 </section>
 
                 <!--- Check of engraving Options --->
-                <isset name="showOption" value="false" scope="page" />
+                <isset name="showOption" value="true" scope="page" />
 
                 <isloop items="${product.options}" var="option" status="loopstatus">
                     <iscomment> ${JSON.stringify(option)} </iscomment>
-                    <isif condition="${option.id == 'engravingOptions'}">
+                    <isif condition="${option.id == 'engravingOptions' || option.id == 'EngravingCustomisation'}">
                         <isset name="showOption" value="true" scope="page" />
                     <iselse/>
                         <isset name="showOption" value="false" scope="page" />
                     </isif>
                 </isloop>
-                <isif condition="${showOption == 'false'}">
+                <isif condition="${showOption == 'true'}">
                       <isif condition="${product.productType !== 'bundle'}">
                     <!-- Options -->
                     <isif condition="${product.options && product.options.length > 0}">

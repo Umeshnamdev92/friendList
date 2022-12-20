@@ -520,6 +520,7 @@ function getOptions($productContainer) {
             {
                 var selectedValueId = $('button.engrave-toggle-button[disabled]').attr('engraving-option-id');
             }
+            // update the option value if the product is gift and the gift option amount availabel there - CUSTOM
             else if ($productContainer.find('.gift-amount-div').length > 0) {
                 selectedValueId = $('button.gift-amount[disabled]').attr('gift-option');
                 return {

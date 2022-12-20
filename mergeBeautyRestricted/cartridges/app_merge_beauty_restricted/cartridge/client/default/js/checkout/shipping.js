@@ -1,7 +1,7 @@
 'use strict';
 
-var addressHelpers = require('./address');
-var formHelpers = require('./formErrors');
+var addressHelpers = require('base/checkout/address');
+var formHelpers = require('base/checkout/formErrors');
 var scrollAnimate = require('base/components/scrollAnimate');
 
 /**
@@ -145,10 +145,11 @@ function updateShippingAddressFormValues(shipping) {
 }
 
 /**
+ * Update for showing shipping method only for Gift card product or other product - Custom
  * updates the shipping method radio buttons within shipping forms
  * @param {Object} shipping - the shipping (shipment model) model
  */
-function updateShippingMethods(shipping , order) {
+function updateShippingMethods(shipping, order) {
     var uuidEl = $('input[value=' + shipping.UUID + ']');
     if (uuidEl && uuidEl.length > 0) {
         $.each(uuidEl, function (shipmentIndex, el) {
@@ -167,144 +168,134 @@ function updateShippingMethods(shipping , order) {
                 //
                 $.each(shippingMethods, function (methodIndex, shippingMethod) {
                     if (order.usingMultiShipping) {
-                        if(shipping.productLineItems.items[0].isGiftCard){
-                            if(shippingMethod.ID == 'giftShipping')
-                            {
+                        // if the product is only giftcard for multishipping  - CUSTOM
+                        if (shipping.productLineItems.items[0].isGiftCard) {
+                            if (shippingMethod.ID == 'giftShipping') {
                                 var tmpl = $('#shipping-method-template').clone();
-                        var lineItemUUIDPart = '';
-    
-                        if ($(el).parents('.multi-shipping').length) {
-                            lineItemUUIDPart = '-' + shipping.productLineItems.items[0].UUID;
-                        }
-    
-                        // set input
-                        $('input', tmpl)
-                            .prop('id', 'shippingMethod-' + shippingMethod.ID + '-' + shipping.UUID + lineItemUUIDPart)
-                            .prop('name', shippingMethodFormID)
-                            .prop('value', shippingMethod.ID)
-                            .attr('checked', shippingMethod.ID === selected.ID);
-    
-                        $('label', tmpl)
-                            .prop('for', 'shippingMethod-' + shippingMethod.ID + '-' + shipping.UUID + lineItemUUIDPart);
-                        // set shipping method name
-                        $('.display-name', tmpl).text(shippingMethod.displayName);
-                        // set or hide arrival time
-                        if (shippingMethod.estimatedArrivalTime) {
-                            $('.arrival-time', tmpl)
-                                .text('(' + shippingMethod.estimatedArrivalTime + ')')
-                                .show();
-                        }
-                        // set shipping cost
-                        $('.shipping-cost', tmpl).text(shippingMethod.shippingCost);
-                        $shippingMethodList.append(tmpl.html());
+                                var lineItemUUIDPart = '';
+
+                                if ($(el).parents('.multi-shipping').length) {
+                                    lineItemUUIDPart = '-' + shipping.productLineItems.items[0].UUID;
+                                }
+
+                                // set input
+                                $('input', tmpl)
+                                    .prop('id', 'shippingMethod-' + shippingMethod.ID + '-' + shipping.UUID + lineItemUUIDPart)
+                                    .prop('name', shippingMethodFormID)
+                                    .prop('value', shippingMethod.ID)
+                                    .attr('checked', shippingMethod.ID === selected.ID);
+
+                                $('label', tmpl)
+                                    .prop('for', 'shippingMethod-' + shippingMethod.ID + '-' + shipping.UUID + lineItemUUIDPart);
+                                // set shipping method name
+                                $('.display-name', tmpl).text(shippingMethod.displayName);
+                                // set or hide arrival time
+                                if (shippingMethod.estimatedArrivalTime) {
+                                    $('.arrival-time', tmpl)
+                                        .text('(' + shippingMethod.estimatedArrivalTime + ')')
+                                        .show();
+                                }
+                                // set shipping cost
+                                $('.shipping-cost', tmpl).text(shippingMethod.shippingCost);
+                                $shippingMethodList.append(tmpl.html());
                             }
                         }
-                        else
-                        {
-                            if(shippingMethod.ID != 'giftShipping')
-                            {
+                        else {
+                            // if there is not any gift card so update the shipping methods not related to gift  - CUSTOM
+                            if (shippingMethod.ID != 'giftShipping') {
                                 var tmpl = $('#shipping-method-template').clone();
-                        var lineItemUUIDPart = '';
-    
-                        if ($(el).parents('.multi-shipping').length) {
-                            lineItemUUIDPart = '-' + shipping.productLineItems.items[0].UUID;
-                        }
-    
-                        // set input
-                        $('input', tmpl)
-                            .prop('id', 'shippingMethod-' + shippingMethod.ID + '-' + shipping.UUID + lineItemUUIDPart)
-                            .prop('name', shippingMethodFormID)
-                            .prop('value', shippingMethod.ID)
-                            .attr('checked', shippingMethod.ID === selected.ID);
-    
-                        $('label', tmpl)
-                            .prop('for', 'shippingMethod-' + shippingMethod.ID + '-' + shipping.UUID + lineItemUUIDPart);
-                        // set shipping method name
-                        $('.display-name', tmpl).text(shippingMethod.displayName);
-                        // set or hide arrival time
-                        if (shippingMethod.estimatedArrivalTime) {
-                            $('.arrival-time', tmpl)
-                                .text('(' + shippingMethod.estimatedArrivalTime + ')')
-                                .show();
-                        }
-                        // set shipping cost
-                        $('.shipping-cost', tmpl).text(shippingMethod.shippingCost);
-                        $shippingMethodList.append(tmpl.html());
+                                var lineItemUUIDPart = '';
+
+                                if ($(el).parents('.multi-shipping').length) {
+                                    lineItemUUIDPart = '-' + shipping.productLineItems.items[0].UUID;
+                                }
+
+                                // set input
+                                $('input', tmpl)
+                                    .prop('id', 'shippingMethod-' + shippingMethod.ID + '-' + shipping.UUID + lineItemUUIDPart)
+                                    .prop('name', shippingMethodFormID)
+                                    .prop('value', shippingMethod.ID)
+                                    .attr('checked', shippingMethod.ID === selected.ID);
+
+                                $('label', tmpl)
+                                    .prop('for', 'shippingMethod-' + shippingMethod.ID + '-' + shipping.UUID + lineItemUUIDPart);
+                                // set shipping method name
+                                $('.display-name', tmpl).text(shippingMethod.displayName);
+                                // set or hide arrival time
+                                if (shippingMethod.estimatedArrivalTime) {
+                                    $('.arrival-time', tmpl)
+                                        .text('(' + shippingMethod.estimatedArrivalTime + ')')
+                                        .show();
+                                }
+                                // set shipping cost
+                                $('.shipping-cost', tmpl).text(shippingMethod.shippingCost);
+                                $shippingMethodList.append(tmpl.html());
                             }
-                            
                         }
                     }
-                    else
-                    {
-                        if($('#onlyGiftcard').val() == 'true'){
-                            if(shippingMethod.ID == 'giftShipping')
-                            {
+                    else {
+                        // Use for Single shipping if there is only gift card then it will show only the shipping methods related to Gift Card - CUSTOM
+                        if ($('#onlyGiftcard').val() == 'true') {
+                            if (shippingMethod.ID == 'giftShipping') {
                                 var tmpl = $('#shipping-method-template').clone();
-                        var lineItemUUIDPart = '';
-    
-                        if ($(el).parents('.multi-shipping').length) {
-                            lineItemUUIDPart = '-' + shipping.productLineItems.items[0].UUID;
-                        }
-    
-                        // set input
-                        $('input', tmpl)
-                            .prop('id', 'shippingMethod-' + shippingMethod.ID + '-' + shipping.UUID + lineItemUUIDPart)
-                            .prop('name', shippingMethodFormID)
-                            .prop('value', shippingMethod.ID)
-                            .attr('checked', shippingMethod.ID === selected.ID);
-    
-                        $('label', tmpl)
-                            .prop('for', 'shippingMethod-' + shippingMethod.ID + '-' + shipping.UUID + lineItemUUIDPart);
-                        // set shipping method name
-                        $('.display-name', tmpl).text(shippingMethod.displayName);
-                        // set or hide arrival time
-                        if (shippingMethod.estimatedArrivalTime) {
-                            $('.arrival-time', tmpl)
-                                .text('(' + shippingMethod.estimatedArrivalTime + ')')
-                                .show();
-                        }
-                        // set shipping cost
-                        $('.shipping-cost', tmpl).text(shippingMethod.shippingCost);
-                        $shippingMethodList.append(tmpl.html());
+                                var lineItemUUIDPart = '';
+
+                                if ($(el).parents('.multi-shipping').length) {
+                                    lineItemUUIDPart = '-' + shipping.productLineItems.items[0].UUID;
+                                }
+
+                                // set input
+                                $('input', tmpl)
+                                    .prop('id', 'shippingMethod-' + shippingMethod.ID + '-' + shipping.UUID + lineItemUUIDPart)
+                                    .prop('name', shippingMethodFormID)
+                                    .prop('value', shippingMethod.ID)
+                                    .attr('checked', shippingMethod.ID === selected.ID);
+
+                                $('label', tmpl)
+                                    .prop('for', 'shippingMethod-' + shippingMethod.ID + '-' + shipping.UUID + lineItemUUIDPart);
+                                // set shipping method name
+                                $('.display-name', tmpl).text(shippingMethod.displayName);
+                                // set or hide arrival time
+                                if (shippingMethod.estimatedArrivalTime) {
+                                    $('.arrival-time', tmpl)
+                                        .text('(' + shippingMethod.estimatedArrivalTime + ')')
+                                        .show();
+                                }
+                                // set shipping cost
+                                $('.shipping-cost', tmpl).text(shippingMethod.shippingCost);
+                                $shippingMethodList.append(tmpl.html());
                             }
                         }
-                        else
-                        {
-                            if(shippingMethod.ID != 'giftShipping')
-                            {
+                        else {
+                            // if there is not gift card then show shipping methods which not related to giftcard - CUSTOM
+                            if (shippingMethod.ID != 'giftShipping') {
                                 var tmpl = $('#shipping-method-template').clone();
-                        var lineItemUUIDPart = '';
-    
-                        if ($(el).parents('.multi-shipping').length) {
-                            lineItemUUIDPart = '-' + shipping.productLineItems.items[0].UUID;
-                        }
-    
-                        // set input
-                        $('input', tmpl)
-                            .prop('id', 'shippingMethod-' + shippingMethod.ID + '-' + shipping.UUID + lineItemUUIDPart)
-                            .prop('name', shippingMethodFormID)
-                            .prop('value', shippingMethod.ID)
-                            .attr('checked', shippingMethod.ID === selected.ID);
-    
-                        $('label', tmpl)
-                            .prop('for', 'shippingMethod-' + shippingMethod.ID + '-' + shipping.UUID + lineItemUUIDPart);
-                        // set shipping method name
-                        $('.display-name', tmpl).text(shippingMethod.displayName);
-                        // set or hide arrival time
-                        if (shippingMethod.estimatedArrivalTime) {
-                            $('.arrival-time', tmpl)
-                                .text('(' + shippingMethod.estimatedArrivalTime + ')')
-                                .show();
-                        }
-                        // set shipping cost
-                        $('.shipping-cost', tmpl).text(shippingMethod.shippingCost);
-                        $shippingMethodList.append(tmpl.html());
+                                var lineItemUUIDPart = '';
+                                if ($(el).parents('.multi-shipping').length) {
+                                    lineItemUUIDPart = '-' + shipping.productLineItems.items[0].UUID;
+                                }
+                                // set input
+                                $('input', tmpl)
+                                    .prop('id', 'shippingMethod-' + shippingMethod.ID + '-' + shipping.UUID + lineItemUUIDPart)
+                                    .prop('name', shippingMethodFormID)
+                                    .prop('value', shippingMethod.ID)
+                                    .attr('checked', shippingMethod.ID === selected.ID);
+                                $('label', tmpl)
+                                    .prop('for', 'shippingMethod-' + shippingMethod.ID + '-' + shipping.UUID + lineItemUUIDPart);
+                                // set shipping method name
+                                $('.display-name', tmpl).text(shippingMethod.displayName);
+                                // set or hide arrival time
+                                if (shippingMethod.estimatedArrivalTime) {
+                                    $('.arrival-time', tmpl)
+                                        .text('(' + shippingMethod.estimatedArrivalTime + ')')
+                                        .show();
+                                }
+                                // set shipping cost
+                                $('.shipping-cost', tmpl).text(shippingMethod.shippingCost);
+                                $shippingMethodList.append(tmpl.html());
                             }
-                            
                         }
                     }
-                  
-                    
                 });
             }
         });
@@ -526,7 +517,7 @@ function updateShippingInformation(shipping, order, customer, options) {
     });
 
     // Now update shipping information, based on those associations
-    updateShippingMethods(shipping , order);
+    updateShippingMethods(shipping, order);
     updateShippingAddressFormValues(shipping);
     updateShippingSummaryInformation(shipping, order);
 
@@ -572,10 +563,10 @@ function updateMultiShipInformation(order) {
   */
 function createErrorNotification(message) {
     var errorHtml = '<div class="alert alert-danger alert-dismissible valid-cart-error ' +
-    'fade show" role="alert">' +
-    '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
-    '<span aria-hidden="true">&times;</span>' +
-    '</button>' + message + '</div>';
+        'fade show" role="alert">' +
+        '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
+        '<span aria-hidden="true">&times;</span>' +
+        '</button>' + message + '</div>';
 
     $('.shipping-error').append(errorHtml);
     scrollAnimate($('.shipping-error'));
