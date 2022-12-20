@@ -1,5 +1,6 @@
 'use strict';
 
+// prepare a attributre for checking that total items has only gift card product or others - CUSTOM
 function isOnlyGiftCard(items){
     var isOnlyGiftCard = false;
     items.forEach(function(tempItem , count){

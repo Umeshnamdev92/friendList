@@ -423,7 +423,7 @@ function calculatePaymentTransaction(currentBasket) {
                 return;
             }
             // Assuming that there is only one payment instrument used for the total order amount.
-            // TODO: Will have to rewrite this logic once we start supporting multiple payment instruments for same order
+            // Handel multiple payments instruemenets for gift certificate and retotal order amount if payment is Gift Certificate - CUSTOM
             var orderTotal = currentBasket.totalGrossPrice;
             if (paymentInstruments.length>1) {
                 for (let i = 0; i < paymentInstruments.length; i++) {

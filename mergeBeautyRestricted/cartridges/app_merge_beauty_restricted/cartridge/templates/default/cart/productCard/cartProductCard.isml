@@ -37,7 +37,7 @@
 
                         </isif>
                         
-                      <isif condition="${lineItem.productName!='GiftCard'}">
+                      <isif condition="${lineItem.isGiftCard != true}"> <!-- exclude increase quantity and edit for Gift Card -->
 
                         <isinclude template="cart/productCard/cartProductCardAvailability" />
                         <isinclude template="cart/productCard/cartProductCardEdit" />
@@ -51,7 +51,7 @@
             <hr class="line-item-divider">
         </div>
         
-       <isif condition="${lineItem.productName!='GiftCard'}">
+       <isif condition="${lineItem.isGiftCard != true}"> <!-- exclude product total price and edit for Gift Card -->
         <isinclude template="cart/productCard/cartProductCardProductPrice" />
        </isif>
 

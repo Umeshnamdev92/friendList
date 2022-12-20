@@ -59,13 +59,13 @@
                 <p class="sub-total-label">${Resource.msg('label.estimatedtotal','cart',null)}</p>
             </div>
             <div class="col-4">
-            <isset name="estimategiftCardtotal" value="${false}" scope="page" />
+            <isset name="estimategiftCardtotal" value="${false}" scope="page" /><!-- to check products include gift card in minicart -->
                 <isloop items="${pdict.items}" var="gift" status="loopstatus">
                     <isif condition="${gift.isGiftCard}">
                     <isset name="estimategiftCardtotal" value="${true}" scope="page" />
                     </isif>
                     </isloop>
-                <isif condition="${estimategiftCardtotal}">
+                <isif condition="${estimategiftCardtotal}"> <!-- to show gift card estimate total if product is gift card in minicart -->
                 <p class="text-right sub-total1">${pdict.totals.unformatTotal}</p>
                 <iselse/>
                 <p class="text-right sub-total">${pdict.totals.subTotal}</p>

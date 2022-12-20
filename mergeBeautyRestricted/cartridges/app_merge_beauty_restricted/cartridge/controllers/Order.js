@@ -35,6 +35,7 @@ server.append(
             var GiftCertificateMgr = require('dw/order/GiftCertificateMgr');
             var GiftCertificateLineItem = require('dw/order/GiftCertificateLineItem');
             Transaction.wrap(() => {
+                // Sending the gift certificate code to recipient for GIFT card by mail -- CUSTOM
                 var mail = new Mail();
                 var giftPl = null;
                 collections.forEach(order.allGiftCertificateLineItems, function (element) {
@@ -43,7 +44,6 @@ server.append(
                     giftPl.setRecipientName(element.recipientName);
                     giftPl.setSenderName(element.senderName);
                     giftPl.setMessage(element.message);
-                    // giftPl.setDescription(element.custom.note);
 
                     var giftSendEmail = GiftCertificateMgr.getGiftCertificateByCode(giftPl.giftCertificateCode)
                     var templateData = {
@@ -60,7 +60,6 @@ server.append(
                     <p>Dear <b>`+templateData.name+`</b>,</p>
 
                     <p>A Gift Certificate has been issued to you in the amount of <b>`+templateData.amount+`</b></p>
-                    
                     <p>Message:</p>
                     <p><b>`+templateData.message+`</b></p>
                     <p>You can redeem your gift certificate at our online store.</p>

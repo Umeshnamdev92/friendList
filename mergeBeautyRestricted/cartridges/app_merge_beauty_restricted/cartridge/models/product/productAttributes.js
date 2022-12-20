@@ -11,6 +11,7 @@ var ImageModel = require('*/cartridge/models/product/productImages');
  * @returns {boolean} flag that specifies if the current attribute should be displayed as a swatch
  */
 function isSwatchable(dwAttributeId) {
+    // for making swatchable for gift card variation - CUSTOM
     var imageableAttrs = ['color','gift'];
     return imageableAttrs.indexOf(dwAttributeId) > -1;
 }

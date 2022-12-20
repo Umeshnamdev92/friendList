@@ -13,6 +13,7 @@ var Template = require('dw/util/Template');
 function getTotals(total) {
     return !total.available ? '-' : formatMoney(total);
 }
+// setup the gift card total - CUSTOM
 function getGiftCardTotal(total,gifttotal) {
     var b=gifttotal;
     return !total.available ? '-' : formatMoney(total.add(gifttotal));
@@ -135,7 +136,7 @@ function getDiscountsHtml(discounts) {
  */
 function totals(lineItemContainer) {
     if (lineItemContainer) {
-        // this.unformatTotal = getGiftCardTotal(lineItemContainer.giftCertificateTotalPrice.value);
+        // setting key of gift card total  for checkout  - CUSTOM
         this.unformatTotal = getGiftCardTotal(lineItemContainer.getAdjustedMerchandizeTotalPrice(false), lineItemContainer.getGiftCertificateTotalGrossPrice());
         this.subTotal = getTotals(lineItemContainer.getAdjustedMerchandizeTotalPrice(false));
         this.totalShippingCost =  getTotals(lineItemContainer.shippingTotalPrice);

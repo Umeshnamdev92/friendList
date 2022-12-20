@@ -1,7 +1,6 @@
 <div class="payment-details">
- <iscomment> ${JSON.stringify(pdict.order.billing.payment.selectedPaymentInstruments)} </iscomment>
     <isloop items="${pdict.order.billing.payment.selectedPaymentInstruments}" var="payment">
-
+<!-- showing gift certificate payment information if payment done using Gift certificate code -->
         <isif condition="${payment.paymentMethod === 'GIFT_CERTIFICATE'}">
             <div class="credit-card-type">
                <b> <span>paymentMethod:

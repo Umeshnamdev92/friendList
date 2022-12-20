@@ -1,10 +1,6 @@
 $(document).ready(function () {
   var base = require('./base')
-
-  $(document).on('click' , '#other-amount' , function(){
-    $('#other-input').show();
-  })
-
+// Setup option for gift card - CUSTOM
   $(document).on('click' , '.gift-amount' , function(){
       var btnUrl = $(this).val()
       var $productContainer = $(this).closest('.set-item');
@@ -23,8 +19,6 @@ $(document).ready(function () {
             $('body').trigger('product:afterAttributeSelect',
                 { data: data, container: $productContainer });
             $.spinner().stop();
-            // $('.gift-amount').attr('disabled' , false);
-            // $(this).attr('disabled' , true);
         },
         error: function () {
             $.spinner().stop();

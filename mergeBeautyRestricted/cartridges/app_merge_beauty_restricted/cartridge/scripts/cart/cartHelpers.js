@@ -161,10 +161,11 @@ function getExistingProductLineItemInCart(product, productId, productLineItems, 
             return tempExisting[0];
         }
     }
+    // handel quantity incriment based on if product is gift card and has option gift - CUSTOM
     if (options.length > 0) {
         if (options[0].optionId == "gift") {
           return false;
-        } 
+        }
       }
     else {
         return base.getExistingProductLineItemsInCart(product, productId, productLineItems, childProducts, options)[0];

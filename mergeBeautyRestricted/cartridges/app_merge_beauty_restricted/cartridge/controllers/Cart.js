@@ -44,7 +44,6 @@ server.replace('AddProduct', validAddToCart.validateRestrictedProduct ,function 
     var currentBasket = BasketMgr.getCurrentOrNewBasket();
   var previousBonusDiscountLineItems = currentBasket.getBonusDiscountLineItems();
   var productId = req.form.pid;
-  
   if(req.form.giftdetail){
     var giftdetailData =JSON.parse(req.form.giftdetail);
     data = giftdetailData[0]
@@ -57,42 +56,8 @@ server.replace('AddProduct', validAddToCart.validateRestrictedProduct ,function 
   var result;
   var pidsObj;
   var text;
-
-//   var sitePref = dw.system.Site.current.preferences.custom.stopWords;
-//   var siteArr = JSON.parse(sitePref);
-//   var msg = options.engravingMessage;
-  
-   
-//   siteArr.map((item)=>{
-//     msg.map((item2)=>{
-//         if (item == item2){
-//             res.setStatusCode(400)
-//             res.json({error:true,errorMessage:"Message is Not Allowed Please change it"})
-//         }
-//     })
-//   })
-//   var sitePref = dw.system.Site.current.preferences.custom.stopWords;
-// //   var siteArr = JSON.parse(sitePref);
-//   var msg = options[1].engravingMessage;
-//   var result = false;
-//   for(let i=0; i<sitePref.length ; i++){
-//       if(msg.includes(sitePref[i])){
-//            result = true;
-//       }
-//     }
-// let msg = "Hello world, welcome to the universe.";
-// let arr = ["bc","mc","god"];
-// let result = false;
-// for(let i=0; i<arr.length ; i++){
-//   if(msg.includes(arr[i])){
-//       result = true;
-
-//   }
-// }
-
   if (currentBasket) {
       Transaction.wrap(function () {
-         
           if (!req.form.pidsObj) {
               quantity = parseInt(req.form.quantity, 10);
               result = cartHelper.addProductToCart(
@@ -127,6 +92,7 @@ server.replace('AddProduct', validAddToCart.validateRestrictedProduct ,function 
               });
           }
           if (!result.error) {
+            // Saving Gift card details if the product is Gift Card - CUSTOM
             var tempProduct = ProductMgr.getProduct(productId);
                 if (tempProduct.custom.isGiftCard) {
                 var imgUrl = tempProduct.getImages('medium')[0].url
@@ -137,7 +103,6 @@ server.replace('AddProduct', validAddToCart.validateRestrictedProduct ,function 
                giftLineItem.setRecipientName(data.recipientName);
                giftLineItem.custom.productLineItemUUID = result.uuid ;
                giftLineItem.custom.imgUrl = URLUtils.home().toString().split(".com/")[0]+".com"+imgUrl;
-               
                 }
               cartHelper.ensureAllShipmentsHaveMethods(currentBasket);
               basketCalculationHelpers.calculateTotals(currentBasket);
@@ -236,12 +201,10 @@ server.replace('RemoveProductLineItem', function (req, res, next) {
                             }
                         }
                     }
-                    // ........................gift line item remove..........................
+                    // code for Gift Certificate line item remove ..........................
                     var tempProduct = ProductMgr.getProduct(productId);
                     if (tempProduct.custom.isGiftCard) {
-                       
                         var allGiftLineItems=currentBasket.getGiftCertificateLineItems()
-                        
                         for (let i = 0; i < allGiftLineItems.length; i++) {
                             var giftLineItemId=allGiftLineItems[i].custom.productLineItemUUID;
                             if(item.UUID==giftLineItemId){
@@ -249,10 +212,6 @@ server.replace('RemoveProductLineItem', function (req, res, next) {
                             }
                         }
                     }
-        
-
-
-                    //..........................gift line item remove...................
                     var shipmentToRemove = item.shipment;
                     currentBasket.removeProductLineItem(item);
                     if (shipmentToRemove.productLineItems.empty && !shipmentToRemove.default) {
@@ -283,8 +242,8 @@ server.replace('RemoveProductLineItem', function (req, res, next) {
 
 
 /**
- * Cart-Show : The Cart-Show endpoint renders the cart page with the current basket
- * @name Base/Cart-Show
+ * Cart-Show : Append for adding product custom attribute of isGiftCard for cart page
+ * @name app_merge_beauty_restricted/Cart-Show
  * @function
  * @memberof Cart
  * @param {middleware} - server.middleware.https
@@ -298,7 +257,7 @@ server.append('Show', server.middleware.https, consentTracking.consent, csrfProt
     var GiftCardHelper = require('*/cartridge/scripts/helpers/giftCardHelper');
     var responseData = res.getViewData();
     var isOnlyGiftCard = GiftCardHelper.isOnlyGiftCard(responseData.items)
-    responseData.isOnlyGiftCard = isOnlyGiftCard;
+    responseData.isOnlyGiftCard = isOnlyGiftCard; // setting the isGiftCard custom attribute for response - CUSTOM
     res.setViewData(responseData);
     next();
 }

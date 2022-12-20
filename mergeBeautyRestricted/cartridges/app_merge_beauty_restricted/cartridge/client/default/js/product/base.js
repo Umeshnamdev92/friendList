@@ -219,7 +219,7 @@ function getAttributesHtml(attributes) {
  * @param {jQuery} $productContainer - DOM element for current product
  */
 function updateOptions(optionsHtml, $productContainer) {
-	// Update options
+    // Update options
     $productContainer.find('.product-options').empty().html(optionsHtml);
 }
 
@@ -516,22 +516,20 @@ function getOptions($productContainer) {
             var isPersonalizable = $('#engraving-or-not').attr('value');
 
             // Sending engraving msg if the product in personalizable
-            if($('body').find('#engraving-div').length > 0)
-            {
+            if ($('body').find('#engraving-div').length > 0) {
                 var selectedValueId = $('button.engrave-toggle-button[disabled]').attr('engraving-option-id');
             }
             // update the option value if the product is gift and the gift option amount availabel there - CUSTOM
             else if ($productContainer.find('.gift-amount-div').length > 0) {
                 selectedValueId = $('button.gift-amount[disabled]').attr('gift-option');
                 return {
-                  optionId: $(this).data("option-id"),
-                  selectedValueId: selectedValueId,
+                    optionId: $(this).data("option-id"),
+                    selectedValueId: selectedValueId,
                 };
-              }
-            else
-            {
+            }
+            else {
                 var selectedValueId = $elOption.find('option[value="' + urlValue + '"]')
-                .data('value-id');
+                    .data('value-id');
             }
 
             return {
@@ -539,9 +537,9 @@ function getOptions($productContainer) {
                 selectedValueId: selectedValueId
             };
         }).toArray();
-        if($('body').find('#engraving-div').length > 0 && $('button.engrave-toggle-button[disabled]').attr('engraving-option-id') == 'engravingCost'){
-            options.push({engravingMessage: $('#engraving-message').val()  ? ($('#engraving-message').val()).trim() : ""}) // adding engraving message in Options
-        }
+    if ($('body').find('#engraving-div').length > 0 && $('button.engrave-toggle-button[disabled]').attr('engraving-option-id') == 'engravingCost') {
+        options.push({ engravingMessage: $('#engraving-message').val() ? ($('#engraving-message').val()).trim() : "" }) // adding engraving message in Options
+    }
 
     return JSON.stringify(options);
 }
@@ -678,101 +676,83 @@ module.exports = {
             }
 
             addToCartUrl = getAddToCartUrl();
-          //custom code for addtoCart button in modal
-        var text= pid.toString();
-        if (text.includes("Gift_Card")) {
-          document.getElementById("emailError").innerHTML="";
-          document.getElementById("invalid-feedback-email1").innerHTML="";
-          document.getElementById("senderName").innerHTML="";
-          document.getElementById("message").innerHTML="";
-          
 
-          var rEmail=$("#emailVerify").val();
-          var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-          if(rEmail==""){
-          $('#emailError').html('<p class="text-danger">please fill out this field<p>');
-          return false;
-          }
-          if (!rEmail.match(mailformat)) {
-            console.log("not correct");
-            $('#emailError').html('<p class="text-danger">Email is incorrect<p>');
-            return false;
-          }
-           
-          var rEmail1=$("#recipientName").val();
+            // Validation for giftcard Form - CUSTOM
+            var text = pid.toString();
+            if (text.includes("Gift_Card")) {
+                document.getElementById("emailError").innerHTML = "";
+                document.getElementById("invalid-feedback-email1").innerHTML = "";
+                document.getElementById("senderName").innerHTML = "";
+                document.getElementById("message").innerHTML = "";
+                var rEmail = $("#emailVerify").val();
+                var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+                if (rEmail == "") {
+                    $('#emailError').html('<p class="text-danger">please fill out this field<p>');
+                    return false;
+                }
+                if (!rEmail.match(mailformat)) {
+                    console.log("not correct");
+                    $('#emailError').html('<p class="text-danger">Email is incorrect<p>');
+                    return false;
+                }
+                var rEmail1 = $("#recipientName").val();
 
-          if (rEmail1=='') {
-            console.log("empty remail");
-            $('#invalid-feedback-email1').html('<p class="text-danger">please fill out this field<p>');
-            return false;
-          }
-          var rEmail2=$("#senderName").val();
-          if (rEmail2=='') {
-            console.log("empty remail");
-            $('.invalid-feedback-email2').html('<p class="text-danger">please fill out this field<p>');
-            return false;
-          }else{
-            $('.invalid-feedback-email2').html('');
-          }
-          var rEmail3=$("#message").val();
-          if (rEmail3=='') {
-            console.log("empty remail");
-            $('.invalid-feedback-email3').html('<p class="text-danger">please fill out this field<p>');
-            return false;
-          }
-          else{
-            $('.invalid-feedback-email3').html('');
-          }
-          // var rEmail4=$("#email4").val();
-          // if (rEmail4=='') {
-          //   console.log("empty remail");
-          //   $('.invalid-feedback-email4').html('<p class="text-danger">please fill out this field<p>');
-          //   return false;
-          // }else{
-          //   $('.invalid-feedback-email4').html('');
-          // }
-        
-          // return false ;
-          var x = $("#emailVerify").val();
-          var giftData = []
-          giftData.push({
-            recipientEmail: $("#emailVerify").val(),
-            recipientName: $("#recipientName").val(),
-            senderName: $("#senderName").val(),
-            message: $("#message").val(),
-            // note: $("#email4").val()
-          })
-          console.log(x);
-          var form = {
-            pid: pid,
-            pidsObj: pidsObj,
-            childProducts: getChildProducts(),
-            quantity: getQuantitySelected($(this)),
-            giftdetail: JSON.stringify(giftData)
-          };
-          // $('#exampleModalLongGiftForm').hide() 
-          //code for hiding modal 
-          
-          $('#exampleModalLong').modal('hide');
-          $("#emailVerify").val('');
-            $("#recipientName").val('');
-            $("#senderName").val('');
-            $("#message").val('');
-            // $("#email4").val('');
-        
-        } 
-        else{
-            var form = {
-                pid: pid,
-                pidsObj: pidsObj,
-                childProducts: getChildProducts(),
-                quantity: getQuantitySelected($(this))
-            };
-        }
+                if (rEmail1 == '') {
+                    console.log("empty remail");
+                    $('#invalid-feedback-email1').html('<p class="text-danger">please fill out this field<p>');
+                    return false;
+                }
+                var rEmail2 = $("#senderName").val();
+                if (rEmail2 == '') {
+                    console.log("empty remail");
+                    $('.invalid-feedback-email2').html('<p class="text-danger">please fill out this field<p>');
+                    return false;
+                } else {
+                    $('.invalid-feedback-email2').html('');
+                }
+                var rEmail3 = $("#message").val();
+                if (rEmail3 == '') {
+                    console.log("empty remail");
+                    $('.invalid-feedback-email3').html('<p class="text-danger">please fill out this field<p>');
+                    return false;
+                }
+                else {
+                    $('.invalid-feedback-email3').html('');
+                }
+                var x = $("#emailVerify").val();
+                var giftData = []
+                giftData.push({
+                    recipientEmail: $("#emailVerify").val(),
+                    recipientName: $("#recipientName").val(),
+                    senderName: $("#senderName").val(),
+                    message: $("#message").val(),
+                })
+                console.log(x);
+                var form = {
+                    pid: pid,
+                    pidsObj: pidsObj,
+                    childProducts: getChildProducts(),
+                    quantity: getQuantitySelected($(this)),
+                    giftdetail: JSON.stringify(giftData)
+                };
+                $('#exampleModalLong').modal('hide');
+                $("#emailVerify").val('');
+                $("#recipientName").val('');
+                $("#senderName").val('');
+                $("#message").val('');
+            }
+            else {
+                var form = {
+                    pid: pid,
+                    pidsObj: pidsObj,
+                    childProducts: getChildProducts(),
+                    quantity: getQuantitySelected($(this))
+                };
+            }
             if (!$('.bundle-item').length) {
                 form.options = getOptions($productContainer);
             }
-          
+
             $(this).trigger('updateAddToCartFormData', form);
             if (addToCartUrl) {
                 $.spinner().start();
@@ -786,7 +766,7 @@ module.exports = {
                         $('body').trigger('product:afterAddToCart', data);
                         $.spinner().stop();
                         miniCartReportingUrl(data.reportingURL);
-                        $('.add-to-cart').attr('disabled' , true);
+                        $('.add-to-cart').attr('disabled', true);
                     },
                     error: function () {
                         $.spinner().stop();
@@ -810,18 +790,18 @@ module.exports = {
             var valueId = $choiceOfBonusProduct.find('.options-select option:selected').data('valueId');
             if (totalQty <= maxPids) {
                 var selectedBonusProductHtml = ''
-                + '<div class="selected-pid row" '
-                + 'data-pid="' + pid + '"'
-                + 'data-qty="' + submittedQty + '"'
-                + 'data-optionID="' + (optionID || '') + '"'
-                + 'data-option-selected-value="' + (valueId || '') + '"'
-                + '>'
-                + '<div class="col-sm-11 col-9 bonus-product-name" >'
-                + $choiceOfBonusProduct.find('.product-name').html()
-                + '</div>'
-                + '<div class="col-1"><i class="fa fa-times" aria-hidden="true"></i></div>'
-                + '</div>'
-                ;
+                    + '<div class="selected-pid row" '
+                    + 'data-pid="' + pid + '"'
+                    + 'data-qty="' + submittedQty + '"'
+                    + 'data-optionID="' + (optionID || '') + '"'
+                    + 'data-option-selected-value="' + (valueId || '') + '"'
+                    + '>'
+                    + '<div class="col-sm-11 col-9 bonus-product-name" >'
+                    + $choiceOfBonusProduct.find('.product-name').html()
+                    + '</div>'
+                    + '<div class="col-1"><i class="fa fa-times" aria-hidden="true"></i></div>'
+                    + '</div>'
+                    ;
                 $('#chooseBonusProductModal .selected-bonus-products').append(selectedBonusProductHtml);
                 $('.pre-cart-products').html(totalQty);
                 $('.selected-bonus-products .bonus-summary').removeClass('alert-danger');

@@ -50,7 +50,7 @@
             </div>
         </div>
     </isif>
-<isif condition="${lineItem.isGiftCard!= true}">
+<isif condition="${lineItem.isGiftCard!= true}"><!-- to hide total price and availibility information if product is gift card -->
     <div>
         <hr class="line-item-divider">
     </div>
