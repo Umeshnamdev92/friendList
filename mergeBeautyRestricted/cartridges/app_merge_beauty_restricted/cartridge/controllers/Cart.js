@@ -280,4 +280,27 @@ server.replace('RemoveProductLineItem', function (req, res, next) {
 
     return next();
 });
+
+
+/**
+ * Cart-Show : The Cart-Show endpoint renders the cart page with the current basket
+ * @name Base/Cart-Show
+ * @function
+ * @memberof Cart
+ * @param {middleware} - server.middleware.https
+ * @param {middleware} - consentTracking.consent
+ * @param {middleware} - csrfProtection.generateToken
+ * @param {category} - sensitive
+ * @param {renders} - isml
+ * @param {serverfunction} - get
+ */
+server.append('Show', server.middleware.https, consentTracking.consent, csrfProtection.generateToken, function (req, res, next) {
+    var GiftCardHelper = require('*/cartridge/scripts/helpers/giftCardHelper');
+    var responseData = res.getViewData();
+    var isOnlyGiftCard = GiftCardHelper.isOnlyGiftCard(responseData.items)
+    responseData.isOnlyGiftCard = isOnlyGiftCard;
+    res.setViewData(responseData);
+    next();
+}
+);
 module.exports = server.exports();

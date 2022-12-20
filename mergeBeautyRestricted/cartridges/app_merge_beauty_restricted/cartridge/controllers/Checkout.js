@@ -418,7 +418,7 @@ server.get("Applygiftcard", function (req, res, next) {
           }
         } else {
           var data = {
-            msg:"insufficient balence! your available balence is" +giftcertificatedetail.balance.value,
+            msg:"insufficient balence! your available balence is $" +giftcertificatedetail.balance.value,
             success: false,
           };
           res.json(data);
