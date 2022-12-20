@@ -7,7 +7,7 @@
         </label>
         <select id="title" class="form-control" <isprint value="${billingFields.title.attributes}"
             encoding="off" />>
-        <option value="">${Resource.msg('options.default.message', 'forms', null)}</option>
+        <iscomment> <option value="">${Resource.msg('options.default.message', 'forms', null)}</option> </iscomment>
         <isloop items="${pdict.addresstypes}" var="options">
             <isif condition="${options == billingFields.title.htmlValue}">
                 <option selected value="${options}">${options}</option>
