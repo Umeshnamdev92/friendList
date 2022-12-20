@@ -102,7 +102,7 @@ server.replace('AddProduct', validAddToCart.validateRestrictedProduct ,function 
                giftLineItem.setSenderName(data.senderName);
                giftLineItem.setRecipientName(data.recipientName);
                giftLineItem.custom.productLineItemUUID = result.uuid ;
-               giftLineItem.custom.imgUrl = URLUtils.home().toString().split(".com/")[0]+".com"+imgUrl;
+               giftLineItem.custom.imgUrl = "https://"+request.httpHost+imgUrl;
                 }
               cartHelper.ensureAllShipmentsHaveMethods(currentBasket);
               basketCalculationHelpers.calculateTotals(currentBasket);
