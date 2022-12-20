@@ -9,5 +9,5 @@
      <input id="shippingMethod-${shippingMethod.ID}-${shippingModel.UUID}${lineItem ? '-' + lineItem.UUID : ''}"
             name="${shippingAddress.shippingMethodID.htmlName}" 
             type="radio" value="${shippingMethod.ID}" 
-            class="form-check-input" checked/>
+            class="form-check-input"/>
  </isif>
