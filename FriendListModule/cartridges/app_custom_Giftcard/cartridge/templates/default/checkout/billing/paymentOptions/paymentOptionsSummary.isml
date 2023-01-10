@@ -1,0 +1,27 @@
+<div class="payment-details">
+ <iscomment> ${JSON.stringify(pdict.order.billing.payment.selectedPaymentInstruments)} </iscomment>
+    <isloop items="${pdict.order.billing.payment.selectedPaymentInstruments}" var="payment">
+
+        <isif condition="${payment.paymentMethod === 'GIFT_CERTIFICATE'}">
+            <div class="credit-card-type">
+               <b> <span>paymentMethod:
+                    ${payment.paymentMethod}</span></b>
+            </div>
+           <div class="credit-card-type">
+                <span>maskedGiftCertificateCode:
+                    ${payment.maskedGiftCertificateCode}</span>
+            </div>
+            <div class="credit-card-type">
+                <span>amount:
+                    ${payment.amount}</span>
+            </div>
+        </isif>
+        <isif condition="${payment.paymentMethod === 'CREDIT_CARD'}">
+         <div class="credit-card-type">
+               <b> <span>paymentMethod:
+                    ${payment.paymentMethod}</span></b>
+            </div>
+            <isinclude template="checkout/billing/paymentOptions/creditCardSummary" />
+        </isif>
+    </isloop>
+</div>

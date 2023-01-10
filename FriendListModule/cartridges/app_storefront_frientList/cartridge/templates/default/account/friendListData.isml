@@ -1,0 +1,46 @@
+<isdecorate template="common/layout/page">
+    <isscript>
+        var assets = require('*/cartridge/scripts/assets.js');
+        assets.addJs('/js/addressBook.js');
+        assets.addCss('/css/account/addressBook.css');
+    </isscript>
+    <isinclude template="account/deleteFriendModal"/>
+    <div class="hero slant-down account-image">
+        <h1 class="page-title">Friend Book</h1>
+    </div>
+    <div class="container">
+
+        <!-- Rows for addresses in the Address Book -->
+        <isloop items="${pdict.sallo}" var="friend">
+            <div class="row justify-content-center" id="uuid-${friend.friend.UUID}">
+
+                <div class="col-sm-8 col-md-6">
+                    <div class="card">
+                    <div class="card-header">
+                       <a href="${URLUtils.url('Friend-SaveAddress','friend',friend.ID)}">Edit</a>
+                    </div>
+                        <div class="card-body card-body-positioning">
+                        <h1>${friend.ID}</h1>
+
+                            <div>${friend.custom.fullname}</div>
+                             <div>${friend.custom.nickname}</div>
+                            <div>${friend.custom.birth}</div>  <h1>${friend.ID}</h1>
+                             <div>${friend.custom.phoneNumber}</div>
+
+
+                            <a href="${URLUtils.url('Friend-DeleteFriend','friend',friend.ID)}">
+                            <div class="remove-btn btn-light">
+                                   <h1 style="margin-top:30px"> &times;</h1>
+                            </div></a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </isloop>
+         <iscomment> <div class="card-footer card-footer-border text-center">
+        <a href="${URLUtils.url('Friend-SaveAddress')}" class="card-link" aria-label="${Resource.msg('label.addressbook.addnewaddress','account',null)}">${Resource.msg('link.addnew','account',null)}</a>
+    </div> </iscomment>
+
+    </div>
+</isdecorate>

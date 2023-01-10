@@ -1,0 +1,81 @@
+<form
+    action="${URLUtils.url('Friend-SaveAddress' , 'friendID', pdict.id)}"
+    method="POST"
+    name="friend-form" ${pdict.FriendForm.attributes}>
+
+    <!-- Name -->
+    <div class="row" id="uuid-${friend.friend.UUID}">
+
+        <!-- Name -->
+        <div class="col-6">
+            <div class="form-group
+                ${pdict.friendForm.name.mandatory === true ? 'required' : ''}">
+                <label class="form-control-label" for="name">
+                    <isprint value="${pdict.friendForm.name.label}" encoding="htmlcontent" />
+                </label>
+                <input type="text" class="form-control" id="name"
+                    <isprint value="${pdict.friendForm.name.attributes}" encoding="off" />
+                    autocomplete="given-name">
+                <div class="invalid-feedback"></div>
+            </div>
+        </div>
+
+
+        <!-- Nick Name -->
+        <div class="col-6">
+            <div class="form-group
+                ${pdict.friendForm.nickname.mandatory === true ? 'required' : ''}">
+                <label class="form-control-label" for="nickname">
+                    <isprint value="${pdict.friendForm.nickname.label}" encoding="htmlcontent" />
+                </label>
+                <input type="text" class="form-control" id="nickname"
+                    <isprint value="${pdict.friendForm.nickname.attributes}" encoding="off" />
+                    autocomplete="family-name">
+                <div class="invalid-feedback"></div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Phone Number -->
+    <div class="form-group
+        ${pdict.friendForm.phone.mandatory === true ? 'required' : ''}">
+        <label class="form-control-label" for="phone">
+            <isprint value="${pdict.friendForm.phone.label}" encoding="htmlcontent" />
+        </label>
+        <input type="text" class="form-control" id="phone"
+            <isprint value="${pdict.friendForm.phone.attributes}" encoding="off" />
+            autocomplete="tel">
+        <div class="invalid-feedback"></div>
+        <span>${Resource.msg('example.phone','forms',null)}</span>
+    </div>
+
+    <!--Date Of Birth -->
+     <div class="form-group
+        ${pdict.friendForm.birth.mandatory === true ? 'required' : ''}">
+        <label class="form-control-label" for="phone">
+          <isprint value="${pdict.friendForm.birth.label}" encoding="htmlcontent" />
+        </label>
+        <input type="date" class="form-control" id="phone"
+            <isprint value="${pdict.friendForm.birth.attributes}" encoding="off" />
+            autocomplete="tel">
+        <div class="invalid-feedback"></div>
+    </div>
+
+
+    <input type="hidden" name="${pdict.csrf.tokenName}" value="${pdict.csrf.token}"/>
+
+    <!-- Cancel and Save Buttons -->
+    <div class="row">
+        <div class="col-6">
+            <a href="${URLUtils.url('Friend-SaveAddress')}" class="btn btn-block btn-outline-primary">${Resource.msg('button.cancel','account',null)}</a>
+        </div>
+        <div class="col-6">
+
+            <button type="submit" name="save" class="btn btn-save btn-block btn-primary">Save</button>
+
+        </div>
+
+    </div>
+
+</form>

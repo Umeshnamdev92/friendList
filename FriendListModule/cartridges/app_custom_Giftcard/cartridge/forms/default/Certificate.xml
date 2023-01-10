@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<form xmlns="http://www.demandware.com/xml/form/2008-04-19">
+<field formid="email" binding='email' label="label.input.email" type="string" mandatory="true"
+    max-length="40" missing-error="label.valid.email" range-error="error.message.20orless"/>
+    <field formid="email1" binding = 'email1' label="label.input.email" type="string" mandatory="true"
+    max-length="20" missing-error="label.valid.email" range-error="error.message.20orless"/>
+    <field formid="email2" binding = 'email2' label="label.input.email" type="string" mandatory="true"
+    max-length="20" missing-error="label.valid.email" range-error="error.message.20orless"/>
+    <field formid="email3" binding = 'email3' label="label.input.email" type="string" mandatory="true"
+    max-length="20" missing-error="label.valid.email" range-error="error.message.20orless"/>
+    <field formid="email4" binding = 'email4' label="label.input.email" type="string" mandatory="true"
+    max-length="20" missing-error="label.valid.email" range-error="error.message.20orless"/>
+<action formid="submit" valid-form="true"/>
+</form>
