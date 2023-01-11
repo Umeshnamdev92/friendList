@@ -34,7 +34,8 @@
                         <td>${product.custom.friend_birthday}</td>
                         <td>${product.custom.friend_phone}</td>
                         <td><a href="${URLUtils.url('FriendListUpdated-EditList','id',product.ID)}">Edit</a>/<a
-                                href="${URLUtils.url('FriendListUpdated-DeleteList','id',product.ID)}">Delete</a></td>
+                                href="${URLUtils.url('FriendListUpdated-DeleteList','id',product.ID)}">Delete</a>
+                                <a href="${URLUtils.url('Checkout-Begin','id',product.ID)}">Select</a></td>
                     </tr>
 
                 </isloop>
