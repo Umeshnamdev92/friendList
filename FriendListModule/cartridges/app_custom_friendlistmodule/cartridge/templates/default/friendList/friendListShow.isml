@@ -50,7 +50,7 @@
 
                         <td>${product.custom.friend_birthday}</td>
                         <td>${product.custom.friend_phone}</td>
-                        <td><a href="${URLUtils.url('FriendListUpdated-EditList','id',product.ID)}">GiftCard</a></td>
+                        <td><a href="https://bjxc-002.dx.commercecloud.salesforce.com/on/demandware.store/Sites-RefArch-GiftCards-Site/en_US/Home-Show">GiftCard</a></td>
                         <td><a href="${URLUtils.url('FriendListUpdated-EditList','id',product.ID)}">Edit</a>/<a
                                 href="${URLUtils.url('FriendListUpdated-DeleteList','id',product.ID)}">Delete</a></td>
 
