@@ -1,8 +1,7 @@
 .vscode/
 dw.json
-link_multivendor/node_modules/
 system-objecttype-extensions.d.ts/
 storefront-reference-architecture/
-link_multivendor/
-customMultivendor/node_modules/
+friendListModule/node_modules
 node_modules/
+package-lock.jsons
