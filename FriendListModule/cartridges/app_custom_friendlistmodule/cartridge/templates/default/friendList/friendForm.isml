@@ -35,11 +35,11 @@
 
     <!-- Address 1 -->
     <div class="form-group
-        ${pdict.form.address.mandatory === true ? 'required' : ''}">
+        ${pdict.form.address1.mandatory === true ? 'required' : ''}">
         <label class="form-control-label" for="address1">
-            <isprint value="${pdict.form.address.label}" encoding="htmlcontent" />
+            <isprint value="${pdict.form.address1.label}" encoding="htmlcontent" />
         </label>
-        <input type="text" class="form-control" id="address1" <isprint value="${pdict.form.address.attributes}"
+        <input type="text" class="form-control" id="address1" <isprint value="${pdict.form.address1.attributes}"
             encoding="off" />
         autocomplete="address-line1">
         <div class="invalid-feedback"></div>
@@ -48,11 +48,11 @@
 
     <!-- Address 2 -->
     <div class="form-group
-        ${pdict.form.address1.mandatory === true ? 'required' : ''}">
-        <label class="form-control-label" for="address1">
-            <isprint value="${pdict.form.address1.label}" encoding="htmlcontent" />
+        ${pdict.form.address2.mandatory === true ? 'required' : ''}">
+        <label class="form-control-label" for="address2">
+            <isprint value="${pdict.form.address2.label}" encoding="htmlcontent" />
         </label>
-        <input type="text" class="form-control" id="address1" <isprint value="${pdict.form.address1.attributes}"
+        <input type="text" class="form-control" id="address2" <isprint value="${pdict.form.address2.attributes}"
             encoding="off" />
         autocomplete="address-line1">
         <div class="invalid-feedback"></div>
@@ -87,10 +87,10 @@
         <div class="col-6">
             <div class="form-group
                 ${pdict.form.states.stateCode.mandatory === true ? 'required' : ''}">
-                <label class="form-control-label" for="state">
+                <label class="form-control-label" for="states">
                     <isprint value="${pdict.form.states.stateCode.label}" encoding="htmlcontent" />
                 </label>
-                <select class="form-control" id="state"
+                <select class="form-control" id="states"
                     <isprint value="${pdict.form.states.stateCode.attributes}" encoding="off" />
                     autocomplete="address-level1">
                     <isloop items=${pdict.form.states.stateCode.options} var="state">
@@ -141,7 +141,7 @@
         <label class="form-control-label" for="email">
             <isprint value="${pdict.form.email.label}" encoding="htmlcontent" />
         </label>
-        <input type="text" class="form-control" id="email" <isprint value="${pdict.form.email.attributes}"
+        <input type="string" class="form-control" id="email" <isprint value="${pdict.form.email.attributes}"
             encoding="off" />
         autocomplete="address-line1">
         <div class="invalid-feedback"></div>
