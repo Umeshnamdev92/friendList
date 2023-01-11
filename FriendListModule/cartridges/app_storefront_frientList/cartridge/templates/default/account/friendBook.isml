@@ -1,0 +1,70 @@
+<isdecorate template="common/layout/page">
+    <isscript>
+        var assets = require('*/cartridge/scripts/assets.js');
+        assets.addJs('/js/addressBook.js');
+        assets.addCss('/css/account/addressBook.css');
+    </isscript>
+    <isinclude template="account/deleteAddressModal"/>
+    <div class="hero slant-down account-image">
+        <h1 class="page-title">${Resource.msg('label.addressbook','account',null)}</h1>
+    </div>
+    <div class="container">
+        <!---Breadcrumbs--->
+        <isinclude template="components/breadcrumbs/pageBreadcrumbs"/>
+        <isif condition="${pdict.addressBook.length === 0}">
+             <div class="row justify-content-center">
+                 <div class="col">
+                     <h3>${Resource.msg('msg.no.saved.addresses','address',null)}</h3>
+                 </div>
+            </div>
+        </isif>
+        <!-- Rows for addresses in the Address Book -->
+        <isloop items="${pdict.sallo}" var="friend">
+            <div class="row justify-content-center" id="uuid-${friend.friend.UUID}">
+                <div class="col-sm-8 col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="address-heading pull-left">${friend.custom.name11}</h2>
+                            <a href="${URLUtils.url('Friend-EditFriend', 'friendId',friend.ID)}" class="pull-right">Edit</a>
+                        </div>
+                        <div class="card-body card-body-positioning">
+                            <div>Name : ${friend.custom.name11}</div>
+                           <div>Nick Name : ${friend.custom.nickname11}</div>
+                            <div>Date Of Birth : ${friend.custom.birth11.getDate().toFixed(0)}-${(friend.custom.birth11.getMonth()+1).toFixed(0)}-${friend.custom.birth11.getYear().toFixed(0)}</div>
+                    
+                            <div>Phone Number : ${friend.custom.phoneNumber11}</div>
+
+                        <a href="${URLUtils.url('Friend-DeleteFriend' , 'Id' , friend.ID)}">
+                             <button type="button" class="remove-btn  btn-light">
+                                &times;
+                            </button>
+                        </a>
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </isloop>
+        <div class="row justify-content-center">
+            <div class="col-6">
+                <div class="row">
+                    <div class=" col text-center">
+                        <a href="${URLUtils.url('Account-Show')}" class="normal" aria-label="${Resource.msg('label.addressbook.myaccount','account',null)}">
+                            ${Resource.msg('link.profile.backtomyaccount','account',null)}
+                        </a>
+
+                    </div>
+
+                       <div class="col text-center">
+                            <a href="${URLUtils.url('Friend-AddFriend')}" class="card-link" aria-label="${Resource.msg('label.addressbook.addnewaddress','account',null)}">${Resource.msg('link.addnew','account',null)}</a>
+                        </div>
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</isdecorate>
