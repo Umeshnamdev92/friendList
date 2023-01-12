@@ -13,6 +13,9 @@ var URLUtils = require("dw/web/URLUtils");
 var ProductList = require('dw/customer/ProductList');
 var ProductListMgr = require('dw/customer/ProductListMgr');
 
+
+var COHelpers = require('*/cartridge/scripts/checkout/checkoutHelpers');
+
 var page = require("app_storefront_base/cartridge/controllers/Checkout");
 server.extend(page);
 

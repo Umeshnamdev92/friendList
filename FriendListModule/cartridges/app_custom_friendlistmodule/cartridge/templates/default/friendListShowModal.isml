@@ -30,7 +30,7 @@
                 <isloop items="${pdict.productList}" var="product">
 
                     <tr>
-                        <td><button class="btn btn-primary">Select</button></td>
+                        <td><a href="${URLUtils.url('Checkout-Begin','id',product.ID)}"><button class="btn btn-primary">Select</button></a></td>
                         <td>${product.custom.first_name} ${product.custom.last_name}</td>
                         <td>${product.custom.pet_name}</td>
                         <td>${product.custom.friend_birthday}</td>
