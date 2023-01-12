@@ -6,8 +6,7 @@
                     <isif condition="${shippingModel.isGift}">
                         checked
                     </isif>
-                    <isprint value="${pdict.forms.shippingForm.shippingAddress.isGift.attributes}" encoding="off" />
-                >
+                    <isprint value="${pdict.forms.shippingForm.shippingAddress.isGift.attributes}" encoding="off" />>
                 <label for="isGift-${lineItem ? lineItem.UUID : 'default'}-${shippingModel.UUID}" class="custom-control-label checkout-checkbox">
                     ${Resource.msg('check.gift', 'checkout', null)}
                 </label>
