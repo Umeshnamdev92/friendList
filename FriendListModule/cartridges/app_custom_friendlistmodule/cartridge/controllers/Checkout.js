@@ -171,6 +171,8 @@ server.replace('Begin',function(req,res,next){
     
     res.render('checkout/checkout', {
         id:id,
+        productList : productlist,
+        productListData: productListData
         productList:productlist,
         order: orderModel,
         customer: accountModel,
