@@ -36,7 +36,7 @@ server.append('Begin',function(req,res,next){
     res.render('checkout/checkout',{
         id:id,
         productList : productlist,
-        productList: productListData
+        productListData: productListData
     });
     
     next();
