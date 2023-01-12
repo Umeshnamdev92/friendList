@@ -44,7 +44,8 @@
     </isloop>
 </isif>
 
-<isif condition="${pdict.id == undefined}">
+
+<isif condition="${pdict.id == null}">
     <isif condition="${pdict.customer.addresses && pdict.customer.addresses.length > 0}">
     <option disabled>${Resource.msg('msg.account.addresses', 'checkout', null)}</option>
         <isloop items="${pdict.customer.addresses}" var="address">
@@ -62,12 +63,12 @@
 <iselse/> 
  <option disabled>${Resource.msg('msg.account.friendAddress', 'checkout', null)}</option>
     <isloop items="${pdict.productList}" var="friend" status="loopstatus">
-        <option value="${'ab_'+friend.ID}" data-first-name="${friend.firstName||''}" data-last-name="${friend.lastName||''}"
-            data-friend1="${friend.friend1||''}" data-friend2="${friend.friend2||''}"
-            data-city="${friend.city||''}" data-state-code="${friend.stateCode||''}"
+        <option value="${'ab_'+friend.ID}" data-first-name="${friend.custom.first_name||''}" data-last-name="${friend.custom.last_name||''}"
+            data-address1="${friend.custom.address1||''}" data-address2="${friend.custom.address2||''}"
+            data-city="${friend.custom.city||''}" data-state-code="${friend.stateCode||''}"
             data-country-code="${friend.countryCode.value||''}" data-postal-code="${friend.postalCode||''}"
-            data-phone="${friend.phone||''}" data-is-gift="${''}" data-gift-message="${''}">
-            ${friend.ID || ''} - ${friend.firstName || ''} ${friend.lastName || ''} ${friend.friend1 || ''} ${friend.friend2 || ''} ${friend.city || ''}${!friend.city || ','} ${friend.stateCode||''} ${friend.postalCode||''}  
+            data-phone="${friend.custom.friend_phone||''}" data-is-gift="${''}" data-gift-message="${''}">
+            ${friend.ID || ''} - ${friend.custom.first_name || ''} ${friend.custom.last_name || ''} ${friend.custom.address1 || ''} ${friend.custom.address2 || ''} ${friend.city || ''}${!friend.city || ','} ${friend.stateCode||''} ${friend.postalCode||''}  
         </option>
     </isloop>
 </isif>

@@ -10,6 +10,9 @@ var URLUtils = require("dw/web/URLUtils");
 var ProductList = require('dw/customer/ProductList');
 var ProductListMgr = require('dw/customer/ProductListMgr');
 
+var page = require("app_storefront_base/cartridge/controllers/Checkout");
+server.extend(page);
+
 server.replace('Begin',function(req,res,next){
     var BasketMgr = require('dw/order/BasketMgr');
     var Transaction = require('dw/system/Transaction');
