@@ -1,6 +1,9 @@
 'use strict'
 var server = require("server");
 
+var page = require("app_storefront_base/cartridge/controllers/Checkout");
+server.extend(page);
+
 var csrfProtection = require("*/cartridge/scripts/middleware/csrf");
 var userLoggedIn = require("*/cartridge/scripts/middleware/userLoggedIn");
 var consentTracking = require("*/cartridge/scripts/middleware/consentTracking");
