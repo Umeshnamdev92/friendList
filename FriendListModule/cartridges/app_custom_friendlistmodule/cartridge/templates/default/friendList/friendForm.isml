@@ -68,9 +68,6 @@
                 <label class="form-control-label" for="country">
                     <isprint value="${pdict.form.country.label}" encoding="htmlcontent" />
                 </label>
-                <input type="text" class="form-control" id="country" <isprint value="${pdict.form.country.attributes}"
-                    encoding="off" />
-                autocomplete="given-name">
                 <select class="form-control" id="country" <isprint value="${pdict.form.country.attributes}"
                     encoding="off" />
                 autocomplete="country">

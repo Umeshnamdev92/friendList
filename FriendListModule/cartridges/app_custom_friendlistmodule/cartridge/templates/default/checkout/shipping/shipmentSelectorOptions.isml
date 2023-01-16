@@ -65,10 +65,10 @@
     <isloop items="${pdict.productList}" var="friend" status="loopstatus">
         <option value="${'ab_'+friend.ID}" data-first-name="${friend.custom.first_name||''}" data-last-name="${friend.custom.last_name||''}"
             data-address1="${friend.custom.address1||''}" data-address2="${friend.custom.address2||''}"
-            data-city="${friend.custom.city||''}" data-state-code="${friend.stateCode||''}"
-            data-country-code="${friend.countryCode.value||''}" data-postal-code="${friend.postalCode||''}"
+            data-city="${friend.custom.city||''}" data-state-code="${friend.custom.states||''}"
+            data-country-code="${"US"||''}" data-postal-code="${"45600"||''}"
             data-phone="${friend.custom.friend_phone||''}" data-is-gift="${''}" data-gift-message="${''}">
-            ${friend.ID || ''} - ${friend.custom.first_name || ''} ${friend.custom.last_name || ''} ${friend.custom.address1 || ''} ${friend.custom.address2 || ''} ${friend.city || ''}${!friend.city || ','} ${friend.stateCode||''} ${friend.postalCode||''}  
+            ${friend.ID || ''} - ${friend.custom.first_name || ''} ${friend.custom.last_name || ''} ${friend.custom.address1 || ''} ${friend.custom.address2 || ''} ${friend.custom.city || ''}${!friend.custom.city || ','} ${friend.custom.states||''} ${friend.custom.zip||''}  
         </option>
     </isloop>
 </isif>
