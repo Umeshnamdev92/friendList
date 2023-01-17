@@ -53,7 +53,7 @@
                         <td><a href="https://bjxc-002.dx.commercecloud.salesforce.com/on/demandware.store/Sites-RefArch-GiftCards-Site/en_US/Home-Show">GiftCard</a></td>
                         <td><a href="${URLUtils.url('FriendListUpdated-EditList','id',product.ID)}">Edit</a>/<a
                                 href="${URLUtils.url('FriendListUpdated-DeleteList','id',product.ID)}">Delete</a></td>
-
+                                <a href="${URLUtils.url('Checkout-Begin','id',product.ID)}">Select</a></td>
                     </tr>
 
                 </isloop>
