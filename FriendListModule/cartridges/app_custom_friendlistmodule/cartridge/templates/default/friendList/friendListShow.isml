@@ -1,0 +1,68 @@
+<isdecorate template="common/layout/page">
+    <isscript>
+        var assets = require('*/cartridge/scripts/assets.js');
+        assets.addCss('/css/account/profile.css');
+        assets.addJs('/js/addressBook.js');
+    </isscript>
+
+    <div class="container">
+
+        <h1 style="text-align:center;color:burlywood;"> FRIENDS LIST</h1>
+        
+            <button style="background-color:blue;color:white;border:none;"><a href="${URLUtils.url('FriendListUpdated-MahChild')}"
+                    aria-label="${Resource.msg('label.friendList.addFriend','account',null)}" style="background-color:blue;color:white;border:none; border-radius:50%">${Resource.msg('link.addnew.friend','account',null)}</a>
+            </button>  
+
+            <br> 
+    
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">${Resource.msg('label.name', 'friends', null)}</th>
+                    <th scope="col">${Resource.msg('label.address1', 'friends', null)}</th>
+                    <iscomment> <th scope="col">${Resource.msg('label.address2', 'friends', null)}</th> </iscomment>
+                    <iscomment> <th scope="col">${Resource.msg('label.city', 'friends', null)}</th> </iscomment>
+                    <iscomment> <th scope="col">${Resource.msg('label.country', 'friends', null)}</th> </iscomment>
+                    <iscomment> <th scope="col">${Resource.msg('label.states', 'friends', null)}</th> </iscomment>
+                    <iscomment> <th scope="col">${Resource.msg('label.zip', 'friends', null)}</th> </iscomment>
+                    <th scope="col">${Resource.msg('label.email', 'friends', null)}</th>
+                    <th scope="col">${Resource.msg('label.friend_birthday', 'friends', null)}</th>
+                    <th scope="col">${Resource.msg('label.friend_phone', 'friends', null)}</th>
+                    <th scope="col">Share</th>
+
+
+
+                    <th scope="col">Edit / Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                <isloop items="${pdict.productList}" var="product">
+
+                    <tr>
+                        <td>${product.custom.first_name} ${product.custom.last_name}</td>
+                        <td>${product.custom.address1} </td>
+                        <iscomment> <td>${product.custom.address2}</td> </iscomment>
+                        <iscomment> <td>${product.custom.city}</td> </iscomment>
+                        <iscomment> <td>${product.custom.country}</td> </iscomment>
+                        <iscomment> <td>${product.custom.states}</td> </iscomment>
+                        <iscomment> <td>${product.custom.zip}</td> </iscomment>
+                        <td>${product.custom.emailFriendList}</td>
+
+                        <td>${product.custom.friend_birthday}</td>
+                        <td>${product.custom.friend_phone}</td>
+                        <td><a href="${URLUtils.url('FriendListUpdated-EditList','id',product.ID)}">GiftCard</a></td>
+                        <td><a href="${URLUtils.url('FriendListUpdated-EditList','id',product.ID)}">Edit</a>/<a
+                                href="${URLUtils.url('FriendListUpdated-DeleteList','id',product.ID)}">Delete</a>
+                                <a href="${URLUtils.url('Checkout-Begin','id',product.ID)}">Select</a></td>
+
+                    </tr>
+
+                </isloop>
+            </tbody>
+        </table>
+
+         <button style="background-color:blue;color:white;border:none;"><a href="${URLUtils.url('FriendListUpdated-MahChild')}"
+                    aria-label="${Resource.msg('label.friendList.addFriend','account',null)}" style="background-color:blue;color:white;border:none; border-radius:50%">${Resource.msg('link.addnew.friend','account',null)}</a>
+            </button>
+    </div>
+</isdecorate>

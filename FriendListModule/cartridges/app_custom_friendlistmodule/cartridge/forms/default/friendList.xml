@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<form xmlns="http://www.demandware.com/xml/form/2008-04-19">
+
+       <field formid="Id" label="label.input.id" type="string" mandatory="true" max-length="20" missing-error="error.message.required" range-error="error.message.20orless" regexp="^[A-Za-z]+$" parse-error=""/>
+       <field formid="firstName" label="label.input.firstname" type="string" mandatory="true" binding="firstName" max-length="50" missing-error="friends.firstname.missing" range-error="error.message.50orless"/>
+       <field formid="lastName" label="label.input.lastname" type="string" mandatory="true" binding="lastName" max-length="50" missing-error="friends.lastname.missing" range-error="error.message.50orless"/>
+       <field formid="address1" label="label.input.address1" type="string" mandatory="true" binding="address1" min-length="2" max-length="50" missing-error="friends.address1.missing" range-error="error.message.between2and50"/>
+       <field formid="address2" label="label.input.address2" type="string" mandatory="true" binding="address2" min-length="2" max-length="50" missing-error="friends.address2.missing" range-error="error.message.between2and50"/>
+       <field formid="date" label="label.input.date" mandatory="true" missing-error="error.message.required.date" type="string" binding="date" />
+       <field formid="country" label="label.input.country" mandatory="true" missing-error="error.message.required.country" type="string" binding="country">
+       <options>
+            <option optionid="US" label="select.option.country.unitedstates" value="US"/>
+        </options>
+       </field>
+       <!-- <field formid="state" label="label.input.state" mandatory="true" missing-error="error.message.required.state" type="string" binding="state" >
+       <options>
+            <option optionid="US" label="select.option.state.unitedstates" value="US"/>
+        </options>
+       </field> -->
+         <!-- use global state list -->
+    <include formid="states" name="states" missing-error="address.states.missing" parse-error="error.message.required" value-error="error.message.required"/>
+
+       <field formid="city" label="label.input.city" mandatory="true" missing-error="error.message.required.city" type="string" binding="city" />
+       <field formid="zip" label="label.input.zip" mandatory="true" missing-error="error.message.required.zip" type="string" binding="zip" />
+
+       <field formid="email" label="label.input.email" mandatory="true" max-length="50" missing-error="error.message.required" parse-error="error.message.parse.email.profile.form" range-error="error.message.50orless" regexp="^[\w.%+-]+@[\w.-]+\.[\w]{2,6}$" value-error="ValueErrorText" type="string"/>
+       <!-- phone is mandatory for addresses -->
+       <field formid="phone" label="label.input.phonenumber" description="address.phone.example" type="string" mandatory="true" binding="phone" min-length="10" max-length="20" missing-error="friends.phone.missing" range-error="error.message.between10and20" parse-error="error.message.parse.phone"/>
+
+       <!-- actions provided by the edit shipping address dialog -->
+       <action formid="apply" valid-form="true"/>
+       <action formid="remove" valid-form="false"/>
+</form>

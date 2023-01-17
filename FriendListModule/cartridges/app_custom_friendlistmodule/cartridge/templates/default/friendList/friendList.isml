@@ -1,0 +1,11 @@
+<div class="card">
+    <div class="card-header clearfix">
+        <h2 class="pull-left">${Resource.msg('label.friendlist','account',null)}</h2>
+        
+            <a href="${URLUtils.url('FriendListUpdated-FriendDataTable')}" class="pull-right" aria-label="${Resource.msg('label.friendList.viewFriendList','account',null)}">${Resource.msg('link.view.friend','account',null)}</a>
+    
+    </div>
+    <div class="card-footer card-footer-border text-center">
+        <a href="${URLUtils.url('FriendListUpdated-MahChild')}" class="card-link" aria-label="${Resource.msg('label.friendList.addFriend','account',null)}">${Resource.msg('link.addnew.friend','account',null)}</a>
+    </div>
+</div>

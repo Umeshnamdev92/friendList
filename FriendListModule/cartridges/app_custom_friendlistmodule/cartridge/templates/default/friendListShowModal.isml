@@ -1,0 +1,50 @@
+
+    <isscript>
+        var assets = require('*/cartridge/scripts/assets.js');
+        assets.addCss('/css/account/profile.css');
+        assets.addJs('/js/addressBook.js');
+    </isscript>
+
+    <div class="container">
+
+        <h1 style="text-align:center;color:burlywood;"> FRIENDS LIST</h1>
+            <br>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Select</th>
+                    <th scope="col">${Resource.msg('label.name', 'friends', null)}</th>
+                    <th scope="col">${Resource.msg('label.nickName', 'friends', null)}</th>
+                    <th scope="col">${Resource.msg('label.date', 'friends', null)}</th>
+                    <th scope="col">${Resource.msg('label.phone', 'friends', null)}</th>
+                    <th scope="col">${Resource.msg('label.address', 'friends', null)}</th>
+                    <th scope="col">${Resource.msg('label.address2', 'friends', null)}</th>
+                    <th scope="col">${Resource.msg('label.city', 'friends', null)}</th>
+                    <th scope="col">${Resource.msg('label.country', 'friends', null)}</th>
+                    <th scope="col">${Resource.msg('label.states', 'friends', null)}</th>
+                    <th scope="col">${Resource.msg('label.zip', 'friends', null)}</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <isloop items="${pdict.productListData}" var="product">
+
+                    <tr>
+                        <td><a href="${URLUtils.url('Checkout-Begin','id',product.ID)}"><button class="btn btn-primary">Select</button></a></td>
+                        <td>${product.custom.first_name} ${product.custom.last_name}</td>
+                        <td>${product.custom.pet_name}</td>
+                        <td>${product.custom.friend_birthday}</td>
+                        <td>${product.custom.friend_phone}</td>
+                        <td>${product.custom.address1} </td>
+                        <td>${product.custom.address2}</td>
+                        <td>${product.custom.city}</td>
+                        <td>${product.custom.country}</td>
+                        <td>${product.custom.states}</td>
+                        <td>${product.custom.zip}</td>
+
+                    </tr>
+
+                </isloop>
+            </tbody>
+        </table>
+    </div>
