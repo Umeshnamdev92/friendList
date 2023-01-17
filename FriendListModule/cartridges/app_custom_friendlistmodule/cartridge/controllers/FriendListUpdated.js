@@ -1,5 +1,7 @@
 "use strict";
 
+importPackage( dw.net );
+importPackage( dw.system );
 var server = require("server");
 
 var csrfProtection = require("*/cartridge/scripts/middleware/csrf");
@@ -32,7 +34,8 @@ server.post("Save", function (req, res, next) {
   var friendForm = server.forms.getForm("friendList");
   var formData = friendForm.toObject();
   var ProductMgr = require('dw/catalog/ProductMgr');
-
+  var CustomerMgr = require('dw/customer/CustomerMgr');
+  
 
   Transaction.wrap(function () {
     var AllFriendList = ProductListMgr.getProductLists(customer, 100);
@@ -54,19 +57,33 @@ server.post("Save", function (req, res, next) {
         ListItem = friendList.createProductItem(product);
       }
     });
+    var a = customer;
 
-    ListItem.custom.first_name = formData.firstName,
-    ListItem.custom.last_name = formData.lastName,
-    ListItem.custom.friend_birthday = formData.date,
-    ListItem.custom.friend_phone = formData.phone,
-    ListItem.custom.address1 = formData.address1,
-    ListItem.custom.address2 = formData.address2,
-    ListItem.custom.country = formData.country,
-    ListItem.custom.city = formData.city,
-    ListItem.custom.states = formData.states.stateCode,
-    ListItem.custom.emailFriendList = formData.email,
-    ListItem.custom.zip = formData.zip;
-
+    var customers = CustomerMgr.queryProfiles('firstName != null',null,'asc');
+    while(customers.hasNext()){
+      var list_of_customer = customers.next();
+      if(list_of_customer.email ==  formData.email){
+        ListItem.custom.first_name =list_of_customer.firstName ,
+        ListItem.custom.last_name = list_of_customer.lastName,
+        ListItem.custom.friend_birthday = list_of_customer.birthday,
+        ListItem.custom.friend_phone = list_of_customer.phoneHome,
+        ListItem.custom.address1 = list_of_customer.addressBook.addresses[0].address1,
+        ListItem.custom.address2 = list_of_customer.addressBook.addresses[0].address2,
+        ListItem.custom.country = list_of_customer.addressBook.addresses[0].countryCode.displayValue,
+        ListItem.custom.city = list_of_customer.addressBook.addresses[0].city,
+        ListItem.custom.states = list_of_customer.addressBook.addresses[0].stateCode,
+        ListItem.custom.emailFriendList = list_of_customer.email,
+        ListItem.custom.zip = list_of_customer.addressBook.addresses[0].postalCode;
+      }
+      else{
+        var mail: Mail = new dw.net.Mail();
+        mail.addTo("formData.email");
+        mail.setFrom(a.profile.email);
+        mail.setSubject("Request to Join Website");
+        mail.setContent('Join the Website and Get exclusive discount on fashion products');
+        mail.send();
+      }
+    }
     res.redirect(URLUtils.url("FriendListUpdated-FriendDataTable"));
   });
   next();
