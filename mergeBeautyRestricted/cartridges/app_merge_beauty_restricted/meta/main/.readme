@@ -1,0 +1,31 @@
+
+Things to do before Importing : -
+* Firstly unzip the 'allMetadata.zip' file and chanege the Refarch name under the site folder to your Refarch Id and in catalog folder in catalog.isml change the catalog id to your catalog Id and do same for all.
+
+
+Instructions for Importing the data :-
+
+1. customAttribute.xml : - Firstly import this in the BM .
+    Path -: Administration > Site Development > Import & Export > Meta Data
+
+2. allMetaData.zip : - Then Import this in BM in Site Import Export
+    Path -: Administration > Site Development > Site Import & Export
+
+3. isWineRefinements.xml : - Then Import this in BM in Merchant Tools
+    Path -: Merchant Tools > Products and Catalogs > Import & Export > Catalogs
+
+4. editWineAttrJob.xml : - Import it in Administration Operation Section
+    Path -: Administration > Operations > Import & Export > Jobs 
+
+5. recaptchaServices.xml : - Import it in Administration Operation Section
+    Path -: Administration > Operations > Import & Export > Services 
+
+NOTE - Please Maintaine the flow of impoting as mentioned.
+
+
+
+Things to do after Importing : -
+* Generate your own site key and secret key for recaptcha and put it in the Site prefrence.
+* Create product related to wine / engraving / beauty proucts for te specific product and keep the custom attribute true for engraving - isPersonalizable and for Wine - isWineOrNot
+* Create Produt options for engraving in the product which you want to make engrave and keep option Id as "engravingOptions" and create two option and give them id as "noEngraving" for without engraving and "engravingCost" for with Engraving.
+

@@ -1,0 +1,48 @@
+<!--- Subtotal --->
+<isscript>
+        var assets = require('*/cartridge/scripts/assets');
+        assets.addJs('/js/userWallets.js');
+        assets.addJs('/js/custom.js');
+
+    </isscript>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<h4 class="text-center text-success">Redeem Bonus Points</h4>
+<div class="text-center">
+    <h6>Your bonus point is: &nbsp;<b class="text-danger" id="storedPoints">${pdict.customer.profile.userWallet}</b>
+    </h6>
+</div>
+
+<div class="row text-center">
+
+    <div class="col text-center">
+        <input type="number" name="bonusPoint" class="form-control center" value="" id="bonusPoint"
+            placeholder=" Enter points to use">
+        <input type="hidden" name="bonuUrl" id="Bonusurl" value="${URLUtils.url('Checkout-UpdateBonus')}">
+
+    </div>
+    <div class="invalid-feedback">
+
+    </div>
+    <div class="col">
+        <button type="submit" class="btn btn-danger minusPoint" id="minusPoint">Apply</button>
+    </div> <br>
+</div>
+
+<div>
+    <isif condition="${pdict.showLine == true}">
+
+        <div id="appliedBonusDisplay" class="row text-center m-2 p-1">
+            <div class="row text-success">
+                <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+                <h6 class="col">Bonus Point has been Applied Successfully  </h6>
+                <a href="${URLUtils.url("Checkout-removeBonus")}" class="btn btn-danger" id="removeBonusPoint"> X </a>
+
+
+            </div>
+
+        </div>
+    <iselse/>
+
+    </isif>
+</div>

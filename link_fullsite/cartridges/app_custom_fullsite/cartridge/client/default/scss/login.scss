@@ -1,0 +1,89 @@
+@import "~base/variables";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/mixins/breakpoints";
+@import "~base/components/formFields";
+@import "bootstrap/scss/functions";
+
+.login-page {
+    margin-top: 1em;
+
+    .login-form-nav {
+        margin-bottom: 1.25em;
+        font-family: 'FontAwesome';
+
+        .tab-pane {
+            margin-top: 1em;
+        }
+    }
+
+    .login {
+        margin-bottom: 0.938em;
+
+        .error-message-form {
+            padding: 0.625em;
+            background-color: $danger;
+            color: $state-danger-text;
+            border-radius: 0.188em;
+        }
+    }
+}
+
+.registration-page {
+    .privacy-policy {
+        margin-top: 1rem;
+    }
+}
+
+.login-banner {
+    background-image: url('../images/login.jpg');
+    background-position-y: 40%;
+}
+
+.equal-height .card {
+    width: 100%;
+}
+
+.track-order-header {
+    font-size: 1.75rem;
+}
+
+.request-password-title {
+    font-size: 1.5rem;
+}
+//give the border radius and color to button
+input,button{
+    border-radius: 200px !important;
+    
+    border-color: #848484 !important;
+}
+.loginstyle{
+    background-color: whitesmoke;
+}
+
+.createaccountbtn{
+    text-decoration: none;
+    // color: black !important;
+}
+// .oauth-google:focus{
+//     background-color: var(--skin-primary-color-1);
+//     color: white !important;
+// }
+
+// .oauth-facebook:focus{
+//     background-color: var(--skin-primary-color-1);
+//     color: white !important;
+// }
+.oauth-facebook:focus{
+    background-color: var(--skin-primary-color-1);
+    color: white !important;
+}
+// .oauth-facebook:focus{
+//     background-color: var(--skin-primary-color-1);
+//     color: white !important;
+// }
+
+.privacyPolicy-text{
+    color: black !important;
+    font-size: 15px !important;
+    float: right !important;
+}

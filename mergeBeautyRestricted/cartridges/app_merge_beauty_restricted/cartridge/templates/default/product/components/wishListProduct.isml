@@ -1,0 +1,8 @@
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<button class="wishlist-pdp btn btn-light" data-url="${URLUtils.url('Wishlist-Addwishlist')}"
+        data-toggle="modal" style="background: purple;border-radius: 2.3rem; height: 2.38rem;">
+        <i style="color:white; margin-top: 0rem;" class="fa fa-heart"></i>
+        <label class="form-control-label" style="color:white;">
+                ${Resource.msg('label.input.wishlist', 'wishlist', null)}
+        </label>
+</button>

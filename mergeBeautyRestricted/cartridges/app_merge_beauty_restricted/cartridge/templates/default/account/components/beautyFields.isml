@@ -1,0 +1,59 @@
+
+   <!-- Template for show Beauty Fields in Profile Form -->
+<div class="row form-group">
+  <div class="col-md-6">
+        <label for="skintone">
+            <isprint value="${pdict.profileForm.customer.skintone.label}" encoding="htmlcontent" />
+        </label>
+        <select class="form-control" id="country" <isprint value="${pdict.profileForm.customer.skintone.attributes}"
+            encoding="off" /> <isif condition="${pdict.isBeautyFieldsEditable == false}"> disabled <iselse/> </isif>
+        autocomplete="country">
+        <option value="">${Resource.msg('default.select', 'forms' , 'Select Value')}</option>
+        <isloop items=${pdict.profileForm.customer.skintone.options} var="skin">
+            <option value="${skin.htmlValue}" <isif condition="${skin.htmlValue == pdict.profileForm.customer.skintone.htmlValue}"> selected <iselse/> </isif> >${skin.label}</option>
+        </isloop>
+        </select>
+    </div>
+    <div class="col-md-6">
+        <label for="eyecolor">
+            <isprint value="${pdict.profileForm.customer.eyecolor.label}" encoding="htmlcontent" />
+        </label>
+        <select class="form-control" id="eyecolor" <isprint value="${pdict.profileForm.customer.eyecolor.attributes}"
+            encoding="off" /> <isif condition="${pdict.isBeautyFieldsEditable == false}"> disabled <iselse/> </isif>
+        autocomplete="country">
+        <option value="">${Resource.msg('default.select', 'forms' , 'Select Value')}</option>
+        <isloop items=${pdict.profileForm.customer.eyecolor.options} var="eyecolor">
+            <option value="${eyecolor.htmlValue}" <isif condition="${eyecolor.htmlValue == pdict.profileForm.customer.eyecolor.htmlValue}"> selected <iselse/> </isif>>${eyecolor.label}</option>
+        </isloop>
+        </select>
+    </div>
+</div>
+
+<div class="row form-group">
+  <div class="col-md-6">
+        <label for="haircolor">
+            <isprint value="${pdict.profileForm.customer.haircolor.label}" encoding="htmlcontent" />
+        </label>
+        <select class="form-control" id="haircolor" <isprint value="${pdict.profileForm.customer.haircolor.attributes}"
+            encoding="off" /> <isif condition="${pdict.isBeautyFieldsEditable == false}"> disabled <iselse/> </isif>
+        autocomplete="country">
+        <option value="">${Resource.msg('default.select', 'forms' , 'Select Value')}</option>
+        <isloop items=${pdict.profileForm.customer.haircolor.options} var="haircolor">
+            <option value="${haircolor.htmlValue}" <isif condition="${haircolor.htmlValue == pdict.profileForm.customer.haircolor.htmlValue}"> selected <iselse/> </isif> >${haircolor.label}</option>
+        </isloop>
+        </select>
+    </div>
+    <div class="col-md-6">
+        <label for="skintype">
+            <isprint value="${pdict.profileForm.customer.skintype.label}" encoding="htmlcontent" />
+        </label>
+        <select class="form-control" id="skintype" <isprint value="${pdict.profileForm.customer.skintype.attributes}"
+            encoding="off" /> <isif condition="${pdict.isBeautyFieldsEditable == false}"> disabled <iselse/> </isif>
+        autocomplete="country">
+        <option value="">${Resource.msg('default.select', 'forms' , 'Select Value')}</option>
+        <isloop items=${pdict.profileForm.customer.skintype.options} var="skintype">
+            <option value="${skintype.htmlValue}" <isif condition="${skintype.htmlValue == pdict.profileForm.customer.skintype.htmlValue}"> selected <iselse/> </isif> >${skintype.label}</option>
+        </isloop>
+        </select>
+    </div>
+</div>

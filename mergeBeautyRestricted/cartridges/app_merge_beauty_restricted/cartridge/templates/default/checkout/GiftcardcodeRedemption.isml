@@ -1,0 +1,28 @@
+
+<!--- Gift Certificate Reedem Form --->
+  <isscript>
+        var assets = require('*/cartridge/scripts/assets');
+        assets.addJs('/js/giftreedem.js');
+
+    </isscript>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+   <div id="RedeemGiftCertificate">
+    
+  
+    <h4 class="text-success">${Resource.msg('labal.redeem.giftcard' , 'giftCard' , null)}</h4>
+<div class="row text-left">
+    <div class="col">
+        <label class="text-left" for="GiftCardCode">${Resource.msg('field.GiftCardCode','GiftCardCode','Enter Gift certificate code')}</label>
+        <input type="text" name="GiftCardCode" class="form-control " value="" id="GiftCardCode" placeholder=" Enter GiftCard Code to use"></br>
+       
+        <label class="form-control-label" for="redeemamount">${Resource.msg('field.GiftCardCode','GiftCardCode','Enter amount')}</label>
+        <input type="number" name="redeemamount" class="form-control" value="" id="redeemamount" placeholder=" Enter amount to use">
+        <input type="hidden" name="GiftCardreedemUrl" id="GiftCardreedemurl" value="${URLUtils.url('Checkout-Applygiftcard')}">
+    </div>
+    <div class="invalid-feedback"></div>
+     <br>
+</div>
+</br>
+<button type="button" class="btn btn-primary" id="reedemgiftcardbalance">Apply</button>
+
+ </div>

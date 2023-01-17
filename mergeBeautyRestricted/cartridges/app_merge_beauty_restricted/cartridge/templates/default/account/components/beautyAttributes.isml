@@ -1,0 +1,27 @@
+
+
+<!-- Template for Display Beauty Attributes -->
+<isif condition="${pdict.account.profile.haircolor}">
+    <dl>
+        <dt>${Resource.msg('labal.haircolor', 'forms', null)}</dt>
+        <dd>${pdict.account.profile.haircolor}</dd>
+    </dl>
+</isif>
+<isif condition="${pdict.account.profile.eyecolor}">
+    <dl>
+        <dt>${Resource.msg('labal.eyecolor', 'forms', null)}</dt>
+        <dd>${pdict.account.profile.eyecolor}</dd>
+    </dl>
+</isif>
+<isif condition="${pdict.account.profile.skintone}">
+    <dl>
+        <dt>${Resource.msg('labal.skintone', 'forms', null)}</dt>
+        <dd>${pdict.account.profile.skintone}</dd>
+    </dl>
+</isif>
+<isif condition="${pdict.account.profile.skintype}">
+    <dl>
+        <dt>${Resource.msg('labal.stintype', 'forms', null)}</dt>
+        <dd>${pdict.account.profile.skintype}</dd>
+    </dl>
+</isif>

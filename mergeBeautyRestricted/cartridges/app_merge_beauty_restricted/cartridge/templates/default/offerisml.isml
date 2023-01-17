@@ -1,0 +1,32 @@
+<!-- Template for Winter Offer of PDP Page -->
+<isdecorate template="common/layout/page">
+   <div class="mt-2 shop-the-style">
+      <isslot id="pdp-custom-banner-aashu" context="global" description="Banner" preview-url="" />
+
+   </div>
+   <div class="row">
+      <div class="col-12 d-flex align-items-center justify-content-center">
+         <h1 class="text-primary">Winter Sale</h1>
+      </div>
+   </div>
+
+   <div class="row">
+      <div class="col-sm-12 p-4">
+         <div class="container">
+            <p>To make this a No Cost EMI offer, interest amount will be discounted from the price of your order. Total
+               amount
+               you pay to the bank (excluding GST) will be equal to the price of the item. Bank may charge you GST only
+               on the
+               interest amount. Certain tenures are available on no cost EMI only on down payment. Please check EMI
+               plans in
+               payments page for more details.</p>
+
+            <div>
+               <isslot id="winter-offer" context="global" description="Winter Offer" preview-url="" />
+            </div>
+         </div>
+
+      </div>
+   </div>
+
+</isdecorate>

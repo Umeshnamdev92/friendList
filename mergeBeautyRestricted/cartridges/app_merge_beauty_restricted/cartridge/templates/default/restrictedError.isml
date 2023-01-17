@@ -1,0 +1,11 @@
+
+<!-- Template Restricted page for wine products -->
+<isdecorate template="common/layout/page">
+<isscript>
+    var assets = require('*/cartridge/scripts/assets.js');
+    assets.addCss('/css/restrictedImage.css');
+</isscript>
+    <div class="restricted-image">
+        <h1 class="text-center m-4 text-danger">Not Authorised for this product</h1>
+    </div>
+</isdecorate>

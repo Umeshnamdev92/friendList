@@ -1,0 +1,21 @@
+
+<!-- Template for Displaying Reccomendations -->
+    <div class="row d-flext flex-wrap ml-2">
+    <isloop items="${pdict.recommendations}" var="product" status="loopstatus">
+            <div class="card border p-2 m-2" style="width: ${pdict.tileCount.toFixed()}rem">
+                <div class="image-container">
+                    <img class="tile-image card-img-top" src="${product.product.getImages('medium')[0].url}"
+                        alt="${product.product.productName}" title="${product.product.getImages('medium')[0].title}" />
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title"><strong>${product.product.name}</strong></h4>
+                    <p style="line-height: 1.5em; height: 3em;  overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">${product.product.shortDescription}</p>
+                    <h5 style="color: #B12704; text-align:center bottom:0">
+                        <b>$ ${product.product.priceModel.maxPrice.decimalValue}</b>
+                    </h5>
+                </div>
+                <button class="recommended-add-to-cart btn btn-primary" data-pid="${product.product.ID}">Add to
+                    Cart</button>
+            </div>
+    </isloop>
+</div>

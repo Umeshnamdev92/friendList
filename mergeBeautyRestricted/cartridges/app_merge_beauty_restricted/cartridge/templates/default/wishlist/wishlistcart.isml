@@ -1,0 +1,2 @@
+<a href="${URLUtils.url('Wishlist-Show')}"><i class="fa fa-heart fa-lg" aria-hidden="false" id="wishlistIcon"></i></a>
+<span id="wishListCount">${pdict.count}</span>

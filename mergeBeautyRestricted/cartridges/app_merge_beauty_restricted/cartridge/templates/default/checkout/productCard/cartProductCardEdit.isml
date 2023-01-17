@@ -1,0 +1,23 @@
+<!--- Check of engraving Options --->
+<isset name="isShowEdit" value="false" scope="page" />
+
+<isloop items="${lineItem.options}" var="option" status="loopstatus">
+    <isif condition="${option.optionId == 'engravingOptions'}">
+        <isset name="isShowEdit" value="true" scope="page" />
+    <iselse/>
+        <isset name="isShowEdit" value="false" scope="page" />
+    </isif>
+</isloop>
+<isif condition="${isShowEdit == 'false'}">
+<!--- Edit product --->
+<div class="product-edit">
+    <a href="${URLUtils.url('Cart-GetProduct', 'uuid', lineItem.UUID)}" class="edit"
+       data-toggle="modal" data-target="#editProductModal"
+       aria-label="${Resource.msgf('text.edit.line.item','cart', null, lineItem.productName)}"
+       title="${Resource.msg('link.edit.item', 'cart',null)}">
+           ${Resource.msg('link.edit.item', 'cart', null)}
+    </a>
+</div>
+
+<iselse/>
+</isif>

@@ -1,0 +1,23 @@
+<div class="shw">
+    <div class="showpop" style="display: block;">
+        <div class="size_popup lft">
+            <isif condition="${pdict.isVariant === 'false'}">
+                    <div class="select_size my-2">
+                        <span class="">
+                            <label class="form-control-label" for="contact-topic">
+                                ${Resource.msg('label.input.size', 'wishlist', null)}
+                            </label>
+                        </span>
+                        <span class="data-close" data-icon="1"></span>
+                    </div>
+                    <div class="row">
+                        <isloop items="${pdict.sizes}" var="size" status="loopstatus">
+                            <div class="lft year_baby">
+                            <button type="button" data-url="${URLUtils.url('Wishlist-Variation','pid',pdict.optionId,'sizeID',size.id,'disableOption',pdict.disableOption)}" class="getSize btn btn-light" id="${pdict.optionId}">${size.displayValue}</button>
+                            </div>
+                        </isloop>
+                    </div>
+            </isif>
+        </div>
+    </div>
+</div>

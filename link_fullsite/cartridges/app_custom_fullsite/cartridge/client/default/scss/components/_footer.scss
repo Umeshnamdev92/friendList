@@ -1,0 +1,195 @@
+@import "~base/components/collapsibleItem";
+@import "~base/components/toastMessage";
+
+footer {
+    background-color: $gray-200;
+    padding-top: 1.25em; /* 20/16 */
+    padding-bottom: 1.25em;
+
+    h2 {
+        font-size: $font-size-base;
+        margin-bottom: 0;
+        line-height: 2.5em; /* 40/16 */
+    }
+
+    ul {
+        list-style: none;
+        padding-left: 0;
+    }
+
+    .social {
+        h2 {
+            margin-top: 0;
+        }
+
+        @include clearfix;
+    }
+
+    .copyright,
+    .social {
+        margin-top: 1.25em;
+    }
+
+    .footer-container .footer-item.collapsible-xs button {
+        font-family: 'Dosis', sans-serif;
+        padding: 0;
+    }
+
+    .social-links {
+
+        @include clearfix;
+
+        @include media-breakpoint-down(xs) {
+            width: 80%;
+        }
+
+        float: left;
+
+        li {
+            float: left;
+            margin: 0.313em;
+
+            @include media-breakpoint-down(xs) {
+                width: 20%;
+                text-align: center;
+            }
+        }
+
+        a {
+            font-size: 2em;
+            color: white !important;
+
+            &:hover {
+                text-decoration: none;
+            }
+        }
+    }
+
+    .store {
+
+        @include media-breakpoint-down(xs) {
+            border-bottom: 1px solid $dark-gray;
+
+            .content {
+                display: none;
+            }
+
+            h2 {
+                @include clearfix;
+
+                &::after {
+                    font-family: "FontAwesome";
+                    float: right;
+                    content: "\f041";
+                }
+            }
+        }
+    }
+
+    .content {
+        font-size: 0.875em;
+        color: whitesmoke;
+
+        li {
+            height: 1.875rem;
+            color: whitesmoke;
+        }
+    }
+
+    .copyright,
+    .postscript {
+        font-size: 0.8125em;
+        color: aliceblue;
+    }
+
+    .copyright {
+        margin-bottom: 0.625em;
+        color: aliceblue;
+
+    }
+
+    .back-to-top {
+        margin: 0.1em 0.313em;
+        padding: 0;
+        background-color: transparent;
+        border: 0;
+        -webkit-appearance: none;
+
+        i {
+            &.fa-arrow-up {
+                color: rgba(0, 0, 0, 0.7);
+            }
+
+            &.fa-circle {
+                text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            }
+        }
+    }
+}
+
+.footer-item {
+
+    @include media-breakpoint-down(xs) {
+         border-bottom: 1px solid $dark-gray;
+    }
+}
+
+#consent-tracking {
+    .button-wrapper {
+        button {
+            margin: 0.5em;
+            color: #FFFFFF !important;
+    background-color: #890076 !important;
+    border:1px solid #890076;
+        }
+    }
+}
+
+#consent-tracking {
+    .button-wrapper {
+        button:hover {
+            color: #890076 !important;
+    background-color: white !important;
+        }
+    }
+}
+
+
+#consent-tracking {
+    .button-wrapper {
+        button:focus {
+            color: #FFFFFF !important;
+    background-color: #890076 !important;
+    border:1px solid #e103c4;
+    box-shadow: none;
+        }
+    }
+}
+
+.email-signup-message {
+    @include toast-message();
+}
+
+.email-signup-alert {
+    @include toast-alert();
+}
+// Footer content background color change 
+#footercontent {
+    background-color: #15223b !important;
+    padding-top: 1.25em !important;
+    padding-bottom: 1.25em;
+    font-family: 'FontAwesome'!important;   //font family of the content
+    font-size: large !important;
+    border-radius: 0 0 100px 100px;      //for giving the some radius to bottom
+}
+
+// for changing the color of the coloumn content
+.col-sm-3 {
+    color: whitesmoke !important;
+}
+
+
+.menu-footer content {
+    color: whitesmoke !important;
+    text-decoration: underline;
+}
