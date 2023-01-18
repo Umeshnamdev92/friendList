@@ -23,7 +23,7 @@ server.append('Begin',function(req,res,next){
             productList = productList[0];
         }
         var productList = productList.getItem(id);
-        productlist.push(productList);   
+        productlist.push(productList);
       });
 
     res.render('checkout/checkout',{
