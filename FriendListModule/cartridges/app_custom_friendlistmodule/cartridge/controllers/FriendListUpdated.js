@@ -85,6 +85,8 @@ server.get("FriendDataTable", function (req, res, next) {
     productListData = productList.getItems();
   });
   res.render("friendList/friendListShow", { productList: productListData });
+  // res.render("checkout/friendListShow", { productList: productListData });
+
   next();
 });
 
