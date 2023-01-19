@@ -28,7 +28,7 @@
             </thead>
             <tbody>
                 <isloop items="${pdict.productListData}" var="product">
-
+                    <isif condition="${product.custom.first_name != null}">  
                     <tr>
                         <td><a href="${URLUtils.url('Checkout-Begin','id',product.ID)}"><button class="btn btn-primary">Select</button></a></td>
                         <td>${product.custom.first_name} ${product.custom.last_name}</td>
@@ -43,7 +43,8 @@
                         <td>${product.custom.zip}</td>
 
                     </tr>
-
+                    <iselse/>                   
+                    </isif>
                 </isloop>
             </tbody>
         </table>

@@ -20,43 +20,31 @@
                 <tr>
                     <th scope="col">${Resource.msg('label.name', 'friends', null)}</th>
                     <th scope="col">${Resource.msg('label.address1', 'friends', null)}</th>
-                    <iscomment> <th scope="col">${Resource.msg('label.address2', 'friends', null)}</th> </iscomment>
-                    <iscomment> <th scope="col">${Resource.msg('label.city', 'friends', null)}</th> </iscomment>
-                    <iscomment> <th scope="col">${Resource.msg('label.country', 'friends', null)}</th> </iscomment>
-                    <iscomment> <th scope="col">${Resource.msg('label.states', 'friends', null)}</th> </iscomment>
-                    <iscomment> <th scope="col">${Resource.msg('label.zip', 'friends', null)}</th> </iscomment>
                     <th scope="col">${Resource.msg('label.email', 'friends', null)}</th>
                     <th scope="col">${Resource.msg('label.friend_birthday', 'friends', null)}</th>
                     <th scope="col">${Resource.msg('label.friend_phone', 'friends', null)}</th>
-                    <th scope="col">Share</th>
-
-
-
+                    <th scope="col">Share</th>  
                     <th scope="col">Edit / Delete</th>
                 </tr>
             </thead>
             <tbody>
                 <isloop items="${pdict.productList}" var="product">
+                    <isif condition="${product.custom.first_name != null}">                   
+                        <tr>
+                            <td>${product.custom.first_name} ${product.custom.last_name}</td>
+                            <td>${product.custom.address1} </td>
+                             <td>${product.custom.emailFriendList}</td>
 
-                    <tr>
-                        <td>${product.custom.first_name} ${product.custom.last_name}</td>
-                        <td>${product.custom.address1} </td>
-                        <iscomment> <td>${product.custom.address2}</td> </iscomment>
-                        <iscomment> <td>${product.custom.city}</td> </iscomment>
-                        <iscomment> <td>${product.custom.country}</td> </iscomment>
-                        <iscomment> <td>${product.custom.states}</td> </iscomment>
-                        <iscomment> <td>${product.custom.zip}</td> </iscomment>
-                        <td>${product.custom.emailFriendList}</td>
+                            <td>${product.custom.friend_birthday}</td>
+                            <td>${product.custom.friend_phone}</td>
+                            <td><a href="${URLUtils.url('FriendListUpdated-EditList','id',product.ID)}">GiftCard</a></td>
+                            <td><a href="${URLUtils.url('FriendListUpdated-EditList','id',product.ID)}">Edit</a>/<a
+                                    href="${URLUtils.url('FriendListUpdated-DeleteList','id',product.ID)}">Delete</a>
+                                    <a href="${URLUtils.url('Checkout-Begin','id',product.ID)}">Select</a></td>
 
-                        <td>${product.custom.friend_birthday}</td>
-                        <td>${product.custom.friend_phone}</td>
-                        <td><a href="${URLUtils.url('FriendListUpdated-EditList','id',product.ID)}">GiftCard</a></td>
-                        <td><a href="${URLUtils.url('FriendListUpdated-EditList','id',product.ID)}">Edit</a>/<a
-                                href="${URLUtils.url('FriendListUpdated-DeleteList','id',product.ID)}">Delete</a>
-                                <a href="${URLUtils.url('Checkout-Begin','id',product.ID)}">Select</a></td>
-
-                    </tr>
-
+                        </tr>
+                    <iselse/>                   
+                    </isif>
                 </isloop>
             </tbody>
         </table>

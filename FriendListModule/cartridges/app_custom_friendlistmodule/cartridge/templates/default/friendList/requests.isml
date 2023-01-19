@@ -1,0 +1,32 @@
+<isdecorate template="common/layout/page">
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">${Resource.msg('label.name', 'friends', null)}</th>
+                    <th scope="col">${Resource.msg('label.address1', 'friends', null)}</th>
+                    <th scope="col">${Resource.msg('label.email', 'friends', null)}</th>
+                    <th scope="col">${Resource.msg('label.SenderName', 'friends', null)}</th> 
+                    <th scope="col">Requests status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <isloop items="${pdict.requests}" var="request" status="loopstatus">
+                                      
+                        <tr>
+                            <td>${request.customer.profile.firstName} ${request.customer.profile.lastName}</td>
+                            <td>${request.customer.profile.addressBook.addresses[0].address1} </td>
+                            <td>${request.object.custom.SenderEmail}</td>
+                            <td>${request.object.custom.SenderName}</td>
+                            <td>
+                                <isif condition="${request.object.custom.Status == true}">
+                                    <button type="button" class="btn btn-primary"><a href="${URLUtils.url('NewFriend-AcceptRequest','id',request.object.custom.FriendRequest)}">Accepted</a></button>
+                                <iselse/>  
+                                    <button type="button" class="btn btn-primary"><a href="${URLUtils.url('NewFriend-AcceptRequest','id',request.object.custom.FriendRequest)}">Accept</a></button>
+                                </isif>
+                            </td>
+                        </tr>
+                </isloop>
+            </tbody>
+        </table>
+</isdecorate>
