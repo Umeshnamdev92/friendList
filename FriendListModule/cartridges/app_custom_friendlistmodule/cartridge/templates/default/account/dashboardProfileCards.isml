@@ -19,6 +19,6 @@
         </isif>
         <!---Payment--->
         <isinclude template="account/paymentCard"/>
-       
+         <isinclude template="friendList/friendList"/>
     </div>
 </div>

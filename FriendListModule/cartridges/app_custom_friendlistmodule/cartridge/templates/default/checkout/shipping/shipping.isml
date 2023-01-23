@@ -1,0 +1,78 @@
+<div class="card ghost shipping">
+    <div class="card-header">
+        <h2 class="card-header-custom">${Resource.msg('heading.checkout.shipping', 'checkout', null)}</h2>
+    </div>
+</div>
+
+<div class="card shipping-section">
+    <div class="single-shipping">
+        <isset name="shippingModel" value="${pdict.order.shipping[0]}" scope="page" />
+        <isset name="shipmentLoopState" value="${null}" scope="page" />
+        <isset name="lineItem" value="${null}" scope="page" />
+        <div data-shipment-uuid="${shippingModel.UUID}">
+            <div class="card-header">
+                <h2 class="card-header-custom">${Resource.msg('heading.checkout.shipping', 'checkout', null)}</h2>
+            </div>
+
+            <div class="shipping-error"></div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="form-group">
+                        <div class="custom-control-friendAddress custom-checkbox"
+                            style="margin-bottom: -4% !important;padding-left: 7% !important;">
+                            <iscomment> <input class="custom-control-input" type="checkbox" name="friend_address"
+                                    id="friendlist_modal" value="">
+                                <label for="friendlist_modal" class="custom-control-label checkout-checkbox">
+                                    ${Resource.msg('send.product.to.friend', 'forms', null)}
+                                </label> </iscomment>
+
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-primary" data-toggle="modal"
+                                data-target="#exampleModal">
+                                Launch demo modal
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <isinclude template="friendListShowModal" sf-toolkit="on" />
+      </div>
+    </div>
+  </div>
+
+
+
+
+            <isinclude template="checkout/shipping/multiShipCheckbox" />
+
+            <isinclude template="checkout/shipping/shipmentCard" />
+        </div>
+    </div>
+
+    <div class="multi-shipping">
+        <isloop items="${pdict.order.shipping}" var="shippingModel" status="shipmentLoopState">
+            <isloop items="${shippingModel.productLineItems.items}" var="lineItem">
+                <div class="card" data-shipment-uuid="${shippingModel.UUID}">
+                    <div class="card-header">
+                        <isinclude template="checkout/productCard/productShippingCard" />
+                    </div>
+
+                    <isinclude template="checkout/shipping/shipmentCard" />
+                </div>
+            </isloop>
+        </isloop>
+    </div>
+</div>

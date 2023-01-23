@@ -32,5 +32,11 @@
   "browserslist": [
     "last 2 versions",
     "ie >= 10"
-  ]
+  ],
+  "paths": {
+    "base": "../storefront-reference-architecture-master/cartridges/app_storefront_base"
+  },
+  "dependencies": {
+    "bootstrap": "^5.2.3"
+  }
 }

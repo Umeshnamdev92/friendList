@@ -19,30 +19,38 @@
             <thead>
                 <tr>
                     <th scope="col">${Resource.msg('label.name', 'friends', null)}</th>
-                    <th scope="col">${Resource.msg('label.nickName', 'friends', null)}</th>
-                    <th scope="col">${Resource.msg('label.date', 'friends', null)}</th>
-                    <th scope="col">${Resource.msg('label.phone', 'friends', null)}</th>
+                    <th scope="col">${Resource.msg('label.address1', 'friends', null)}</th>
+                    <th scope="col">${Resource.msg('label.email', 'friends', null)}</th>
+                    <th scope="col">${Resource.msg('label.friend_birthday', 'friends', null)}</th>
+                    <th scope="col">${Resource.msg('label.friend_phone', 'friends', null)}</th>
+                    <th scope="col">Share</th>  
                     <th scope="col">Edit / Delete</th>
                 </tr>
             </thead>
             <tbody>
                 <isloop items="${pdict.productList}" var="product">
+                    <isif condition="${product.custom.first_name != null}">                   
+                        <tr>
+                            <td>${product.custom.first_name} ${product.custom.last_name}</td>
+                            <td>${product.custom.address1} </td>
+                             <td>${product.custom.emailFriendList}</td>
 
-                    <tr>
-                        <td>${product.custom.first_name} ${product.custom.last_name}</td>
-                        <td>${product.custom.pet_name}</td>
-                        <td>${product.custom.friend_birthday}</td>
-                        <td>${product.custom.friend_phone}</td>
-                        <td><a href="${URLUtils.url('FriendListUpdated-EditList','id',product.ID)}">Edit</a>/<a
-                                href="${URLUtils.url('FriendListUpdated-DeleteList','id',product.ID)}">Delete</a></td>
-                    </tr>
+                            <td>${product.custom.friend_birthday}</td>
+                            <td>${product.custom.friend_phone}</td>
+                            <td><a href="${URLUtils.url('FriendListUpdated-EditList','id',product.ID)}">GiftCard</a></td>
+                            <td><a href="${URLUtils.url('FriendListUpdated-EditList','id',product.ID)}">Edit</a>/<a
+                                    href="${URLUtils.url('FriendListUpdated-DeleteList','id',product.ID)}">Delete</a>
+                                    <a href="${URLUtils.url('Checkout-Begin','id',product.ID)}">Select</a></td>
 
+                        </tr>
+                    <iselse/>                   
+                    </isif>
                 </isloop>
             </tbody>
         </table>
-        
+
          <button style="background-color:blue;color:white;border:none;"><a href="${URLUtils.url('FriendListUpdated-MahChild')}"
                     aria-label="${Resource.msg('label.friendList.addFriend','account',null)}" style="background-color:blue;color:white;border:none; border-radius:50%">${Resource.msg('link.addnew.friend','account',null)}</a>
-            </button> 
+            </button>
     </div>
 </isdecorate>
