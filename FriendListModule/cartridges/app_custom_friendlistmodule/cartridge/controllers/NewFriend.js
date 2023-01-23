@@ -25,6 +25,35 @@ server.get('getRequest',function(req,res,next){
 
 server.get('AcceptRequest',function(req,res,next){
     var CustomerMgr = require('dw/customer/CustomerMgr');
+
+    var id = req.querystring.id;
+    var status = null;
+    var sender_customerNo = null;
+    var receiver_customerNo = null;
+    
+    var customers = CustomerMgr.queryProfiles('firstName != null',null,'asc');
+    while(customers.hasNext()){
+        var list_of_customer = customers.next();
+    Transaction.wrap(function(){
+        var a = CustomObjectMgr.getCustomObject(`Requests`,id);
+        if(list_of_customer.customerNo == a.custom.ReceiverAddress){
+            receiver_customerNo = a.custom.ReceiverAddress;
+            sender_customerNo = a.custom.SenderAddress;
+        }
+        a.custom.Status = true;
+        status = a.custom.Status;
+
+
+
+    })
+    // res.redirect('FriendListUpdated-AcceptedRequestFriends')
+}
+res.redirect(URLUtils.url('FriendListUpdated-AcceptedRequestFriends','sender',sender_customerNo,'receiver',receiver_customerNo));
+next()
+})
+
+server.get('DeclineRequest',function(req,res,next){
+    var CustomerMgr = require('dw/customer/CustomerMgr');
     var id = req.querystring.id;
     var status = null;
     var customerNo = null;
@@ -34,16 +63,12 @@ server.get('AcceptRequest',function(req,res,next){
         var list_of_customer = customers.next();
     Transaction.wrap(function(){
         var a = CustomObjectMgr.getCustomObject(`Requests`,id);
-        if(list_of_customer.customerNo == a.custom.ReceiverAddress){
-            customerNo = a.custom.ReceiverAddress;
-        }
-        a.custom.Status = true;
-        status = a.custom.Status;
-
+        a.custom.Status = false;
     })
 }
-
-    res.redirect(URLUtils.url('FriendListUpdated-AcceptedRequestFriends','id','status','customer',id,status,customerNo));
+res.render('friendList/requests');
 })
+
+
 
 module.exports = server.exports();

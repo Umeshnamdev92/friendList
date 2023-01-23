@@ -1,5 +1,5 @@
 <isdecorate template="common/layout/page">
-
+<div class="container">
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -29,4 +29,5 @@
                 </isloop>
             </tbody>
         </table>
+    </div>
 </isdecorate>

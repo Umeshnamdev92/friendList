@@ -28,59 +28,51 @@ server.get(
 );
 
 server.post("Save", function (req, res, next) {
-  var friendList = null;
-  var ListItem = null;
-  var data = res.getViewData();
-  var ListItemId = data.queryString.split("=")[1];
-  var friendForm = server.forms.getForm("friendList");
-  var formData = friendForm.toObject();
+  var form = server.forms.getForm("friendList");
+  var Transaction = require("dw/system/Transaction");
+  var Logger = require("dw/system/Logger");
+  var ProductListMgr = require("dw/customer/ProductListMgr");
+  var URLUtils = require("dw/web/URLUtils");
+  var new_Form = form.toObject();
   var ProductMgr = require('dw/catalog/ProductMgr');
+  var product = ProductMgr.getProduct('shampo');
   var CustomerMgr = require('dw/customer/CustomerMgr');
   var CustomObjectMgr = require('dw/object/CustomObjectMgr');
 
-
   Transaction.wrap(function () {
-    var AllFriendList = ProductListMgr.getProductLists(customer, 100);
-    if (AllFriendList.length == 0) {
-      var newfriendList = ProductListMgr.createProductList(customer, 100);
-      friendList = newfriendList;
-      Logger.info(friendList);
-    } else {
-      friendList = AllFriendList[0];
-      Logger.info(friendList);
+    var productList = ProductListMgr.getProductLists(customer , 100);
+    if(productList.length == 0){
+        var ProductList = ProductListMgr.createProductList(customer, 100)
+        productList = ProductList
+    }else
+    {
+        productList = productList[0];
     }
 
-    Transaction.wrap(function () {
-      if (ListItemId != "") {
-        var friendId = ListItemId;
-        ListItem = friendList.getItem(friendId);
-      } else {
-        var product = ProductMgr.getProduct("shampo");
-        ListItem = friendList.createProductItem(product);
-      }
-    });
     var a = customer;
     var id = UUIDUtils.createUUID();
     var customers = CustomerMgr.queryProfiles('firstName != null',null,'asc');
     while(customers.hasNext()){
+      var current_customer = customer;
       var list_of_customer = customers.next();
-      if(list_of_customer.email ==  formData.email){
+      if(list_of_customer.email ==  new_Form.email){
         Transaction.wrap(function () {
         var requests = CustomObjectMgr.createCustomObject('Requests',id);
+        requests.custom.SenderAddress = a.profile.customerNo;
         requests.custom.SenderName = a.profile.firstName;
         requests.custom.ReceiverAddress = list_of_customer.customerNo;
-        requests.custom.SenderEmail = list_of_customer.email;
+        requests.custom.SenderEmail =current_customer.profile.email;
         requests.custom.Status = false; 
       });
       }
     }
-    if(ListItem.custom.first_name == null){
+    if(productList.custom.first_name == null){
       var mail: Mail = new dw.net.Mail();
-      mail.addTo(formData.email);
+      mail.addTo(new_Form.email);
       mail.setFrom(a.profile.email);
       mail.setSubject("Request to Join Website");
       mail.setContent(`Join the Website and Get exclusive discount on fashion products
-      <a href="https://bjxc-001.dx.commercecloud.salesforce.com/on/demandware.store/Sites-FriendConnect-Site/default/Login-Show#register">`);
+      link to join : https://bjxc-001.dx.commercecloud.salesforce.com/on/demandware.store/Sites-FriendConnect-Site/default/Login-Show?customerNumber=${customer.profile.customerNo}`);
       mail.send();
     }
     res.redirect(URLUtils.url("FriendListUpdated-FriendDataTable"));
@@ -88,82 +80,82 @@ server.post("Save", function (req, res, next) {
   next();
 });
 
+
 server.get('AcceptedRequestFriends',function(req,res,next){
-  var friendList = null;
-  var ListItem = null;
-  var data = res.getViewData();
-  var ListItemId = data.queryString.split("=")[1];
-  var friendForm = server.forms.getForm("friendList");
-  var formData = friendForm.toObject();
+  // var form = server.forms.getForm("friendList");
+  var Transaction = require("dw/system/Transaction");
+  var Logger = require("dw/system/Logger");
+  var ProductListMgr = require("dw/customer/ProductListMgr");
+  var URLUtils = require("dw/web/URLUtils");
+  // var new_Form = form.toObject();
   var ProductMgr = require('dw/catalog/ProductMgr');
+  var product = ProductMgr.getProduct('shampo');
+  var CustomerMgr = require('dw/customer/CustomerMgr');
   var CustomObjectMgr = require('dw/object/CustomObjectMgr');
 
   Transaction.wrap(function () {
-    var AllFriendList = ProductListMgr.getProductLists(customer, 100);
-    if (AllFriendList.length == 0) {
-      var newfriendList = ProductListMgr.createProductList(customer, 100);
-      friendList = newfriendList;
-      Logger.info(friendList);
-    } else {
-      friendList = AllFriendList[0];
-      Logger.info(friendList);
-    }
-
-    Transaction.wrap(function () {
-      if (ListItemId != "") {
-        var friendId = ListItemId;
-        ListItem = friendList.getItem(friendId);
-      } else {
-        var product = ProductMgr.getProduct("shampo");
-        ListItem = friendList.createProductItem(product);
-      }
-    });
-
     var myrequests = CustomObjectMgr.getAllCustomObjects('Requests');
     while(myrequests.hasNext()){
-      // var current_customer = customer;
       var request = myrequests.next();
-      if(request.custom.SenderEmail == customer.profile.email){
-        var customers = CustomerMgr.queryProfiles('firstName != null',null,'asc');
-        while(customers.hasNext()){
-          var list_of_customer = customers.next();
-          if(list_of_customer.customerNo == request.custom.ReceiverAddress && request.custom.Status == true){
-            ListItem.custom.first_name =list_of_customer.firstName ,
-            ListItem.custom.last_name = list_of_customer.lastName,
-            ListItem.custom.friend_birthday = list_of_customer.birthday,
-            ListItem.custom.friend_phone = list_of_customer.phoneHome,
-            ListItem.custom.address1 = list_of_customer.addressBook.addresses[0].address1,
-            ListItem.custom.address2 = list_of_customer.addressBook.addresses[0].address2,
-            ListItem.custom.country = list_of_customer.addressBook.addresses[0].countryCode.displayValue,
-            ListItem.custom.city = list_of_customer.addressBook.addresses[0].city,
-            ListItem.custom.states = list_of_customer.addressBook.addresses[0].stateCode,
-            ListItem.custom.emailFriendList = list_of_customer.email,
-            ListItem.custom.zip = list_of_customer.addressBook.addresses[0].postalCode;           
-          }
+      if(request.custom.friend_added != true){
+      var senders_customer_number = req.querystring.sender;
+      var receiver_customer_number = req.querystring.receiver;
+
+      var sender = CustomerMgr.getCustomerByCustomerNumber(senders_customer_number);
+      
+      var receiver = CustomerMgr.getCustomerByCustomerNumber(receiver_customer_number);
+      
+      var productList = ProductListMgr.getProductLists(sender , 100);
+      if(productList.length == 0){
+          var ProductList = ProductListMgr.createProductList(sender, 100)
+          productList = ProductList
+      }else
+      {
+          productList = productList[0];
       }
-    }        
-    // var status = req.querystring.status;
-    // var Customer = req.querystring.customer;
-    // if(status == true){
-    //   var customers = CustomerMgr.queryProfiles('firstName != null',null,'asc');
-    //   while(customers.hasNext()){
-    //       var list_of_customer = customers.next();
-    //       if(list_of_customer.customerNo == Customer){
-    //         ListItem.custom.first_name =list_of_customer.firstName ,
-    //         ListItem.custom.last_name = list_of_customer.lastName,
-    //         ListItem.custom.friend_birthday = list_of_customer.birthday,
-    //         ListItem.custom.friend_phone = list_of_customer.phoneHome,
-    //         ListItem.custom.address1 = list_of_customer.addressBook.addresses[0].address1,
-    //         ListItem.custom.address2 = list_of_customer.addressBook.addresses[0].address2,
-    //         ListItem.custom.country = list_of_customer.addressBook.addresses[0].countryCode.displayValue,
-    //         ListItem.custom.city = list_of_customer.addressBook.addresses[0].city,
-    //         ListItem.custom.states = list_of_customer.addressBook.addresses[0].stateCode,
-    //         ListItem.custom.emailFriendList = list_of_customer.email,
-    //         ListItem.custom.zip = list_of_customer.addressBook.addresses[0].postalCode;
-    //       }
-    //     }    
-    // }
+    
+      
+            var prroductList = productList.createProductItem(product);
+            prroductList.custom.first_name =receiver.profile.firstName;
+            prroductList.custom.last_name = receiver.profile.lastName,
+            prroductList.custom.friend_birthday = receiver.profile.birthday,
+            prroductList.custom.friend_phone = receiver.profile.phoneHome,
+            prroductList.custom.emailFriendList = receiver.profile.email
+            prroductList.custom.address1 = receiver.profile.addressBook.addresses[0].address1,
+            prroductList.custom.address2 = receiver.profile.addressBook.addresses[0].address2,
+            prroductList.custom.country = receiver.profile.addressBook.addresses[0].countryCode.displayValue,
+            prroductList.custom.city = receiver.profile.addressBook.addresses[0].city,
+            prroductList.custom.states = receiver.profile.addressBook.addresses[0].stateCode,
+            prroductList.custom.emailFriendList = receiver.profile.email,
+            prroductList.custom.zip = receiver.profile.addressBook.addresses[0].postalCode;           
+
+    var productList = ProductListMgr.getProductLists(receiver , 100);
+    if(productList.length == 0){
+        var ProductList = ProductListMgr.createProductList(receiver, 100)
+        productList = ProductList
+    }else
+    {
+        productList = productList[0];
+    }
+        var prroductList = productList.createProductItem(product);
+            prroductList.custom.first_name =sender.profile.firstName;
+            prroductList.custom.last_name = sender.profile.lastName,
+            prroductList.custom.friend_birthday = sender.profile.birthday,
+            prroductList.custom.friend_phone = sender.profile.phoneHome,
+            prroductList.custom.emailFriendList = sender.profile.email
+            prroductList.custom.address1 = sender.profile.addressBook.addresses[0].address1,
+            prroductList.custom.address2 = sender.profile.addressBook.addresses[0].address2,
+            prroductList.custom.country = sender.profile.addressBook.addresses[0].countryCode.displayValue,
+            prroductList.custom.city = sender.profile.addressBook.addresses[0].city,
+            prroductList.custom.states = sender.profile.addressBook.addresses[0].stateCode,
+            prroductList.custom.emailFriendList = sender.profile.email,
+            prroductList.custom.zip = sender.profile.addressBook.addresses[0].postalCode;
+
+     
+   
   }
+  request.custom.friend_added = true;
+}
     res.redirect(URLUtils.url("FriendListUpdated-FriendDataTable"));
   });
   next();
