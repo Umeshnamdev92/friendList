@@ -244,7 +244,7 @@ server.get("sendMailToFriend", function (req, res, next) {
     mail.setSubject("Products Share");
     mail.setContent(`
       'Your Friend Share this Product . Click on link to see Product'+
-      'https://bjxc-001.dx.commercecloud.salesforce.com/s/FriendConnect/'+id+'.html'+'customerNumber='${customer.profile.customerNo}
+      'https://bjxc-001.dx.commercecloud.salesforce.com/s/FriendConnect/'+${id}+'.html'+'customerNumber='${customer.profile.customerNo}
       `);
     status = mail.send();
     if (status.getMessage() !== "OK") {
