@@ -119,7 +119,7 @@
                                     <isinclude template="product/components/pricing/main" />
                                 </div>
                             </div>
-                            <button style=""><a href="${URLUtils.url('FriendListUpdated-FriendModel',product.id)}"
+                            <button style=""><a href="${URLUtils.url('FriendListUpdated-FriendModel','id',product.id)}"
                                         aria-label="${Resource.msg('label.friendList.addFriend', 'account', null)}"
                                         style="">Share With Friend</a>
                                 </button>
