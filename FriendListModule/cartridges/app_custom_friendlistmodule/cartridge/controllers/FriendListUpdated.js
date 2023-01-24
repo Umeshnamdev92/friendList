@@ -138,10 +138,10 @@ server.get('AcceptedRequestFriends',function(req,res,next){
             ListItem.custom.city = list_of_customer.addressBook.addresses[0].city,
             ListItem.custom.states = list_of_customer.addressBook.addresses[0].stateCode,
             ListItem.custom.emailFriendList = list_of_customer.email,
-            ListItem.custom.zip = list_of_customer.addressBook.addresses[0].postalCode;           
+            ListItem.custom.zip = list_of_customer.addressBook.addresses[0].postalCode;
           }
       }
-    }        
+    }
     // var status = req.querystring.status;
     // var Customer = req.querystring.customer;
     // if(status == true){
@@ -185,6 +185,56 @@ server.get("FriendDataTable", function (req, res, next) {
   res.render("friendList/friendListShow", { productList: productListData });
   next();
 });
+
+server.get("FriendModel", function (req, res, next) {
+  var productListData = null;
+  Transaction.wrap(function () {
+    var productList = ProductListMgr.getProductLists(customer, 100);
+    if (productList.length == 0) {
+      var ProductList = ProductListMgr.createProductList(customer, 100);
+      productList = ProductList;
+    } else {
+      productList = productList[0];
+    }
+    productListData = productList.getItems();
+    var a = 10;
+  });
+  res.render("friendListShowModal", { productListData: productListData });
+  next();
+});
+
+server.get("sendMailToFriend", function (req, res, next) {
+  var id = req.querystring.id;
+    var productlist = [];
+    var productListData = null;
+    var sendTo;
+
+    Transaction.wrap(function () {
+        var productList = ProductListMgr.getProductLists(customer , 100);
+        if(productList.length == 0){
+            var ProductList = ProductListMgr.createProductList(customer, 100)
+            productList = ProductList
+        }else
+        {
+            productList = productList[0];
+        }
+        productListData = productList.getItems();
+
+        var productList = productList.getItem(id);
+        productlist.push(productList);
+        sendTo = productlist[0].custom.emailFriendList;
+
+      });
+
+    res.render('test',{
+        id:id,
+        productList : productlist,
+        productListData: productListData
+    });
+
+    next();
+});
+
 
 server.get("DeleteList", function (req, res, next) {
   var id = req.querystring.id;

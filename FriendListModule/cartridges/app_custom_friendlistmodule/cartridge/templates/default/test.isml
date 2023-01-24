@@ -1,0 +1,3 @@
+<h1>mail send to friend </h1>
+<h1>${productUrlencode} </h1>
+${product.ID}
