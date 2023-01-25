@@ -6,6 +6,12 @@
         assets.addCss('/css/product/detail.css');
     </isscript>
 
+    <iscomment> <isif condition="${pdict.SenderID}">
+        <isset name="senderID" value="${pdict.senderID}" scope="page" />
+    <iselse/>
+        
+    </isif> </iscomment>
+
     <isset name="product" value="${pdict.product}" scope="page" />
     <isset name="isQuickView" value="${false}" scope="page" />
     <isset name="isProductSet" value="${pdict.product.productType === 'set'}" scope="page" />
@@ -170,6 +176,9 @@
             <isslot id="product-recommendations-m" description="Recommended products" context="global"
                 context-object="${pdict.product.raw}" />
         </div>
+    </div>
+    <div>
+        <input type="hidden" value="${pdict.SenderID}" name="senderID" id="senderID">
     </div>
     </isobject>
 </isdecorate>
