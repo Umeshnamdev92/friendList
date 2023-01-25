@@ -1,7 +1,7 @@
 "use strict";
 
-importPackage( dw.net );
-importPackage( dw.system );
+importPackage(dw.net);
+importPackage(dw.system);
 var server = require("server");
 
 var csrfProtection = require("*/cartridge/scripts/middleware/csrf");
@@ -182,7 +182,7 @@ server.get('AcceptedRequestFriends',function(req,res,next){
     res.redirect(URLUtils.url("FriendListUpdated-FriendDataTable"));
   });
   next();
-})
+});
 
 server.get("FriendDataTable", function (req, res, next) {
   var productListData = null;
@@ -198,6 +198,66 @@ server.get("FriendDataTable", function (req, res, next) {
     var a = 10;
   });
   res.render("friendList/friendListShow", { productList: productListData });
+  next();
+});
+
+server.get("FriendModel", function (req, res, next) {
+  var id = req.querystring.id;
+  var productListData = null;
+  Transaction.wrap(function () {
+    var productList = ProductListMgr.getProductLists(customer, 100);
+    if (productList.length == 0) {
+      var ProductList = ProductListMgr.createProductList(customer, 100);
+      productList = ProductList;
+    } else {
+      productList = productList[0];
+    }
+    productListData = productList.getItems();
+    var a = 10;
+  });
+  res.render("friendListShowModal", {
+    productListData: productListData,
+    id: id,
+  });
+  next();
+});
+
+server.get("sendMailToFriend", function (req, res, next) {
+  var id = req.querystring.productID;
+  var friend_id = req.querystring.friendid;
+  var sendTo;
+
+  Transaction.wrap(function () {
+    var productList = ProductListMgr.getProductLists(customer, 100);
+    if (productList.length == 0) {
+      var ProductList = ProductListMgr.createProductList(customer, 100);
+      productList = ProductList;
+    } else {
+      productList = productList[0];
+    }
+    // productListData = productList.getItems();
+
+    var productList = productList.getItem(friend_id);
+    sendTo = productList.custom.emailFriendList;
+
+    var status;
+    var mail = new Mail();
+    mail.addTo(sendTo);
+    mail.setFrom("from@example.org");
+    mail.setSubject("Your Friend Products Share");
+    mail.setContent(" click on the link to redirect to Product"+`
+      https://bjxc-001.dx.commercecloud.salesforce.com/s/FriendConnect/${id}.html?customerID=${customer.profile.customerNo}`
+      );
+      
+    status = mail.send();
+    if (status.getMessage() !== "OK") {
+      return false;
+    } else {
+      return true;
+    }
+  });
+  res.redirect(URLUtils.url("FriendListUpdated-FriendDataTable"));
+
   next();
 });
 

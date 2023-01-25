@@ -28,6 +28,7 @@ server.append('Begin',function(req,res,next){
 
         var productList = productList.getItem(id);
         productlist.push(productList);
+
       });
 
     res.render('checkout/checkout',{

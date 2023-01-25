@@ -29,7 +29,7 @@
             </thead>
             <tbody>
                 <isloop items="${pdict.productList}" var="product">
-                    <isif condition="${product.custom.first_name != null}">                   
+                    <isif condition="${product.custom.first_name != null}">
                         <tr>
                             <td>${product.custom.first_name} ${product.custom.last_name}</td>
                             <td>${product.custom.address1} </td>
@@ -38,12 +38,12 @@
                             <td>${product.custom.friend_birthday}</td>
                             <td>${product.custom.friend_phone}</td>
                             <td><a href="${URLUtils.url('FriendListUpdated-EditList','id',product.ID)}">GiftCard</a></td>
-                            <td><a href="${URLUtils.url('FriendListUpdated-EditList','id',product.ID)}">Edit</a>/<a
-                                    href="${URLUtils.url('FriendListUpdated-DeleteList','id',product.ID)}">Delete</a>
-                                    <a href="${URLUtils.url('Checkout-Begin','id',product.ID)}">Select</a></td>
+                            <td><a href="${URLUtils.url('FriendListUpdated-EditList','id',product.ID)}">Edit</a>
+                            <a href="${URLUtils.url('FriendListUpdated-DeleteList','id',product.ID)}">Delete</a></td>
+                            <td id="selectFriend"><a href="${URLUtils.url('Checkout-Begin','id',product.ID)}">Select</a></td>
 
                         </tr>
-                    <iselse/>                   
+                    <iselse/>
                     </isif>
                 </isloop>
             </tbody>
