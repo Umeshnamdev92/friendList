@@ -3,9 +3,10 @@
         var assets = require('*/cartridge/scripts/assets.js');
         assets.addCss('/css/account/profile.css');
         assets.addJs('/js/addressBook.js');
+        assets.addJs('/js/friendVerification.js');
     </isscript>
     <div class="hero slant-down account-image">
-        <h1 class="page-title">${Resource.msg('label.addressbook','account',null)}</h1>
+        <h1 class="page-title">${Resource.msg('label.addFriend','account',null)}</h1>
     </div>
     <div class="container">
         <!---Breadcrumbs--->
@@ -21,7 +22,11 @@
                     </isif>
                     </div>
                     <div class="card-body">
-                        <isinclude template="friendList/friendForm"/>
+                        <isif condition="${pdict.address == true}">
+                            <isinclude template="friendList/friendForm"/>
+                        <iselse/>
+                            <isinclude template="friendList/error/addressNotFound" sf-toolkit="on" />     
+                        </isif>
                     </div>
                 </div>
             </div>

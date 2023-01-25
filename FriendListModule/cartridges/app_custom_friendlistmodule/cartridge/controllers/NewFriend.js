@@ -7,7 +7,10 @@ var URLUtils = require('dw/web/URLUtils');
 
 server.get('getRequest',function(req,res,next){
     var requests = []
-
+    var address = false
+    if(customer.addressBook.addresses.length > 0){
+        address = true;
+    }
     var a = CustomObjectMgr.getAllCustomObjects('Requests');
     while(a.hasNext()){
         var object = a.next();
@@ -19,7 +22,7 @@ server.get('getRequest',function(req,res,next){
         }    
     }
 
-    res.render('friendList/requests',{requests:requests});
+    res.render('friendList/requests',{requests:requests,address:address});
     next();
 })
 
@@ -42,14 +45,10 @@ server.get('AcceptRequest',function(req,res,next){
         }
         a.custom.Status = true;
         status = a.custom.Status;
-
-
-
-    })
-    // res.redirect('FriendListUpdated-AcceptedRequestFriends')
-}
-res.redirect(URLUtils.url('FriendListUpdated-AcceptedRequestFriends','sender',sender_customerNo,'receiver',receiver_customerNo));
-next()
+        })
+    }
+    res.redirect(URLUtils.url('FriendListUpdated-AcceptedRequestFriends','sender',sender_customerNo,'receiver',receiver_customerNo));
+    next()
 })
 
 server.get('DeclineRequest',function(req,res,next){

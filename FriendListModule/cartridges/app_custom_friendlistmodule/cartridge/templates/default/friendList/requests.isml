@@ -1,5 +1,6 @@
 <isdecorate template="common/layout/page">
-<div class="container">
+<isif condition="${pdict.address == true}">
+    <div class="container">
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -20,7 +21,7 @@
                             <td>${request.object.custom.SenderName}</td>
                             <td>
                                 <isif condition="${request.object.custom.Status == true}">
-                                    <button type="button" class="btn btn-primary"><a href="${URLUtils.url('NewFriend-AcceptRequest','id',request.object.custom.FriendRequest)}">Accepted</a></button>
+                                    <button type="button" class="btn btn-primary"><a href="${URLUtils.url('NewFriend-AcceptRequest')}">Accepted</a></button>
                                 <iselse/>  
                                     <button type="button" class="btn btn-primary"><a href="${URLUtils.url('NewFriend-AcceptRequest','id',request.object.custom.FriendRequest)}">Accept</a></button>
                                 </isif>
@@ -30,4 +31,8 @@
             </tbody>
         </table>
     </div>
+<iselse/>
+    <isinclude template="friendList/error/addressNotFound" sf-toolkit="on" /> 
+</isif>
+
 </isdecorate>

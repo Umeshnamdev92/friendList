@@ -22,7 +22,11 @@ server.get(
   function (req, res, next) {
     var form = server.forms.getForm("friendList");
     form.clear();
-    res.render("friendList/friendListEntry", { form: form });
+    var address = false
+    if(customer.addressBook.addresses.length > 0){
+        address = true;
+    }
+    res.render("friendList/friendListEntry", { form: form, address:address });
     next();
   }
 );
@@ -38,6 +42,7 @@ server.post("Save", function (req, res, next) {
   var product = ProductMgr.getProduct('shampo');
   var CustomerMgr = require('dw/customer/CustomerMgr');
   var CustomObjectMgr = require('dw/object/CustomObjectMgr');
+  var collections = require('*/cartridge/scripts/util/collections');
 
   Transaction.wrap(function () {
     var productList = ProductListMgr.getProductLists(customer , 100);
@@ -48,7 +53,17 @@ server.post("Save", function (req, res, next) {
     {
         productList = productList[0];
     }
+    var returnData = {}
+    collections.forEach(productList.items, function (items){
+      var a  = 10;
+      if(items.custom.emailFriendList == new_Form.email){
+        returnData.alreadyFriend = true;
+      }
+    })
 
+    if(returnData.alreadyFriend == true){
+    }
+    else{
     var a = customer;
     var id = UUIDUtils.createUUID();
     var customers = CustomerMgr.queryProfiles('firstName != null',null,'asc');
@@ -56,6 +71,7 @@ server.post("Save", function (req, res, next) {
       var current_customer = customer;
       var list_of_customer = customers.next();
       if(list_of_customer.email ==  new_Form.email){
+        returnData.success = true;
         Transaction.wrap(function () {
         var requests = CustomObjectMgr.createCustomObject('Requests',id);
         requests.custom.SenderAddress = a.profile.customerNo;
@@ -66,16 +82,29 @@ server.post("Save", function (req, res, next) {
       });
       }
     }
-    if(productList.custom.first_name == null){
+    if(returnData.success == undefined){
       var mail: Mail = new dw.net.Mail();
       mail.addTo(new_Form.email);
       mail.setFrom(a.profile.email);
       mail.setSubject("Request to Join Website");
       mail.setContent(`Join the Website and Get exclusive discount on fashion products
-      link to join : https://bjxc-001.dx.commercecloud.salesforce.com/on/demandware.store/Sites-FriendConnect-Site/default/Login-Show?customerNumber=${customer.profile.customerNo}`);
+      link to join : https://bjxc-001.dx.commercecloud.salesforce.com/on/demandware.store/Sites-FriendConnect-Site/default/Login-Show?customerNumber=${customer.profile.customerNo}
+      
+      <b>Mandatory</b>:
+      Note : Points to be Notice after you register yourself in the website:
+        1. You should have to add the address first in the My Account Section then only you can send the request to the friend and Accept the request of the friend.
+        2. Birthday Field is mandatory to add
+        3. Once you added the friend you can remove from the friend list with the help of "Delete" Button. Note: But you are still being the friend of that person only you remove them from your friend list.`);
       mail.send();
     }
-    res.redirect(URLUtils.url("FriendListUpdated-FriendDataTable"));
+  }
+    returnData.alreadyMessage = `You both are already friends in this website`
+    returnData.message = `Request Send Successfully`;
+    returnData.error = `Registration link will be sent to the person you are trying to add as they are not a user of our website currently`;
+    var redirectURL = URLUtils.url("FriendListUpdated-FriendDataTable").toString();
+    returnData.redirectURL = redirectURL;
+    res.json(returnData); 
+  
   });
   next();
 });
@@ -112,22 +141,19 @@ server.get('AcceptedRequestFriends',function(req,res,next){
       }else
       {
           productList = productList[0];
-      }
-    
-      
+      }   
             var prroductList = productList.createProductItem(product);
             prroductList.custom.first_name =receiver.profile.firstName;
             prroductList.custom.last_name = receiver.profile.lastName,
             prroductList.custom.friend_birthday = receiver.profile.birthday,
             prroductList.custom.friend_phone = receiver.profile.phoneHome,
             prroductList.custom.emailFriendList = receiver.profile.email
-            prroductList.custom.address1 = receiver.profile.addressBook.addresses[0].address1,
-            prroductList.custom.address2 = receiver.profile.addressBook.addresses[0].address2,
-            prroductList.custom.country = receiver.profile.addressBook.addresses[0].countryCode.displayValue,
-            prroductList.custom.city = receiver.profile.addressBook.addresses[0].city,
-            prroductList.custom.states = receiver.profile.addressBook.addresses[0].stateCode,
-            prroductList.custom.emailFriendList = receiver.profile.email,
-            prroductList.custom.zip = receiver.profile.addressBook.addresses[0].postalCode;           
+            prroductList.custom.address1 = receiver.profile.addressBook.addresses[0].address1 ? receiver.profile.addressBook.addresses[0].address1: "No address save yet" ,
+            prroductList.custom.address2 = receiver.profile.addressBook.addresses[0].address2 ? receiver.profile.addressBook.addresses[0].address2 : "No address save yet",
+            prroductList.custom.country = receiver.profile.addressBook.addresses[0].countryCode.displayValue ? receiver.profile.addressBook.addresses[0].countryCode.displayValue: "No country defined yet" ,
+            prroductList.custom.city = receiver.profile.addressBook.addresses[0].city ? receiver.profile.addressBook.addresses[0].city: "No city defined yet",
+            prroductList.custom.states = receiver.profile.addressBook.addresses[0].stateCode ? receiver.profile.addressBook.addresses[0].stateCode:"No state code defined yet" ,
+            prroductList.custom.zip = receiver.profile.addressBook.addresses[0].postalCode ? receiver.profile.addressBook.addresses[0].postalCode: "No postal code added yet" ;           
 
     var productList = ProductListMgr.getProductLists(receiver , 100);
     if(productList.length == 0){
@@ -143,16 +169,13 @@ server.get('AcceptedRequestFriends',function(req,res,next){
             prroductList.custom.friend_birthday = sender.profile.birthday,
             prroductList.custom.friend_phone = sender.profile.phoneHome,
             prroductList.custom.emailFriendList = sender.profile.email
-            prroductList.custom.address1 = sender.profile.addressBook.addresses[0].address1,
-            prroductList.custom.address2 = sender.profile.addressBook.addresses[0].address2,
-            prroductList.custom.country = sender.profile.addressBook.addresses[0].countryCode.displayValue,
-            prroductList.custom.city = sender.profile.addressBook.addresses[0].city,
-            prroductList.custom.states = sender.profile.addressBook.addresses[0].stateCode,
-            prroductList.custom.emailFriendList = sender.profile.email,
-            prroductList.custom.zip = sender.profile.addressBook.addresses[0].postalCode;
-
-     
-   
+            prroductList.custom.address1 = sender.profile.addressBook.addresses[0].address1 ? sender.profile.addressBook.addresses[0].address1:null,
+            prroductList.custom.address2 = sender.profile.addressBook.addresses[0].address2 ? sender.profile.addressBook.addresses[0].address2:null,
+            prroductList.custom.country = sender.profile.addressBook.addresses[0].countryCode.displayValue ? sender.profile.addressBook.addresses[0].countryCode.displayValue:null,
+            prroductList.custom.city = sender.profile.addressBook.addresses[0].city ? sender.profile.addressBook.addresses[0].city:null,
+            prroductList.custom.states = sender.profile.addressBook.addresses[0].stateCode ? sender.profile.addressBook.addresses[0].stateCode:null,
+            prroductList.custom.emailFriendList = sender.profile.email ? sender.profile.email:null,
+            prroductList.custom.zip = sender.profile.addressBook.addresses[0].postalCode ? sender.profile.addressBook.addresses[0].postalCode:null;
   }
   request.custom.friend_added = true;
 }
