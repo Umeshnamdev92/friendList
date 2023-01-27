@@ -33,7 +33,7 @@ server.get('AcceptRequest',function(req,res,next){
     var status = null;
     var sender_customerNo = null;
     var receiver_customerNo = null;
-    
+    if(id != null){
     var customers = CustomerMgr.queryProfiles('firstName != null',null,'asc');
     while(customers.hasNext()){
         var list_of_customer = customers.next();
@@ -47,6 +47,7 @@ server.get('AcceptRequest',function(req,res,next){
         status = a.custom.Status;
         })
     }
+}
     res.redirect(URLUtils.url('FriendListUpdated-AcceptedRequestFriends','sender',sender_customerNo,'receiver',receiver_customerNo));
     next()
 })
@@ -56,7 +57,7 @@ server.get('DeclineRequest',function(req,res,next){
     var id = req.querystring.id;
     var friend_request = CustomObjectMgr.getCustomObject(`Requests`,id);
     CustomObjectMgr.remove(friend_request);
-    res.redirect(URLUtils.url('NewFriend-getRequest'));
+    res.redirect(URLUtils.url('FriendListUpdated-AcceptedRequestFriends'));
     next();
 })
 
