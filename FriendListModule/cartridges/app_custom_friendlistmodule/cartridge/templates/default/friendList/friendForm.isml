@@ -1,4 +1,5 @@
-<form action="${URLUtils.url('FriendListUpdated-Save', 'Id', pdict.Id)}" method="POST" name="address-form"
+
+<form  id="friend_founded" action="${URLUtils.url('FriendListUpdated-Save', 'Id', pdict.Id)}" method="POST" name="address-form"
     ${pdict.form.attributes}>
 
     <!-- Name -->
@@ -33,104 +34,6 @@
     </div>
 
 
-    <!-- Address 1 -->
-    <div class="form-group
-        ${pdict.form.address1.mandatory === true ? 'required' : ''}">
-        <label class="form-control-label" for="address1">
-            <isprint value="${pdict.form.address1.label}" encoding="htmlcontent" />
-        </label>
-        <input type="text" class="form-control" id="address1" <isprint value="${pdict.form.address1.attributes}"
-            encoding="off" />
-        autocomplete="address-line1">
-        <div class="invalid-feedback"></div>
-    </div>
-
-
-    <!-- Address 2 -->
-    <div class="form-group
-        ${pdict.form.address2.mandatory === true ? 'required' : ''}">
-        <label class="form-control-label" for="address2">
-            <isprint value="${pdict.form.address2.label}" encoding="htmlcontent" />
-        </label>
-        <input type="text" class="form-control" id="address2" <isprint value="${pdict.form.address2.attributes}"
-            encoding="off" />
-        autocomplete="address-line1">
-        <div class="invalid-feedback"></div>
-    </div>
-
-
-    <!-- Country & State -->
-    <div class="row">
-        <!-- Country -->
-        <div class="col-6">
-            <div class="form-group
-                ${pdict.form.country.mandatory === true ? 'required' : ''}">
-                <label class="form-control-label" for="country">
-                    <isprint value="${pdict.form.country.label}" encoding="htmlcontent" />
-                </label>
-                <select class="form-control" id="country" <isprint value="${pdict.form.country.attributes}"
-                    encoding="off" />
-                autocomplete="country">
-                <isloop items=${pdict.form.country.options} var="country">
-                    <option id="${country.id}" value="${country.htmlValue}" <isif condition="${country.selected}">
-                        selected</isif>>${country.label}</option>
-                </isloop>
-                </select>
-                <div class="invalid-feedback"></div>
-            </div>
-        </div>
-
-          <!-- State  -->
-        <div class="col-6">
-            <div class="form-group
-                ${pdict.form.states.stateCode.mandatory === true ? 'required' : ''}">
-                <label class="form-control-label" for="states">
-                    <isprint value="${pdict.form.states.stateCode.label}" encoding="htmlcontent" />
-                </label>
-                <select class="form-control" id="states"
-                    <isprint value="${pdict.form.states.stateCode.attributes}" encoding="off" />
-                    autocomplete="address-level1">
-                    <isloop items=${pdict.form.states.stateCode.options} var="state">
-                        <option id="${state.id}" value="${state.htmlValue}" <isif condition="${state.selected}">selected</isif>>${state.label || ' '}</option>
-                    </isloop>
-                </select>
-                <div class="invalid-feedback"></div>
-            </div>
-        </div>
-    </div>
-
-
-    <!-- City & ZIP code -->
-    <div class="row">
-        <!-- Country -->
-        <div class="col-6">
-            <div class="form-group
-                ${pdict.form.city.mandatory === true ? 'required' : ''}">
-                <label class="form-control-label" for="city">
-                    <isprint value="${pdict.form.city.label}" encoding="htmlcontent" />
-                </label>
-                <input type="text" class="form-control" id="city" <isprint value="${pdict.form.city.attributes}"
-                    encoding="off" />
-                autocomplete="given-name">
-                <div class="invalid-feedback"></div>
-            </div>
-        </div>
-
-        <!-- zip -->
-        <div class="col-6">
-            <div class="form-group
-                ${pdict.form.zip.mandatory === true ? 'required' : ''}">
-                <label class="form-control-label" for="zip">
-                    <isprint value="${pdict.form.zip.label}" encoding="htmlcontent" />
-                </label>
-                <input type="text" class="form-control" id="zip" <isprint value="${pdict.form.zip.attributes}"
-                    encoding="off" />
-                autocomplete="family-name">
-                <div class="invalid-feedback"></div>
-            </div>
-        </div>
-    </div>
-
 
     <!-- Email -->
     <div class="form-group
@@ -144,39 +47,7 @@
         <div class="invalid-feedback"></div>
     </div>
 
-
-    <iscomment> included field for Date of birth </iscomment>
-
-    <div class="form-group">
-        <label class="form-control-label" for="registration-form-date">
-            <isprint value="${pdict.form.date.label}" encoding="htmlcontent" />
-        </label>
-        <input type="date" class="form-control" id="registration-form-date"
-            data-missing-error="${Resource.msg('error.message.required', 'forms', null)}"
-            data-pattern-mismatch="${Resource.msg('error.message.parse.phone.profile.form', 'forms', null)}"
-            data-range-error="${Resource.msg('error.message.50orless', 'forms', null)}"
-            aria-describedby="form-phone-error" <isprint value=${pdict.form.date.attributes} encoding="off" />
-        placeholder="${Resource.msg('example.phone', 'forms', null)}">
-        <div class="invalid-feedback" id="form-date-error"></div>
-    </div>
-
-
-    <!-- Phone Number -->
-    <div class="form-group
-        ${pdict.form.phone.mandatory === true ? 'required' : ''}">
-        <label class="form-control-label" for="phone">
-            <isprint value="${pdict.form.phone.label}" encoding="htmlcontent" />
-        </label>
-        <input type="text" class="form-control" id="phone" <isprint value="${pdict.form.phone.attributes}"
-            encoding="off" />
-        autocomplete="tel">
-        <div class="invalid-feedback"></div>
-        <span>${Resource.msg('example.phone', 'forms', null)}</span>
-    </div>
-
     <input type="hidden" name="${pdict.csrf.tokenName}" value="${pdict.csrf.token}" />
-
-
     <!-- Cancel and Save Buttons -->
     <div class="row">
         <div class="col-6">
@@ -184,7 +55,7 @@
                 class="btn btn-block btn-outline-primary">${Resource.msg('button.cancel', 'account', null)}</a>
         </div>
         <div class="col-6">
-            <button type="submit" name="save" class="btn btn-save btn-block btn-primary">${Resource.msg('button.save', 'account', null)}</button>
+            <button type="submit" name="save"  class="btn btn-save btn-block btn-primary">${Resource.msg('button.save', 'account', null)}</button>
         </div>
     </div>
 

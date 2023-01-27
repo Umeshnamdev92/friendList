@@ -20,5 +20,8 @@
         <!---Payment--->
         <isinclude template="account/paymentCard"/>
          <isinclude template="friendList/friendList"/>
+         <isinclude template="friendList/requestedFriends"/>
+         
+
     </div>
 </div>

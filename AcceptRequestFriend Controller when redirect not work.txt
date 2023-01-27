@@ -1,0 +1,73 @@
+ // var form = server.forms.getForm("friendList");
+  var Transaction = require("dw/system/Transaction");
+  var Logger = require("dw/system/Logger");
+  var ProductListMgr = require("dw/customer/ProductListMgr");
+  var URLUtils = require("dw/web/URLUtils");
+  // var new_Form = form.toObject();
+  var ProductMgr = require('dw/catalog/ProductMgr');
+  var product = ProductMgr.getProduct('shampo');
+  var CustomerMgr = require('dw/customer/CustomerMgr');
+  var CustomObjectMgr = require('dw/object/CustomObjectMgr');
+
+  Transaction.wrap(function () {
+
+    
+    
+    var productList = ProductListMgr.getProductLists(customer , 100);
+    if(productList.length == 0){
+        var ProductList = ProductListMgr.createProductList(customer, 100)
+        productList = ProductList
+    }else
+    {
+        productList = productList[0];
+    }
+    var myrequests = CustomObjectMgr.getAllCustomObjects('Requests');
+    while(myrequests.hasNext()){
+      var current_customer = customer;
+      var request = myrequests.next();
+      if(request.custom.SenderEmail == current_customer.profile.email){
+        var customers = CustomerMgr.queryProfiles('firstName != null',null,'asc');
+        while(customers.hasNext()){
+          var list_of_customer = customers.next();
+          if(list_of_customer.customerNo == request.custom.ReceiverAddress && request.custom.Status == true && request.custom.friend_added != true){
+            var prroductList = productList.createProductItem(product);
+            prroductList.custom.first_name =list_of_customer.firstName;
+            prroductList.custom.last_name = list_of_customer.lastName,
+            prroductList.custom.friend_birthday = list_of_customer.birthday,
+            prroductList.custom.friend_phone = list_of_customer.phoneHome,
+            prroductList.custom.emailFriendList = list_of_customer.email
+            prroductList.custom.address1 = list_of_customer.addressBook.addresses[0].address1,
+            prroductList.custom.address2 = list_of_customer.addressBook.addresses[0].address2,
+            prroductList.custom.country = list_of_customer.addressBook.addresses[0].countryCode.displayValue,
+            prroductList.custom.city = list_of_customer.addressBook.addresses[0].city,
+            prroductList.custom.states = list_of_customer.addressBook.addresses[0].stateCode,
+            prroductList.custom.emailFriendList = list_of_customer.email,
+            prroductList.custom.zip = list_of_customer.addressBook.addresses[0].postalCode;           
+          }
+      }
+    }      
+    var customers = CustomerMgr.queryProfiles('firstName != null',null,'asc');
+    while(customers.hasNext()){
+      var list_of_customer = customers.next();
+      if(list_of_customer.customerNo == request.custom.SenderAddress && request.custom.Status == true && request.custom.friend_added != true){
+        var prroductList = productList.createProductItem(product);
+            prroductList.custom.first_name =list_of_customer.firstName;
+            prroductList.custom.last_name = list_of_customer.lastName,
+            prroductList.custom.friend_birthday = list_of_customer.birthday,
+            prroductList.custom.friend_phone = list_of_customer.phoneHome,
+            prroductList.custom.emailFriendList = list_of_customer.email
+            prroductList.custom.address1 = list_of_customer.addressBook.addresses[0].address1,
+            prroductList.custom.address2 = list_of_customer.addressBook.addresses[0].address2,
+            prroductList.custom.country = list_of_customer.addressBook.addresses[0].countryCode.displayValue,
+            prroductList.custom.city = list_of_customer.addressBook.addresses[0].city,
+            prroductList.custom.states = list_of_customer.addressBook.addresses[0].stateCode,
+            prroductList.custom.emailFriendList = list_of_customer.email,
+            prroductList.custom.zip = list_of_customer.addressBook.addresses[0].postalCode;
+
+      }
+    } 
+    request.custom.friend_added = true;
+  }
+    res.redirect(URLUtils.url("FriendListUpdated-FriendDataTable"));
+  });
+  next();

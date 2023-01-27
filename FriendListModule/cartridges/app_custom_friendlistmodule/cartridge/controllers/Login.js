@@ -31,12 +31,14 @@ server.get(
     function (req, res, next) {
         var URLUtils = require('dw/web/URLUtils');
         var Resource = require('dw/web/Resource');
+        var customer = req.querystring.customerNumber;
         var target = req.querystring.rurl || 1;
 
         var rememberMe = false;
         var userName = '';
         var actionUrl = URLUtils.url('Account-Login', 'rurl', target);
-        var createAccountUrl = URLUtils.url('Account-SubmitRegistration', 'rurl', target).relative().toString();
+        var createAccountUrl = URLUtils.url('Account-SubmitRegistration', 'rurl', target,'customer',
+        customer).relative().toString();
         var navTabValue = req.querystring.action;
 
         if (req.currentCustomer.credentials) {

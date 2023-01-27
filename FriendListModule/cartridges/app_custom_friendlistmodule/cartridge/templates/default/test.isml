@@ -1,0 +1,8 @@
+<isset name="escapedProductName" value="${encodeURIComponent(product.productName)}" scope="page"/>
+<isset name="productImageLarge" value="${encodeURIComponent(product.images['large'][0].absURL)}" scope="page"/>
+<isset name="productUrlencode" value="${encodeURIComponent(URLUtils.https('Product-Show', 'pid', product.id))}" scope="page"/>
+
+
+<h1>mail send to friend </h1>
+<h1>${productUrlencode} </h1>
+${encodeURIComponent(product.productName)}

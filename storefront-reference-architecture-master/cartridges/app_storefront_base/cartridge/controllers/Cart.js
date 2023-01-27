@@ -67,6 +67,7 @@ server.post('AddProduct', function (req, res, next) {
     var quantity;
     var result;
     var pidsObj;
+    var senderId = req.form.senderId;
 
     if (currentBasket) {
         Transaction.wrap(function () {
@@ -77,7 +78,8 @@ server.post('AddProduct', function (req, res, next) {
                     productId,
                     quantity,
                     childProducts,
-                    options
+                    options,
+                    senderId
                 );
             } else {
                 // product set
