@@ -15,7 +15,6 @@
                     <th scope="col">Select</th>
                     <th scope="col">Share with Friend</th>
                     <th scope="col">${Resource.msg('label.name', 'friends', null)}</th>
-                    <th scope="col">${Resource.msg('label.nickName', 'friends', null)}</th>
                     <th scope="col">${Resource.msg('label.date', 'friends', null)}</th>
                     <th scope="col">${Resource.msg('label.phone', 'friends', null)}</th>
                     <th scope="col">${Resource.msg('label.address', 'friends', null)}</th>
@@ -28,7 +27,6 @@
                 </tr>
             </thead>
             <tbody>
-            
                 <isloop items="${pdict.productListData}" var="product">
                     <isif condition="${product.custom.first_name != null}">
                     <tr>
