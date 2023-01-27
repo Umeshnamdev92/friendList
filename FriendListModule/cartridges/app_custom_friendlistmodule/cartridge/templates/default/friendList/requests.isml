@@ -1,7 +1,8 @@
 <isdecorate template="common/layout/page">
 <isif condition="${pdict.address == true}">
-    <div class="container">
-        <table class="table table-striped">
+<h4 class="text-center mt-4 text-uppercase font-weight-bold"> Friend Requests</h4>
+    <div class="container mt-2">
+        <table class="table table-striped border rounded">
             <thead>
                 <tr>
                     <th scope="col">${Resource.msg('label.name', 'friends', null)}</th>
@@ -9,11 +10,12 @@
                     <th scope="col">${Resource.msg('label.email', 'friends', null)}</th>
                     <th scope="col">${Resource.msg('label.SenderName', 'friends', null)}</th> 
                     <th scope="col">Requests status</th>
+                    <iscomment> <th scope="col">Remove Request</th> </iscomment>
                 </tr>
             </thead>
             <tbody>
                 <isloop items="${pdict.requests}" var="request" status="loopstatus">
-                                      
+                                       
                         <tr>
                             <td>${request.customer.profile.firstName} ${request.customer.profile.lastName}</td>
                             <td>${request.customer.profile.addressBook.addresses[0].address1} </td>
@@ -26,6 +28,8 @@
                                     <button type="button" class="btn btn-primary"><a href="${URLUtils.url('NewFriend-AcceptRequest','id',request.object.custom.FriendRequest)}">Accept</a></button>
                                 </isif>
                             </td>
+                            <iscomment> <td>
+                                    <button type="button" class="btn btn-danger"><a href="${URLUtils.url('NewFriend-DeclineRequest','id',request.object.custom.FriendRequest)}">Remove</a></button></td> </iscomment>
                         </tr>
                 </isloop>
             </tbody>

@@ -5,26 +5,22 @@
         assets.addJs('/js/addressBook.js');
     </isscript>
 
-    <div class="container">
-
-        <h1 style="text-align:center;color:burlywood;"> FRIENDS LIST</h1>
-        
-            <button style="background-color:blue;color:white;border:none;"><a href="${URLUtils.url('FriendListUpdated-MahChild')}"
-                    aria-label="${Resource.msg('label.friendList.addFriend','account',null)}" style="background-color:blue;color:white;border:none; border-radius:50%">${Resource.msg('link.addnew.friend','account',null)}</a>
-            </button>  
+        <h1 class="text-center mt-4 text-uppercase font-weight-bold"> FRIENDS LIST</h1>
+    <div class="container mt-2">
 
             <br> 
     
-        <table class="table table-striped">
+        <table class="table table-striped border rounded">
             <thead>
                 <tr>
-                    <th scope="col">${Resource.msg('label.name', 'friends', null)}</th>
-                    <th scope="col">${Resource.msg('label.address1', 'friends', null)}</th>
-                    <th scope="col">${Resource.msg('label.email', 'friends', null)}</th>
+                    <th scope="col">${Resource.msg('label.friendname', 'friends', null)}</th>
+                    <th scope="col">${Resource.msg('label.friendaddress1', 'friends', null)}</th>
+                    <th scope="col">${Resource.msg('label.friendemail', 'friends', null)}</th>
                     <th scope="col">${Resource.msg('label.friend_birthday', 'friends', null)}</th>
                     <th scope="col">${Resource.msg('label.friend_phone', 'friends', null)}</th>
                     <th scope="col">Share</th>  
-                    <th scope="col">Edit / Delete</th>
+                    <th scope="col">Delete</th>
+                    <th scope="col">Send Gift</th>
                 </tr>
             </thead>
             <tbody>
@@ -38,7 +34,7 @@
                             <td>${product.custom.friend_birthday}</td>
                             <td>${product.custom.friend_phone}</td>
                             <td><a href="${URLUtils.url('FriendListUpdated-EditList','id',product.ID)}">GiftCard</a></td>
-                            <td><a href="${URLUtils.url('FriendListUpdated-EditList','id',product.ID)}">Edit</a>
+                            <td>
                             <a href="${URLUtils.url('FriendListUpdated-DeleteList','id',product.ID)}">Delete</a></td>
                             <td id="selectFriend"><a href="${URLUtils.url('Checkout-Begin','id',product.ID)}">Select</a></td>
 

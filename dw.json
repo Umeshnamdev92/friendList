@@ -1,7 +1,11 @@
 {
     "hostname": "bjxc-001.sandbox.us01.dx.commercecloud.salesforce.com",
-    "username": "saloni.kale@codesquaretech.com",
-    "cartridge": ["app_custom_friendlistmodule"],
-    "password": "3pO$+YZItst.z6vBGFTVbmf0Nq$06pd!A(xlNUOT",
-    "code-version": "version1"
-  }
+
+     "username": "anmol.vyas@codesquaretech.com",
+
+    "password": "0jN+4.Ng%/|lb+(W#-s8(y~cJ(4*%V8eOL~qsZow",
+    
+    "cartridgesPath": ["app_custom_friendlistmodule","app_storefront_base"],
+
+     "version": "version1"
+}

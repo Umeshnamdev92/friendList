@@ -508,6 +508,7 @@ function getChildProducts() {
  * @return {string} - Product options and their selected values
  */
 function getOptions($productContainer) {
+    alert(1);
     var options = $productContainer
         .find('.product-option')
         .map(function () {
@@ -661,6 +662,9 @@ module.exports = {
                 childProducts: getChildProducts(),
                 quantity: getQuantitySelected($(this))
             };
+
+            form.senderId = document.getElementById('senderID').value;
+            console.log(form);
 
             if (!$('.bundle-item').length) {
                 form.options = getOptions($productContainer);

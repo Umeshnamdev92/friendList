@@ -1,4 +1,4 @@
-<isdecorate template="common/layout/page">
+
     <div class="container">
         <h3>YOUR ADDRESS BOOK IS EMPTY</h3>
         <h6>
@@ -9,5 +9,3 @@
             </ul>
         </h6>
     </div>
-
-</isdecorate>

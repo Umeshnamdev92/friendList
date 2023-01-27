@@ -20,7 +20,7 @@ server.get('getRequest',function(req,res,next){
                 customer:customer
             });
         }    
-    }
+    } 
 
     res.render('friendList/requests',{requests:requests,address:address});
     next();
@@ -54,20 +54,10 @@ server.get('AcceptRequest',function(req,res,next){
 server.get('DeclineRequest',function(req,res,next){
     var CustomerMgr = require('dw/customer/CustomerMgr');
     var id = req.querystring.id;
-    var status = null;
-    var customerNo = null;
-    
-    var customers = CustomerMgr.queryProfiles('firstName != null',null,'asc');
-    while(customers.hasNext()){
-        var list_of_customer = customers.next();
-    Transaction.wrap(function(){
-        var a = CustomObjectMgr.getCustomObject(`Requests`,id);
-        a.custom.Status = false;
-    })
-}
-res.render('friendList/requests');
+    var friend_request = CustomObjectMgr.getCustomObject(`Requests`,id);
+    CustomObjectMgr.remove(friend_request);
+    res.redirect(URLUtils.url('NewFriend-getRequest'));
+    next();
 })
-
-
 
 module.exports = server.exports();

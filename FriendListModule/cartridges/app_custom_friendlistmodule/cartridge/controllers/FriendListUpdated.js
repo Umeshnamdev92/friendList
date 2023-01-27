@@ -195,7 +195,6 @@ server.get("FriendDataTable", function (req, res, next) {
       productList = productList[0];
     }
     productListData = productList.getItems();
-    var a = 10;
   });
   res.render("friendList/friendListShow", { productList: productListData });
   next();
