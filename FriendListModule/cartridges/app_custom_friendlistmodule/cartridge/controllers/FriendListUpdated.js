@@ -245,7 +245,7 @@ server.get("sendMailToFriend", function (req, res, next) {
     mail.setFrom("from@example.org");
     mail.setSubject("Your Friend Products Share");
     mail.setContent(" click on the link to redirect to Product"+`
-      https://bjxc-001.dx.commercecloud.salesforce.com/s/FriendConnect/${id}.html?customerID=${customer.profile.customerNo}`
+      https://bjxc-001.dx.commercecloud.salesforce.com/s/FriendConnect/${id}.html?customerID=${customer.profile.customerNo}?customerName=${customer.profile.firstName}${customer.profile.lastName}`
       );
       
     status = mail.send();
