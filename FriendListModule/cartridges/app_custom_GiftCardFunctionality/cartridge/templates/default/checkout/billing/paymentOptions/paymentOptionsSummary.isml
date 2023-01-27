@@ -1,0 +1,26 @@
+<div class="payment-details">
+    <isloop items="${pdict.order.billing.payment.selectedPaymentInstruments}" var="payment">
+<!-- showing gift certificate payment information if payment done using Gift certificate code -->
+        <isif condition="${payment.paymentMethod === 'GIFT_CERTIFICATE'}">
+            <div class="credit-card-type">
+               <b> <span>${Resource.msg('checkoutPaymentMethod','giftCard',null)}
+                    ${payment.paymentMethod}</span></b>
+            </div>
+           <div class="credit-card-type">
+                <span>${Resource.msg('checkoutmaskedGiftCertificateCode','giftCard',null)}
+                    ${payment.maskedGiftCertificateCode}</span>
+            </div>
+            <div class="credit-card-type">
+                <span>${Resource.msg('checkoutPaymentAmount','giftCard',null)}
+                    ${payment.amount}</span>
+            </div>
+        </isif>
+        <isif condition="${payment.paymentMethod === 'CREDIT_CARD'}">
+         <div class="credit-card-type">
+               <b> <span>${Resource.msg('checkoutPaymentMethod','giftCard',null)}
+                    ${payment.paymentMethod}</span></b>
+            </div>
+            <isinclude template="checkout/billing/paymentOptions/creditCardSummary" />
+        </isif>
+    </isloop>
+</div>

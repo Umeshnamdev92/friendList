@@ -1,0 +1,60 @@
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">${Resource.msg('label.gift.card' , 'giftCard' , null)}</button>
+<iscomment> ${pdict.drx.email.value} </iscomment>
+<div class="row" id="exampleModalLongGiftForm">
+    <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <b>
+                        <h5 class="modal-title" id="exampleModalLongTitle">${Resource.msg('label.gift.card' , 'giftCard' , null)}</h5>
+                    </b>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="emailVerify">${Resource.msg('labal.recipient.email' , 'giftCard' , null)}</label>
+                        <input type="email" id="emailVerify" class="form-control" name="email5">
+                        <div id="emailError">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="recipientName">${Resource.msg('labal.recipient.name' , 'giftCard' , null)}</label>
+                        <input type="text" class="form-control" name="email1" id="recipientName"
+                            data-missing-error="${Resource.msg('label.valid.email', 'forms', null)}" <isprint
+                            value="${pdict.drx.email1.attributes}" encoding="off" />>
+                        <div id="invalid-feedback-email1">
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="senderName">${Resource.msg('labal.sender.name' , 'giftCard' , null)}</label>
+                        <input type="text" class="form-control" name="email2" id="senderName"
+                            data-missing-error="${Resource.msg('label.valid.email', 'forms', null)}" <isprint
+                            value="${pdict.drx.email2.attributes}" encoding="off" />>
+                        <div class="invalid-feedback-email2">
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">${Resource.msg('labal.message' , 'giftCard' , null)}</label>
+                        <input type="text" class="form-control" name="email3" id="message"
+                            data-missing-error="${Resource.msg('label.valid.email', 'forms', null)}" <isprint
+                            value="${pdict.drx.email3.attributes}" encoding="off" />>
+                        <div class="invalid-feedback-email3">
+                        </div>
+                    </div>
+
+
+                    <isinclude template="product/components/addToCartProduct" />
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

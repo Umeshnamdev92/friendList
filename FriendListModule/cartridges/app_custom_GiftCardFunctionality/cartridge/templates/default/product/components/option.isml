@@ -1,0 +1,12 @@
+<isif condition="${option.id == 'gift'}">
+   <div class="gift-amount-div">
+        <isloop items="${option.values}" var="value" status="loopstatus">
+        <button class="btn btn-primary gift-amount"
+        gift-option="${value.id}" data-pid="${product.ID}" data-button-id="1"
+        value="${value.url}" <isif
+                condition="${value.id === option.selectedValueId}">disabled </isif>>
+     ${value.displayValue}
+    </button>
+    </isloop>
+   </div>
+</isif>
