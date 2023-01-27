@@ -5,7 +5,7 @@
 
     "password": "0jN+4.Ng%/|lb+(W#-s8(y~cJ(4*%V8eOL~qsZow",
     
-    "cartridge": ["app_custom_friendlistmodule"],
+    "cartridge": ["app_custom_friendlistmodule","app_custom_GiftCardFunctionality","app_storefront_base"],
 
      "version": "version1"
 }

@@ -62,8 +62,10 @@
     </isif>
 <iselse/> 
  <option disabled>${Resource.msg('msg.account.friendAddress', 'checkout', null)}</option>
+ 
     <isloop items="${pdict.productList}" var="friend" status="loopstatus">
-        <option value="${'ab_'+friend.ID}" data-first-name="${friend.custom.first_name||''}" data-last-name="${friend.custom.last_name||''}"
+        <option selected value="${'ab_'+friend.ID}"
+         data-first-name="${friend.custom.first_name||''}" data-last-name="${friend.custom.last_name||''}"
             data-address1="${friend.custom.address1||''}" data-address2="${friend.custom.address2||''}"
             data-city="${friend.custom.city||''}" data-state-code="${friend.custom.states||''}"
             data-country-code="${"US"||''}" data-postal-code="${"45600"||''}"
