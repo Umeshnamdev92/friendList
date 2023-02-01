@@ -10,7 +10,6 @@
                     <th scope="col">${Resource.msg('label.email', 'friends', null)}</th>
                     <th scope="col">${Resource.msg('label.SenderName', 'friends', null)}</th> 
                     <th scope="col">Requests status</th>
-                    <iscomment> <th scope="col">Remove Request</th> </iscomment>
                 </tr>
             </thead>
             <tbody>
@@ -24,19 +23,22 @@
                             <td>
                                 <isif condition="${request.object.custom.Status == true}">
                                     <button type="button" class="btn btn-primary" disabled>Accepted</button>
+                                    <button type="button" class="btn btn-primary"><a href="${URLUtils.url('NewFriend-DeclineRequest','id',request.object.custom.FriendRequest)}">UnFriend</a></button>
+
                                 <iselse/>
                                     <button type="button" class="btn btn-primary"><a href="${URLUtils.url('NewFriend-AcceptRequest','id',request.object.custom.FriendRequest)}">Accept</a></button>
+                                    <button type="button" class="btn btn-primary"><a href="${URLUtils.url('NewFriend-DeclineRequest','id',request.object.custom.FriendRequest)}">Decline</a></button>
+
                                 </isif>
                             </td>
-                            <iscomment> <td>
-                                    <button type="button" class="btn btn-danger"><a href="${URLUtils.url('NewFriend-DeclineRequest','id',request.object.custom.FriendRequest)}">Remove</a></button></td> </iscomment>
+
                         </tr>
                 </isloop>
             </tbody>
         </table>
     </div>
 <iselse/>
-    <isinclude template="friendList/error/addressNotFound" sf-toolkit="on" /> 
+    <isinclude template="friendList/error/addressNotFound" sf-toolkit="on" />
 </isif>
 
 </isdecorate>

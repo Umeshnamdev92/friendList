@@ -141,7 +141,7 @@ server.get('AcceptedRequestFriends',function(req,res,next){
       }else
       {
           productList = productList[0];
-      }   
+      }
             var prroductList = productList.createProductItem(product);
             prroductList.custom.first_name =receiver.profile.firstName;
             prroductList.custom.last_name = receiver.profile.lastName,
