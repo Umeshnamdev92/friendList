@@ -9,7 +9,7 @@
     <iscomment> <isif condition="${pdict.SenderID}">
         <isset name="senderID" value="${pdict.senderID}" scope="page" />
     <iselse/>
-        
+
     </isif> </iscomment>
 
     <isset name="product" value="${pdict.product}" scope="page" />
@@ -125,10 +125,14 @@
                                     <isinclude template="product/components/pricing/main" />
                                 </div>
                             </div>
-                            <button style=""><a href="${URLUtils.url('FriendListUpdated-FriendModel','id',product.id)}"
+
+                            <isif condition="${customer.isAuthenticated()}">
+                                 <button style=""><a href="${URLUtils.url('FriendListUpdated-FriendModel','id',product.id)}"
                                         aria-label="${Resource.msg('label.friendList.addFriend', 'account', null)}"
                                         style="">Share With Friend</a>
                                 </button>
+                            </isif>
+
                             <iscomment> <button type="button" class="btn btn-primary" data-toggle="modal"
                                 data-target="#exampleModal">
                                 Share With Friend

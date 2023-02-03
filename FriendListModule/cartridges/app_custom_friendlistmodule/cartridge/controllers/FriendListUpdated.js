@@ -243,11 +243,11 @@ server.get("sendMailToFriend", function (req, res, next) {
     var mail = new Mail();
     mail.addTo(sendTo);
     mail.setFrom("from@example.org");
-    mail.setSubject("Your Friend Products Share");
+    mail.setSubject("Your Friend Share Products");
     mail.setContent(" click on the link to redirect to Product"+`
-      https://bjxc-001.dx.commercecloud.salesforce.com/s/FriendConnect/${id}.html?customerID=${customer.profile.customerNo}?customerName=${customer.profile.firstName}${customer.profile.lastName}`
+      https://bjxc-001.dx.commercecloud.salesforce.com/s/FriendConnect/${id}.html?customerID=${customer.profile.customerNo}customerName=${customer.profile.firstName}${customer.profile.lastName}`
       );
-      
+
     status = mail.send();
     if (status.getMessage() !== "OK") {
       return false;
